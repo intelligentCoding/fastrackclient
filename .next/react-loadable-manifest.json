@@ -23,12 +23,6 @@
       "static/chunks/src_components_services_service-delete-view_tsx.js"
     ]
   },
-  "customers/index.tsx -> @/components/customer/customer": {
-    "id": "customers/index.tsx -> @/components/customer/customer",
-    "files": [
-      "static/chunks/src_components_customer_customer_tsx.js"
-    ]
-  },
   "index.tsx -> @/components/dashboard/admin": {
     "id": "index.tsx -> @/components/dashboard/admin",
     "files": [

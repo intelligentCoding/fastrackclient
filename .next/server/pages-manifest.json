@@ -3,6 +3,5 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/": "pages/index.js",
-  "/customers/[id]": "pages/customers/[id].js",
-  "/customers": "pages/customers.js"
+  "/login": "pages/login.js"
 }

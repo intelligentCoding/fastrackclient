@@ -11,7 +11,6 @@ import TextArea from '@/components/ui/text-area';
 import Label from '@/components/ui/label';
 import Card from '@/components/common/card';
 import Description from '@/components/ui/description';
-import * as categoriesIcon from '@/components/icons/category';
 import { getIcon } from '@/utils/get-icon';
 import { useRouter } from 'next/router';
 import ValidationError from '@/components/ui/form-validation-error';
