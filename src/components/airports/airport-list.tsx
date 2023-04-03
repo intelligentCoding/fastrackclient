@@ -87,7 +87,8 @@ const AirportsList = ({
     <>
       <div className="mb-6 overflow-hidden rounded shadow">
         <Table
-          //@ts-ignore
+          //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
           columns={columns}
           emptyText="No Services available"
           data={airports!}

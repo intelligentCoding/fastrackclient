@@ -228,3 +228,5 @@ export interface CustomerQueryOptions extends QueryOptions {
   updatedAt: string;
 }
 
+export type Maybe<T> = T | null
+

@@ -62,7 +62,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       sizeClasses[dimension],
       inputClassName
     );
-    let numberDisable = type === 'number' && disabled ? 'number-disable' : '';
+    const numberDisable = type === 'number' && disabled ? 'number-disable' : '';
     return (
       <div className={className}>
         {showLabel ? (
