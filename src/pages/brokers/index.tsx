@@ -25,17 +25,15 @@ export default function Service({
   const [value, setValue] = useState('');
     const [messages, setMessages] = useState<MessagePayload[]>([]);
   useEffect(() => {
-    console.log("-------")
     socket.on('connect', () => {
-      console.log('Connected!');
+      // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+      console.log("connected")
     });
     socket.on('onMessage', (newMessage: MessagePayload) => {
-      console.log('onMessage event received!');
-      console.log(newMessage);
       setMessages((prev) => [...prev, newMessage]);
     });
     return () => {
-      console.log('Unregistering Events...');
       socket.off('connect');
       socket.off('onMessage');
     };

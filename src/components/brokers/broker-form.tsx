@@ -43,7 +43,8 @@ export default function CreateOrUpdateBroker({
     formState: { errors },
   } = useForm<FormValues>({
     // shouldUnregister: true,
-    //@ts-ignore
+    //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
     defaultValues: initialValues
       ? initialValues
       : defaultValues,
@@ -86,21 +87,21 @@ export default function CreateOrUpdateBroker({
           <Input
             label="Name"
             {...register('name')}
-            error={errors.name?.message!}
+            error={errors.name?.message}
             variant="outline"
             className="mb-5"
           />
           <Input
             label="Code"
             {...register('code')}
-            error={errors.code?.message!}
+            error={errors.code?.message}
             variant="outline"
             className="mb-5"
           />
           <Input
             label="Email"
             {...register('email')}
-            error={errors.email?.message!}
+            error={errors.email?.message}
             variant="outline"
             className="mb-5"
           />

@@ -41,7 +41,8 @@ export default function CreateOrUpdateAirport({
     formState: { errors },
   } = useForm<FormValues>({
     // shouldUnregister: true,
-    //@ts-ignore
+    //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
     defaultValues: initialValues
       ? initialValues
       : defaultValues,
@@ -83,14 +84,14 @@ export default function CreateOrUpdateAirport({
           <Input
             label="Name"
             {...register('name')}
-            error={errors.name?.message!}
+            error={errors.name?.message}
             variant="outline"
             className="mb-5"
           />
           <Input
             label="Code"
             {...register('code')}
-            error={errors.code?.message!}
+            error={errors.code?.message}
             variant="outline"
             className="mb-5"
           />

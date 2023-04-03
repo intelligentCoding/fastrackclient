@@ -5,4 +5,5 @@ export const API_ENDPOINTS = {
   CUSTOMER: '/customer',
   AIRPORTS: '/airports',
   BROKER: '/broker',
+  USERS: '/users',
 };

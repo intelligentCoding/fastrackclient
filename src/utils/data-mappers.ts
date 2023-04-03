@@ -1,9 +1,9 @@
 import camelCaseKeys from 'camelcase-keys';
-import { MappedPaginatorInfo, PaginatorInfo } from '@/types';
+import { PaginatorInfo } from '@/types';
 
 export const mapPaginatorData = (
   obj: PaginatorInfo<any> | undefined
-): MappedPaginatorInfo | null => {
+): any => {
   if (!obj) return null;
   const { data, ...formattedValues } = camelCaseKeys(obj);
   return {
