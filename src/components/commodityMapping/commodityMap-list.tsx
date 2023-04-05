@@ -2,21 +2,21 @@
 import { Table } from '@/components/ui/table';
 import ActionButtons from '@/components/common/action-buttons';
 
-import { Airports, Services, SortOrder } from '@/types';
+import { CommodityMapping, Services, SortOrder } from '@/types';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 type IProps = {
-  airports: Airports[] | undefined;
+  commodityMap: CommodityMapping[] | undefined;
   // paginatorInfo: MappedPaginatorInfo | null;
   // onPagination: (current: number) => void;
   // onSort: (current: any) => void;
   // onOrder: (current: string) => void;
 };
 
-const AirportsList = ({
-  airports,
+const CommodityMapList = ({
+    commodityMap,
   // paginatorInfo,
   // onPagination,
   // onSort,
@@ -52,16 +52,16 @@ const AirportsList = ({
 
   const columns = [
     {
-      title: "name",
-      dataIndex: 'name',
-      key: 'name',
+      title: "Mapped from",
+      dataIndex: 'mappedFrom',
+      key: 'mappedFrom',
       align: 'center',
       width: 150,
     },
     {
-      title: "code",
-      dataIndex: 'code',
-      key: 'code',
+      title: "Mapped To",
+      dataIndex: 'mappedTo',
+      key: 'MappedTo',
       align: 'center',
     },
 
@@ -71,12 +71,12 @@ const AirportsList = ({
       key: 'actions',
       align: 'center',
       width: 100,
-      render: (id: string, airports: Airports) => {
+      render: (id: string, commodityMap: CommodityMapping) => {
         return (
           <ActionButtons
             id={id}
             editUrl={`${router.asPath}/${id}`}
-            deleteModalView="DELETE_AIRPORT"
+            deleteModalView="DELETE_COMMODITY_MAP"
           />
         );
       },
@@ -91,7 +91,7 @@ const AirportsList = ({
 // @ts-ignore
           columns={columns}
           emptyText="No Services available"
-          data={airports!}
+          data={commodityMap!}
           rowKey="id"
           scroll={{ x: 1000 }}
           expandable={{
@@ -115,4 +115,4 @@ const AirportsList = ({
   );
 };
 
-export default AirportsList;
+export default CommodityMapList;

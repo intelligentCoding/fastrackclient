@@ -6,4 +6,5 @@ export const API_ENDPOINTS = {
   AIRPORTS: '/airports',
   BROKER: '/broker',
   USERS: '/users',
+  COMMODITY_MAPPING:'/cm',
 };

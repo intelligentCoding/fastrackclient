@@ -40,7 +40,7 @@ export interface User {
   updated_at: string;
 }
 
-export interface Customer { 
+export interface Customer {
   name: string;
   email: string;
   clearanceFee: number;
@@ -60,7 +60,7 @@ export interface Customer {
   createdAt: string;
   updatedAt: string;
 }
-export type CustomerServiceTypeInput  = {
+export type CustomerServiceTypeInput = {
   code: string;
   id: string;
 }
@@ -119,7 +119,24 @@ export interface Airports {
   createdAt: string;
   updatedAt: string;
 }
-
+export interface CommodityMapping {
+  mappedFrom: string;
+  mappedTo: string;
+  createdBy: string;
+  updatedBy: string;
+  deletedAt: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface CreateCommodityMappingInput {
+  mappedFrom: string;
+  mappedTo: string;
+}
+export interface CommodityMappingQueryOptions extends QueryOptions {
+  mappedFrom: string;
+  mappedTo: string;
+}
 export interface BrokersQueryOptions extends QueryOptions {
   name: string;
   code: string;
@@ -190,7 +207,7 @@ export interface CreateCustomerInput {
   fteMinCharge: number;
   cfsMinWeight: number;
   cfsMinCharge: number;
-  service: CustomerServiceTypeInput;  
+  service: CustomerServiceTypeInput;
 
 }
 
@@ -219,7 +236,7 @@ export interface CustomerQueryOptions extends QueryOptions {
   fteMinCharge: number;
   cfsMinWeight: number;
   cfsMinCharge: number;
-  serviceId: string;  
+  serviceId: string;
   createdBy: string | null;
   updatedBy: string | null;
   deletedAt: string | null;

@@ -7,4 +7,5 @@ export const Routes = {
   airports: '/airports',
   brokers: '/brokers',
   customers: '/customers',
+  commodity_mapping:'/cm'
 }

@@ -5,6 +5,7 @@ export type MODAL_VIEWS =
   | 'DELETE_CUSTOMER'
   | 'DELETE_AIRPORT'
   | 'DELETE_BROKER'
+  | 'DELETE_COMMODITY_MAP'
 
 interface State {
   view?: MODAL_VIEWS;
