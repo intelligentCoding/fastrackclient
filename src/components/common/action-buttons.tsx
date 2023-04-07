@@ -14,6 +14,9 @@ type Props = {
   id: string;
   editModalView?: string | any;
   deleteModalView?: string | any;
+  editCheckbookModalView?: string | any;
+  checkbookEditData?: string | any;
+  editCheckbookLabel?: string | any;
   editUrl?: string;
   detailsUrl?: string;
   isUserActive?: boolean;
@@ -33,11 +36,14 @@ const ActionButtons = ({
   deleteModalView,
   editUrl,
   detailsUrl,
+  editCheckbookModalView,
+  checkbookEditData,
+  editCheckbookLabel,
   userStatus = false,
   isUserActive = false,
   isShopActive,
   approveButton = false,
-  customLocale
+  customLocale,
 }: Props) => {
   const { t } = useTranslation();
   const { openModal } = useModalAction();
@@ -49,11 +55,16 @@ const ActionButtons = ({
   function handleEditModal() {
     openModal(editModalView, id);
   }
-
-
+  function handleCheckbookEditModal() {
+    openModal(editCheckbookModalView, {
+      id: id,
+      defaultText: checkbookEditData,
+      label: editCheckbookLabel,
+    });
+  }
 
   return (
-    <div className="gap-8 inline-flex w-auto items-center">
+    <div className="inline-flex w-auto items-center gap-8">
       {deleteModalView && (
         <button
           onClick={handleDelete}
@@ -91,6 +102,11 @@ const ActionButtons = ({
         >
           <Eye width={24} />
         </Link>
+      )}
+      {editCheckbookModalView && (
+        <div onClick={handleCheckbookEditModal}>
+          <p>{checkbookEditData}</p>
+        </div>
       )}
     </div>
   );

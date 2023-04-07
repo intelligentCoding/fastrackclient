@@ -17,6 +17,9 @@ const CustomereDeleteView = dynamic(
 const BrokerDeleteView = dynamic(
   () => import('@/components/brokers/broker-delete-view')
 );
+const CheckbookEditView = dynamic(
+  () => import('@/components/dashboard/checkbook-edit-view')
+);
 function renderModal(view: MODAL_VIEWS | undefined, data: any) {
   switch (view) {
     case 'DELETE_SERVICE':
@@ -29,6 +32,8 @@ function renderModal(view: MODAL_VIEWS | undefined, data: any) {
       return <BrokerDeleteView />
     case 'DELETE_CUSTOMER':
       return <CustomereDeleteView />
+    case 'EDIT_CHECKBOOK':
+      return <CheckbookEditView />
     default:
       return null;
   }

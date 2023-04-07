@@ -244,6 +244,27 @@ export interface CustomerQueryOptions extends QueryOptions {
   createdAt: string;
   updatedAt: string;
 }
+export interface Checkbook {
+  id: string;
+  pay: string;
+  isc:string;
+  paidTo:string;
+  date:string;
+  runNumber:string;
+  masterV1:string;
+  masterV2:string;
+  flight:string;
+  status:string;
+  arrivalDate:string;
+  pickupDate:string;
+  bags:string;
+  weight:string;
+  pmc:string;
+  exam:string;
+  p_o:string;
+  remarks:string;
+  label:string;
+}
 
 export type Maybe<T> = T | null
 
