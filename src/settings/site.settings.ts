@@ -60,6 +60,11 @@ export const siteSettings = {
         label: 'Commodity Map',
         icon: 'ProductsIcon',
       },
+      {
+        href: Routes.file_upload,
+        label: 'Upload File',
+        icon: 'ProductsIcon',
+      },
     ],
   },
   product: {

@@ -265,6 +265,8 @@ export interface Checkbook {
   remarks:string;
   label:string;
 }
-
+export interface uploadInputFile{
+  file:File
+}
 export type Maybe<T> = T | null
 
