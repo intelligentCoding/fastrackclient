@@ -1,25 +1,28 @@
 import { UploadIcon } from '@/components/icons/upload-icon';
 import { useDropzone } from 'react-dropzone';
-import {useFileUploadMutation} from '../../data/upload-file'
+import { useFileUploadMutation } from '../../data/upload-file'
+import { useCallback } from 'react';
+
 
 
 export default function ImportXls({ title }: any) {
-  const { getRootProps, getInputProps ,acceptedFiles} = useDropzone({
-    accept: '.xlsx',
-    multiple: false,   
-  });
-  console.log('acceptedFiles',acceptedFiles);
-  const {mutate:uploadFile,isLoading}=  useFileUploadMutation()
- 
- if(acceptedFiles.length){
-    uploadFile({
-        file:acceptedFiles,
-    })
- }
+  const { mutate: uploadFile, isLoading } = useFileUploadMutation()
 
+  const onDrop = useCallback(acceptedFiles => {
+    console.log("🚀 ~ file: import-xls.tsx:10 ~ onDrop ~ acceptedFiles:", acceptedFiles)
+
+    if (acceptedFiles.length) {
+      uploadFile(acceptedFiles[0])
+    }
+  }, [])
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: '.xlsx',
+    multiple: false,
+    onDrop
+  });
   return (
     <section className="upload">
-        <h1 className='text-center font-bold mb-5 text-3xl'>Upload File</h1>
+      <h1 className='text-center font-bold mb-5 text-3xl' >Upload File</h1>
       <div
         {...getRootProps({
           className:

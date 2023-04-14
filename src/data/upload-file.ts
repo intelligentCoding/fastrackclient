@@ -9,7 +9,7 @@ import {uploadFileClient} from './client/upload-file'
 
 export const useFileUploadMutation = () => {
     const queryClient = useQueryClient();
-    return useMutation(uploadFileClient.upload, {
+    return useMutation(uploadFileClient.create, {
       onSuccess: () => {
         toast.success("File has been uploaded");
       },

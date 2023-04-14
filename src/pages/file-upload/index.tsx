@@ -11,7 +11,6 @@ import AppLayout from '@/components/layouts/app';
 import { Routes } from '@/config/routes';
 
 const ImportxlsFile = dynamic(() => import('@/components/ui/import-xls'));
-// const CommodityMapping = dynamic(() => import('@/components/commodityMapping/commodityMapping'));
 
 export default function FileUpload({
   userPermissions,
