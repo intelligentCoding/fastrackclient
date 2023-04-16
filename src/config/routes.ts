@@ -8,5 +8,5 @@ export const Routes = {
   brokers: '/brokers',
   customers: '/customers',
   commodity_mapping:'/cm',
-  file_upload:'/file-upload'
+  manifest_upload:'/manifest-upload'
 }

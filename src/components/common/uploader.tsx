@@ -195,10 +195,9 @@ export default function Uploader({
           ) : (
             <>
               <span className="font-semibold text-accent">
-                {t('text-upload-highlight')}
-              </span>{' '}
-              {t('text-upload-message')} <br />
-              <span className="text-xs text-body">{t('text-img-format')}</span>
+                Drop the file or click icone
+              </span>
+               <br />
             </>
           )}
         </p>

@@ -61,8 +61,8 @@ export const siteSettings = {
         icon: 'ProductsIcon',
       },
       {
-        href: Routes.file_upload,
-        label: 'Upload File',
+        href: Routes.manifest_upload,
+        label: 'Manifest Upload File',
         icon: 'ProductsIcon',
       },
     ],
