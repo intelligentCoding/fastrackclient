@@ -268,5 +268,22 @@ export interface Checkbook {
 export interface uploadInputFile{
   file:File
 }
+export interface Attachment {
+  thumbnail: string;
+  original: string;
+  id?: string;
+}
+
+export interface AttachmentInput {
+  thumbnail: string;
+  original: string;
+  id?: string;
+}
+export interface AttachmentInput {
+  thumbnail: string;
+  original: string;
+  id?: string;
+}
+
 export type Maybe<T> = T | null
 
