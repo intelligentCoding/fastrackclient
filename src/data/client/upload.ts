@@ -1,12 +1,12 @@
 import { HttpClient } from './http-client';
 import { API_ENDPOINTS } from './api-endpoints';
-import { Attachment } from '@/types';
+import { getManifestFile } from '@/types';
 
 export const uploadClient = {
   upload: async (variables: any) => {
     let formData = new FormData();
     //we will run loop in case multiple files files
-    variables.map((variable: any) => {
+    variables?.map((variable: any) => {
       formData.append('file', variable);
     })
     const options = {
@@ -21,3 +21,10 @@ export const uploadClient = {
     );
   },
 };
+export const getFile = {
+  getList : async ()=>{
+    return HttpClient.get<getManifestFile[]>(
+     API_ENDPOINTS.FILE_UPLOAD
+    )
+  }
+}

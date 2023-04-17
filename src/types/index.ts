@@ -268,6 +268,20 @@ export interface Checkbook {
 export interface uploadInputFile{
   file:File
 }
+export interface getManifestFile{
+  uploadedFileName:string;
+  afterFileURL:string;
+  beforeFileURL:string;
+  comments:string;
+  createdAt:string;
+  createdBy:string;
+  deletedAt:string;
+  fileKey:string;
+  id:string;
+  status:string;
+  updatedAt:string;
+  updatedBy:string;
+}
 export interface Attachment {
   thumbnail: string;
   original: string;
