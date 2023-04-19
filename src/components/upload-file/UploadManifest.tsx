@@ -1,13 +1,13 @@
 import { useForm } from 'react-hook-form';
 import Description from '@/components/ui/description';
 import Card from '@/components/common/card';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 import FileInput from '@/components/ui/file-input';
 import { AttachmentInput } from '@/types';
 
 import { getErrorMessage } from '@/utils/form-error';
 import { Config } from '@/config';
+import { LoadingContainer } from '../common/loading-container';
+import { MessagePayload } from '@/pages/manifest-upload';
 
 type FormValues = {
   file: AttachmentInput;
@@ -19,11 +19,9 @@ const defaultValues = {
 
 type IProps = {
   initialValues?: AttachmentInput | null;
+  messages: MessagePayload
 };
-export default function UploadManifest({ initialValues }: IProps) {
-  const router = useRouter();
-  const { locale } = useRouter();
-  const { t } = useTranslation();
+export default function UploadManifest({ initialValues, messages }: IProps) {
   const {
     register,
     handleSubmit,
@@ -63,6 +61,7 @@ export default function UploadManifest({ initialValues }: IProps) {
   };
 
   return (
+    <LoadingContainer overlayOpacity={0.7} loading={messages.processing} overlayMessage='Manifest file is processing, please wait'>
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-wrap pb-8 my-5 border-b border-dashed border-border-base sm:my-8">
         <Description
@@ -72,9 +71,10 @@ export default function UploadManifest({ initialValues }: IProps) {
         />
 
         <Card className="w-full sm:w-8/12 md:w-2/3">
-          <FileInput name="file" control={control} multiple={false} />
+          <FileInput name="file" control={control} multiple={false} uploadedFileUrl={messages.afterFileUrl} isProcessingError={messages.processError} processingErrorMessage={messages.errorMessage}/>
         </Card>
       </div>
     </form>
+</LoadingContainer>
   );
 }

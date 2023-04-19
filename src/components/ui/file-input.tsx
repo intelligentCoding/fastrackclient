@@ -8,6 +8,9 @@ interface FileInputProps {
   acceptFile?: boolean;
   helperText?: string;
   defaultValue?: any;
+  uploadedFileUrl?: string;
+  isProcessingError?: boolean
+  processingErrorMessage?: string
 }
 
 const FileInput = ({
@@ -16,7 +19,10 @@ const FileInput = ({
   multiple = false,
   acceptFile = true,
   helperText,
-  defaultValue = []
+  defaultValue = [],
+  uploadedFileUrl,
+  isProcessingError,
+  processingErrorMessage
 }: FileInputProps) => {
   return (
     <Controller
@@ -29,6 +35,9 @@ const FileInput = ({
           multiple={multiple}
           acceptFile={acceptFile}
           helperText={helperText}
+          uploadedFileUrl={uploadedFileUrl}
+          isProcessingError={isProcessingError}
+          processingErrorMessage={processingErrorMessage}
         />
       )}
     />

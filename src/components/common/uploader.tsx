@@ -8,8 +8,8 @@ import { useTranslation } from 'next-i18next';
 import { useUploadMutation } from '@/data/upload';
 import Image from 'next/image';
 import { zipPlaceholder } from '@/utils/placeholders';
-import { ACCEPTED_FILE_TYPES } from '@/utils/constants';
-import { processFileWithName } from '@/utils/process-file-with-name';
+// import { ACCEPTED_FILE_TYPES } from '@/utils/constants';
+// import { processFileWithName } from '@/utils/process-file-with-name';
 const getPreviewImage = (value: any) => {
   let images: any[] = [];
   if (value) {
@@ -23,6 +23,8 @@ export default function Uploader({
   multiple,
   acceptFile,
   helperText,
+  uploadedFileUrl,
+  processingErrorMessage,
 }: any) {
   const { t } = useTranslation();
   const [files, setFiles] = useState<Attachment[]>(getPreviewImage(value));
@@ -107,7 +109,6 @@ export default function Uploader({
       const filename = splitArray?.join('.'); // it will join the array with dot, which restore the original filename
       const isImage = file?.thumbnail && imgTypes.includes(fileType); // check if the original filename has the img ext
 
-
       return (
         <div
           className={`relative mt-2 inline-flex flex-col overflow-hidden rounded me-2 ${
@@ -136,23 +137,35 @@ export default function Uploader({
             </figure>
           ) : (
             <div className="flex flex-col items-center">
-              <div className="flex h-14 w-14 min-w-0 items-center justify-center overflow-hidden">
+              {uploadedFileUrl && (
+                <a className="flex hover:text-white items-start px-4 pt-4 pb-3 border-b border-border-200 bg-green-200 hover:bg-green-500" href={uploadedFileUrl}>
+                  The file has been processed, click to view the file.
+                </a>
+              )}
+              {processingErrorMessage && (
+                <a className="flex hover:text-white items-start px-4 pt-4 pb-3 border-b border-border-200 bg-rose-200 hover:bg-rose-600" href={uploadedFileUrl}>
+                 The following error recieved while processing the manifest file:
+                 {processingErrorMessage}
+                </a>
+              )}
+              <div className="w-213 flex h-20 min-w-0 items-center justify-center overflow-hidden">
                 <Image
                   src={zipPlaceholder}
                   width={56}
                   height={56}
                   alt="upload placeholder"
                 />
+
+                <p className="flex cursor-default items-baseline p-1 text-xs text-body">
+                  <span
+                    className="inline-block max-w-[264px] overflow-hidden overflow-ellipsis whitespace-nowrap"
+                    title={`${filename}.${fileType}`}
+                  >
+                    {filename}
+                  </span>
+                  .{fileType}
+                </p>
               </div>
-              <p className="flex cursor-default items-baseline p-1 text-xs text-body">
-                <span
-                  className="inline-block max-w-[64px] overflow-hidden overflow-ellipsis whitespace-nowrap"
-                  title={`${filename}.${fileType}`}
-                >
-                  {filename}
-                </span>
-                .{fileType}
-              </p>
             </div>
           )}
           {multiple ? (
@@ -197,7 +210,7 @@ export default function Uploader({
               <span className="font-semibold text-accent">
                 Drop the file or click icone
               </span>
-               <br />
+              <br />
             </>
           )}
         </p>

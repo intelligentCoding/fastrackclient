@@ -12,10 +12,15 @@ import { Routes } from '@/config/routes';
 import { WebsocketContext } from '@/context/WebsocketContext';
 import { useContext, useEffect, useState } from 'react';
 
-const UploadManifest = dynamic(() => import('@/components/upload-file/UploadManifest'));
-type MessagePayload = {
-  content: string;
-  msg: string;
+const UploadManifest = dynamic(
+  () => import('@/components/upload-file/UploadManifest')
+);
+export type MessagePayload = {
+  processing: boolean;
+  processError: boolean;
+  errorMessage: string;
+  afterFileUrl: string;
+  masterAwb: string;
 };
 export default function Upload({
   userPermissions,
@@ -23,27 +28,36 @@ export default function Upload({
   userPermissions: string[];
 }) {
   if (userPermissions?.includes(ADMIN)) {
-  //   const socket = useContext(WebsocketContext);
-  //   const [value, setValue] = useState('');
-  //     const [messages, setMessages] = useState<MessagePayload[]>([]);
-  //   useEffect(() => {
-  //     socket.on('connect', () => {
-  //       // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // // @ts-ignore
-  //       console.log("connected")
-  //     });
-  //     socket.on('onMessage', (newMessage: MessagePayload) => {
-  //       setMessages((prev) => [...prev, newMessage]);
-  //     });
-  //     return () => {
-  //       socket.off('connect');
-  //       socket.off('onMessage');
-  //     };
-  //   }, []);
-  //   console.log(messages)
+    const socket = useContext(WebsocketContext);
+    const defaultMessagePayLoad = {
+      processing: false,
+      processError: false,
+      errorMessage: '',
+      afterFileUrl: '',
+      masterAwb: '',
+    };
+    const [messages, setMessages] = useState<MessagePayload>(
+      defaultMessagePayLoad
+    );
+
+    useEffect(() => {
+      socket.on('connect', () => {
+        // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        console.log('connected');
+      });
+
+      socket.on('excelParserMessages', (newMessage: MessagePayload) => {
+        setMessages(newMessage);
+      });
+      return () => {
+        socket.off('connect');
+        socket.off('excelParserMessages');
+      };
+    }, []);
     return (
-      <UploadManifest />
-    )
+        <UploadManifest messages={messages}/>      
+    );
   }
 }
 
