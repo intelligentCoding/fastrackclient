@@ -298,6 +298,36 @@ export interface AttachmentInput {
   original: string;
   id?: string;
 }
+export interface Manifest {
+  runNumber?:string;
+  bags:string;
+  weight:string;
+  paidTo:string;
+  date:string;
+  airport:string;
+  broker:string;
+  file:AttachmentInput;
+  service: Partial<Service>;
+  createdBy: string | null;
+  updatedBy: string | null;
+  deletedAt: string | null;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ManifestFormValues {
+  runNumber?:string;
+  id?:string;
+  bags:string;
+  weight:string;
+  paidTo:string;
+  date:Date;
+  airport:string;
+  service:CustomerServiceTypeInput;
+  broker:string;
+  file:AttachmentInput;
+}
 
 export type Maybe<T> = T | null
 

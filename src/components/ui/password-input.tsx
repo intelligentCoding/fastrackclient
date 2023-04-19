@@ -75,7 +75,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
             </Link>
           )}
         </div>
-        <div className="relative">
+        <div className="relative flex justify-end items-center">
           <input
             id={name}
             name={name}
@@ -90,7 +90,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
           />
           <label
             htmlFor={name}
-            className="end-4 absolute top-5 -mt-2 text-body"
+            className="end-4 absolute top-5 -mt-2 text-body mr-2 "
             onClick={() => setShow((prev) => !prev)}
           >
             {show ? (
