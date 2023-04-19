@@ -2,26 +2,25 @@ import { Controller, useForm } from 'react-hook-form';
 import Description from '@/components/ui/description';
 import Card from '@/components/common/card';
 import FileInput from '@/components/ui/file-input';
-import { AttachmentInput, Manifest, ManifestFormValues } from '@/types';
-
 import { getErrorMessage } from '@/utils/form-error';
-import { Config } from '@/config';
+import { AttachmentInput, ManifestFormValues } from '@/types';
+import { MessagePayload } from '@/pages/manifest-upload';
+import { useManifestDataMutation } from '@/data/manifest-data';
+
 import Input from '../ui/input';
 import Button from '../ui/button';
-import { DatePicker } from '../ui/date-picker';
-import { useState } from 'react';
 import Label from '../ui/label';
+import { DatePicker } from '../ui/date-picker';
+
 import ServiceInput from '../common/ServiceInput';
 import BrokerInput from '../common/BrokerInput';
-
 import { LoadingContainer } from '../common/loading-container';
-import { MessagePayload } from '@/pages/manifest-upload';
+import AirportInput from '../common/AirportInput';
 
 
 const defaultValues = {
   file: '',
   runNumber: '',
-  id: '',
   bags: '',
   weight: '',
   paidTo: '',
@@ -36,6 +35,7 @@ type IProps = {
   messages: MessagePayload
 };
 export default function UploadManifest({ initialValues, messages }: IProps) {
+  const { mutate: uploadManifest, isLoading: uploading } = useManifestDataMutation()
   const {
     register,
     handleSubmit,
@@ -53,7 +53,6 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
   });
 
   const onSubmit = async (values: ManifestFormValues) => {
-    console.log("🚀 ~ file: UploadManifest.tsx:47 ~ onSubmit ~ values:", values)
     const input = {
       file: {
         thumbnail: values?.file?.thumbnail,
@@ -63,7 +62,7 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
     };
 
     try {
-
+      uploadManifest({ ...values })
     } catch (error) {
       const serverErrors = getErrorMessage(error);
       Object.keys(serverErrors?.validation).forEach((field: any) => {
@@ -78,74 +77,75 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
   return (
     <LoadingContainer overlayOpacity={0.7} loading={messages.processing} overlayMessage='Manifest file is processing, please wait'>
       <form onSubmit={handleSubmit(onSubmit)} id="formManifest">
-    
-      <div className="flex flex-wrap pb-8 my-5 border-b border-dashed border-border-base sm:my-8">
-        <Description
-          title="Upload manifest file"
-          details="Upload manifest file for it to process"
-          className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
-        />
+        <div className="flex flex-wrap pb-8 my-5 border-b border-dashed border-border-base sm:my-8">
+          <Description
+            title="Upload manifest file"
+            details="Upload manifest file for it to process"
+            className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
+          />
+          <Card className="w-full sm:w-8/12 md:w-2/3">
+            <FileInput name="file" control={control} multiple={false} uploadedFileUrl={messages.afterFileUrl} isProcessingError={messages.processError} processingErrorMessage={messages.errorMessage} />
+          </Card>
+        </div>
+        {messages.processError ? <div className="flex flex-wrap pb-8 my-5 border-b border-dashed border-border-base sm:my-8">
+          <Description
+            title="Upload manifest data"
+            details="Upload manifest data for it to process"
+            className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
+          />
+          <Card className="w-full sm:w-8/12 md:w-2/3">
+            <Input
+              label="Bags"
+              {...register('bags')}
+              error={errors.bags?.message}
+              variant="outline"
+              className="mb-5"
+            />
+            <Input
+              label="Weight"
+              {...register('weight')}
+              error={errors.weight?.message}
+              variant="outline"
+              className="mb-5"
+            />
+            <Input
+              label="Paid To"
+              {...register('paidTo')}
+              error={errors.paidTo?.message}
+              variant="outline"
+              className="mb-5"
+            />
+            <Label>Date</Label>
+            <Controller
+              control={control}
+              name="date"
+              render={({ field: { onChange, onBlur, value, } }) => (
+                <DatePicker
+                  selected={value}
+                  dateFormat="yyyy/MM/dd"
+                  onChange={onChange}
+                  onBlur={onBlur}
+                />
+              )}
+            />
+          </Card>
+          <div className='w-full flex justify-end mt-3'>
+            <ServiceInput initialValues={initialValues} control={control} errors={errors} />
+          </div>
+          <div className='w-full flex justify-end mt-3'>
+            <BrokerInput initialValues={initialValues} control={control} errors={errors} />
+          </div>
+          <div className='w-full flex justify-end mt-3'>
+            <AirportInput initialValues={initialValues} control={control} errors={errors} />
+          </div>
+          <div className="mb-4 mt-4 text-end w-full">
+            <Button id="formManifest">
+              Submit
+            </Button>
+          </div>
+        </div> : null}
 
-        <Card className="w-full sm:w-8/12 md:w-2/3">
-          <FileInput name="file" control={control} multiple={false} uploadedFileUrl={messages.afterFileUrl} isProcessingError={messages.processError} processingErrorMessage={messages.errorMessage}/>
-        </Card>
-      </div>
-      <div className="flex flex-wrap pb-8 my-5 border-b border-dashed border-border-base sm:my-8">
-        <Description
-          title="Upload manifest data"
-          details="Upload manifest data for it to process"
-          className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
-        />
-
-        <Card className="w-full sm:w-8/12 md:w-2/3">
-          <Input
-            label="Bags"
-            {...register('bags')}
-            // error={errors.bags}
-            variant="outline"
-            className="mb-5"
-          />
-          <Input
-            label="Weight"
-            {...register('weight')}
-            // error={errors.bags}
-            variant="outline"
-            className="mb-5"
-          />
-          <Input
-            label="Paid To"
-            {...register('paidTo')}
-            // error={errors.bags}
-            variant="outline"
-            className="mb-5"
-          />
-          <Label>Date</Label>
-          <Controller
-            control={control}
-            name="date" 
-            render={({ field: { onChange, onBlur, value, } }) => (
-              <DatePicker
-              selected={value}
-              dateFormat="yyyy/MM/dd"
-                onChange={onChange}
-                onBlur={onBlur}
-              />
-            )}
-          />
-        </Card>
-        <div className='w-full flex justify-end mt-3'>
-          <ServiceInput initialValues={initialValues} control={control} errors={errors} />
-        </div>
-        <div className='w-full flex justify-end mt-3'>
-          <BrokerInput initialValues={initialValues} control={control} errors={errors} />
-        </div>
-        <div className="mb-4 mt-4 text-end w-full">
-          <Button id="formManifest">
-            Submit
-          </Button>
-        </div>
-      </div>
-    </form>
-</LoadingContainer>
+      </form>
+    </LoadingContainer>
   );
 }

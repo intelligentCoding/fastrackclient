@@ -318,7 +318,6 @@ export interface Manifest {
 
 export interface ManifestFormValues {
   runNumber?:string;
-  id?:string;
   bags:string;
   weight:string;
   paidTo:string;
