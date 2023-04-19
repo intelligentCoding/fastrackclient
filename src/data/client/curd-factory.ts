@@ -19,8 +19,10 @@ export function crudFactory<Type, QueryParams extends LanguageParam, InputType>(
       return HttpClient.get<Type>(`${endpoint}/${id}`);
     },
     create(data: InputType) {
+      console.log("🚀 ~ file: curd-factory.ts:22 ~ create ~ data:", data)
       return HttpClient.post<Type>(`${endpoint}/create`, data);
     },
+  
     update({ id, ...input }: Partial<InputType> & { id: string }) {
       return HttpClient.put<Type>(`${endpoint}/edit/${id}`, input);
     },

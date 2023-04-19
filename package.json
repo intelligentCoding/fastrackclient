@@ -53,6 +53,7 @@
     "react-toastify": "8.2.0",
     "react-use": "17.3.2",
     "socket.io-client": "^4.6.1",
+    "styled-components": "^5.3.9",
     "swiper": "8.0.7",
     "yup": "0.32.11"
   },
