@@ -1,10 +1,8 @@
 import { Controller, useForm } from 'react-hook-form';
 import Description from '@/components/ui/description';
 import Card from '@/components/common/card';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 import FileInput from '@/components/ui/file-input';
-import { Manifest, ManifestFormValues } from '@/types';
+import { AttachmentInput, Manifest, ManifestFormValues } from '@/types';
 
 import { getErrorMessage } from '@/utils/form-error';
 import { Config } from '@/config';
@@ -16,6 +14,8 @@ import Label from '../ui/label';
 import ServiceInput from '../common/ServiceInput';
 import BrokerInput from '../common/BrokerInput';
 
+import { LoadingContainer } from '../common/loading-container';
+import { MessagePayload } from '@/pages/manifest-upload';
 
 
 const defaultValues = {
@@ -32,13 +32,10 @@ const defaultValues = {
 };
 
 type IProps = {
-  initialValues?: Partial<Manifest> | null;
+  initialValues?: AttachmentInput | null;
+  messages: MessagePayload
 };
-export default function UploadManifest({ initialValues }: IProps) {
-  const router = useRouter();
-  const { locale } = useRouter();
-  const { t } = useTranslation();
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
+export default function UploadManifest({ initialValues, messages }: IProps) {
   const {
     register,
     handleSubmit,
@@ -57,7 +54,6 @@ export default function UploadManifest({ initialValues }: IProps) {
 
   const onSubmit = async (values: ManifestFormValues) => {
     console.log("🚀 ~ file: UploadManifest.tsx:47 ~ onSubmit ~ values:", values)
-    console.log("🚀 ~ file: UploadManifest.tsx:47 ~ onSubmit ~ values:", startDate)
     const input = {
       file: {
         thumbnail: values?.file?.thumbnail,
@@ -80,7 +76,9 @@ export default function UploadManifest({ initialValues }: IProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} id="formManifest">
+    <LoadingContainer overlayOpacity={0.7} loading={messages.processing} overlayMessage='Manifest file is processing, please wait'>
+      <form onSubmit={handleSubmit(onSubmit)} id="formManifest">
+    
       <div className="flex flex-wrap pb-8 my-5 border-b border-dashed border-border-base sm:my-8">
         <Description
           title="Upload manifest file"
@@ -89,7 +87,7 @@ export default function UploadManifest({ initialValues }: IProps) {
         />
 
         <Card className="w-full sm:w-8/12 md:w-2/3">
-          <FileInput name="file" control={control} multiple={false} />
+          <FileInput name="file" control={control} multiple={false} uploadedFileUrl={messages.afterFileUrl} isProcessingError={messages.processError} processingErrorMessage={messages.errorMessage}/>
         </Card>
       </div>
       <div className="flex flex-wrap pb-8 my-5 border-b border-dashed border-border-base sm:my-8">
@@ -148,5 +146,6 @@ export default function UploadManifest({ initialValues }: IProps) {
         </div>
       </div>
     </form>
+</LoadingContainer>
   );
 }
