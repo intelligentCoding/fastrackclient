@@ -49,7 +49,7 @@ const LoginForm = () => {
             setErrorMessage('wrong credentials');
           }
         },
-        onError: () => {},
+        // onError: () => {},
       }
     );
   }

@@ -1,16 +1,12 @@
 import Logo from '@/components/ui/logo';
 import { useUI } from '@/contexts/ui.context';
 import AuthorizedMenu from './authorized-menu';
-import LinkButton from '@/components/ui/link-button';
 import { NavbarIcon } from '@/components/icons/navbar-icon';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
-import { Routes } from '@/config/routes';
 import {
   getAuthCredentials,
-  hasAccess,
 } from '@/utils/auth-utils';
-import LanguageSwitcher from './language-switer';
 import { Config } from '@/config';
 
 const Navbar = () => {

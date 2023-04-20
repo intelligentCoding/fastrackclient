@@ -55,6 +55,16 @@ export const siteSettings = {
         label: 'Brokers',
         icon: 'UsersIcon',
       },
+      {
+        href: Routes.commodity_mapping,
+        label: 'Commodity Map',
+        icon: 'ProductsIcon',
+      },
+      {
+        href: Routes.manifest_upload,
+        label: 'Manifest Upload File',
+        icon: 'ProductsIcon',
+      },
     ],
   },
   product: {

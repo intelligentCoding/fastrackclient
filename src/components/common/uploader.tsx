@@ -8,9 +8,8 @@ import { useTranslation } from 'next-i18next';
 import { useUploadMutation } from '@/data/upload';
 import Image from 'next/image';
 import { zipPlaceholder } from '@/utils/placeholders';
-import { ACCEPTED_FILE_TYPES } from '@/utils/constants';
-import { processFileWithName } from '../product/form-utils';
-
+// import { ACCEPTED_FILE_TYPES } from '@/utils/constants';
+// import { processFileWithName } from '@/utils/process-file-with-name';
 const getPreviewImage = (value: any) => {
   let images: any[] = [];
   if (value) {
@@ -24,13 +23,15 @@ export default function Uploader({
   multiple,
   acceptFile,
   helperText,
+  uploadedFileUrl,
+  processingErrorMessage,
 }: any) {
   const { t } = useTranslation();
   const [files, setFiles] = useState<Attachment[]>(getPreviewImage(value));
   const { mutate: upload, isLoading: loading } = useUploadMutation();
   const [error, setError] = useState<string | null>(null);
   const { getRootProps, getInputProps } = useDropzone({
-    ...(!acceptFile ? { accept: 'image/*' } : { accept: ACCEPTED_FILE_TYPES }),
+    // ...(!acceptFile ? { accept: 'image/*' } : { accept: ACCEPTED_FILE_TYPES }),
     multiple,
     onDrop: async (acceptedFiles) => {
       if (acceptedFiles.length) {
@@ -101,18 +102,12 @@ export default function Uploader({
     // let filename, fileType, isImage;
     if (file && file.id) {
       // const processedFile = processFileWithName(file);
-      const splitArray = file?.file_name?.split('.');
+      const splitArray = file?.file_name
+        ? file?.file_name.split('.')
+        : file?.thumbnail?.split('.');
       const fileType = splitArray?.pop(); // it will pop the last item from the fileSplitName arr which is the file ext
       const filename = splitArray?.join('.'); // it will join the array with dot, which restore the original filename
       const isImage = file?.thumbnail && imgTypes.includes(fileType); // check if the original filename has the img ext
-
-      // Old Code *******
-
-      // const splitArray = file?.original?.split('/');
-      // let fileSplitName = splitArray[splitArray?.length - 1]?.split('.'); // it will create an array of words of filename
-      // const fileType = fileSplitName.pop(); // it will pop the last item from the fileSplitName arr which is the file ext
-      // const filename = fileSplitName.join('.'); // it will join the array with dot, which restore the original filename
-      // const isImage = file?.thumbnail && imgTypes.includes(fileType); // check if the original filename has the img ext
 
       return (
         <div
@@ -123,7 +118,7 @@ export default function Uploader({
         >
           {/* {file?.thumbnail && isImage ? ( */}
           {isImage ? (
-            // <div className="flex h-16 w-16 min-w-0 items-center justify-center overflow-hidden">
+            // <div className="flex items-center justify-center w-16 h-16 min-w-0 overflow-hidden">
             //   <Image
             //     src={file.thumbnail}
             //     width={56}
@@ -135,29 +130,42 @@ export default function Uploader({
               <Image
                 src={file.thumbnail}
                 alt={filename}
-                layout="fill"
-                objectFit="contain"
+                // fill
+                sizes="(max-width: 768px) 100vw"
+                className="object-contain"
               />
             </figure>
           ) : (
             <div className="flex flex-col items-center">
-              <div className="flex h-14 w-14 min-w-0 items-center justify-center overflow-hidden">
+              {uploadedFileUrl && (
+                <a className="flex hover:text-white items-start px-4 pt-4 pb-3 border-b border-border-200 bg-green-200 hover:bg-green-500" href={uploadedFileUrl}>
+                  The file has been processed, click to view the file.
+                </a>
+              )}
+              {processingErrorMessage && (
+                <a className="flex hover:text-white items-start px-4 pt-4 pb-3 border-b border-border-200 bg-rose-200 hover:bg-rose-600" href={uploadedFileUrl}>
+                 The following error recieved while processing the manifest file:
+                 {processingErrorMessage}
+                </a>
+              )}
+              <div className="w-213 flex h-20 min-w-0 items-center justify-center overflow-hidden">
                 <Image
                   src={zipPlaceholder}
                   width={56}
                   height={56}
                   alt="upload placeholder"
                 />
+
+                <p className="flex cursor-default items-baseline p-1 text-xs text-body">
+                  <span
+                    className="inline-block max-w-[264px] overflow-hidden overflow-ellipsis whitespace-nowrap"
+                    title={`${filename}.${fileType}`}
+                  >
+                    {filename}
+                  </span>
+                  .{fileType}
+                </p>
               </div>
-              <p className="flex cursor-default items-baseline p-1 text-xs text-body">
-                <span
-                  className="inline-block max-w-[64px] overflow-hidden overflow-ellipsis whitespace-nowrap"
-                  title={`${filename}.${fileType}`}
-                >
-                  {filename}
-                </span>
-                .{fileType}
-              </p>
             </div>
           )}
           {multiple ? (
@@ -200,15 +208,14 @@ export default function Uploader({
           ) : (
             <>
               <span className="font-semibold text-accent">
-                {t('text-upload-highlight')}
-              </span>{' '}
-              {t('text-upload-message')} <br />
-              <span className="text-xs text-body">{t('text-img-format')}</span>
+                Drop the file or click icone
+              </span>
+              <br />
             </>
           )}
         </p>
         {error && (
-          <p className="mt-4 text-center text-sm text-body text-red-600">
+          <p className="mt-4 text-center text-sm text-red-600 text-body">
             {error}
           </p>
         )}

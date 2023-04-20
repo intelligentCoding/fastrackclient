@@ -6,6 +6,7 @@ export interface State {
   displayModal: boolean;
   modalData: any;
   modalView: string;
+  displayFullScreen: boolean;
 }
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   displayModal: false,
   modalView: 'LOGIN_VIEW',
   modalData: null,
+  displayFullScreen: false,
 };
 
 type Action =
@@ -22,7 +24,7 @@ type Action =
     }
   | {
       type: 'CLOSE_SIDEBAR';
-    }
+    } 
   | {
       type: 'OPEN_CART_SIDEBAR';
     }
@@ -42,7 +44,13 @@ type Action =
   | {
       type: 'SET_MODAL_DATA';
       data: MODAL_DATA;
-    };
+    }
+    | {
+      type: 'OPEN_FULLSCREEN';
+    }
+  | {
+      type: 'CLOSE_FULLSCREEN';
+    }
 
 type MODAL_VIEWS =
   | 'SIGNUP_VIEW'
@@ -106,6 +114,18 @@ function uiReducer(state: State, action: Action) {
         modalData: action.data,
       };
     }
+    case 'OPEN_FULLSCREEN': {
+      return {
+        ...state,
+        displayFullScreen: true,
+      };
+    }
+    case 'CLOSE_FULLSCREEN': {
+      return {
+        ...state,
+        displayFullScreen: false,
+      };
+    }
   }
 }
 
@@ -118,6 +138,12 @@ export const UIProvider: FC = (props) => {
     state.displaySidebar
       ? dispatch({ type: 'CLOSE_SIDEBAR' })
       : dispatch({ type: 'OPEN_SIDEBAR' });
+  const openFullScreen = () => dispatch({ type: 'OPEN_FULLSCREEN' });
+  const closeFullScreen = () => dispatch({ type: 'CLOSE_FULLSCREEN' });
+  const toggleFullScreen = () =>
+    state.displayFullScreen
+      ? dispatch({ type: 'OPEN_FULLSCREEN' })
+      : dispatch({ type: 'CLOSE_FULLSCREEN' });
   const openCartSidebar = () => dispatch({ type: 'OPEN_CART_SIDEBAR' });
   const closeCartSidebar = () => dispatch({ type: 'CLOSE_CART_SIDEBAR' });
   const toggleCartSidebar = () =>
@@ -149,6 +175,9 @@ export const UIProvider: FC = (props) => {
       closeModal,
       setModalView,
       setModalData,
+      openFullScreen,
+      closeFullScreen,
+      toggleFullScreen,
     }),
     [state]
   );

@@ -1,6 +1,5 @@
-type Props = {};
 
-export default function LanguageSelect({}: Props) {
+export default function LanguageSelect() {
   return <div>LanguageSelect</div>;
 }
 {

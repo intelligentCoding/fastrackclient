@@ -8,11 +8,17 @@ const ServiceDeleteView = dynamic(
 const AirportsDeleteView = dynamic(
   () => import('@/components/airports/airport-delete-view')
 );
+const CommodityMapDeleteView = dynamic(
+  () => import('@/components/commodityMapping/commodityMap-delete-view')
+);
 const CustomereDeleteView = dynamic(
   () => import('@/components/customer/customer-delete-view')
 );
 const BrokerDeleteView = dynamic(
   () => import('@/components/brokers/broker-delete-view')
+);
+const CheckbookEditView = dynamic(
+  () => import('@/components/dashboard/checkbook-edit-view')
 );
 function renderModal(view: MODAL_VIEWS | undefined, data: any) {
   switch (view) {
@@ -20,10 +26,14 @@ function renderModal(view: MODAL_VIEWS | undefined, data: any) {
       return <ServiceDeleteView />
     case 'DELETE_AIRPORT':
       return <AirportsDeleteView />
+    case 'DELETE_COMMODITY_MAP':
+      return <CommodityMapDeleteView />
     case 'DELETE_BROKER':
       return <BrokerDeleteView />
     case 'DELETE_CUSTOMER':
       return <CustomereDeleteView />
+    case 'EDIT_CHECKBOOK':
+      return <CheckbookEditView />
     default:
       return null;
   }
