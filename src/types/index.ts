@@ -306,6 +306,7 @@ export interface Manifest {
   date:string;
   airport:string;
   broker:string;
+  customer:string;
   file:AttachmentInput;
   service: Partial<Service>;
   createdBy: string | null;
@@ -314,6 +315,10 @@ export interface Manifest {
   id: string;
   createdAt: string;
   updatedAt: string;
+}
+interface customerInput{
+  name:string;
+  value:string
 }
 
 export interface ManifestFormValues {
@@ -326,6 +331,7 @@ export interface ManifestFormValues {
   service:CustomerServiceTypeInput;
   broker:string;
   file:AttachmentInput;
+  customer:customerInput
 }
 
 export type Maybe<T> = T | null

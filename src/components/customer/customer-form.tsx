@@ -92,7 +92,7 @@ export default function CreateOrUpdateCustomers({
             className="mb-5"
           />
           <Input
-            label="Code"
+            label="Email"
             {...register('email')}
             error={errors?.email?.message}
             variant="outline"

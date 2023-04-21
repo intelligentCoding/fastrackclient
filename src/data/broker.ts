@@ -13,7 +13,7 @@ import { brokersClient } from './client/broker';
 
 export const useBrokersQuery = (options: Partial<BrokersQueryOptions> = {}) => {
   const { data, error, isLoading } = useQuery<Brokers[], Error>(
-    [API_ENDPOINTS.AIRPORTS, options],
+    [API_ENDPOINTS.BROKER, options],
     ({ queryKey, pageParam }) =>
       brokersClient.all(Object.assign({}, queryKey[1], pageParam)),
     {
