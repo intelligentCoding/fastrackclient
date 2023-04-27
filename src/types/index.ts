@@ -304,11 +304,11 @@ export interface Manifest {
   weight:string;
   paidTo:string;
   date:string;
-  airport:string;
-  broker:string;
-  customer:string;
+  airport:Airports;
+  broker:Brokers;
+  customer:Customer;
   file:AttachmentInput;
-  service: Partial<Service>;
+  service: Service;
   createdBy: string | null;
   updatedBy: string | null;
   deletedAt: string | null;
@@ -323,15 +323,16 @@ interface customerInput{
 
 export interface ManifestFormValues {
   runNumber?:string;
-  bags:string;
-  weight:string;
+  bags:number;
+  weight:number;
   paidTo:string;
   date:Date;
   airport:string;
   service:CustomerServiceTypeInput;
   broker:string;
   file:AttachmentInput;
-  customer:customerInput
+  customer:customerInput;
+  houseAwb: string;
 }
 
 export type Maybe<T> = T | null

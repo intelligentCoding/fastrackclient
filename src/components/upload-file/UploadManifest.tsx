@@ -3,7 +3,7 @@ import Description from '@/components/ui/description';
 import Card from '@/components/common/card';
 import FileInput from '@/components/ui/file-input';
 import { getErrorMessage } from '@/utils/form-error';
-import { AttachmentInput, ManifestFormValues } from '@/types';
+import { AttachmentInput, Manifest, ManifestFormValues } from '@/types';
 import { MessagePayload } from '@/pages/manifest-upload';
 import { useManifestDataMutation } from '@/data/manifest-data';
 
@@ -17,7 +17,7 @@ import BrokerInput from '../common/BrokerInput';
 import { LoadingContainer } from '../common/loading-container';
 import { AirportInput } from '../common/AirportInput';
 import { CustomerInput } from '../common/CustomerInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { manifestValidationSchema } from './manifest-validation-schema'
 import PaidToInput from '../common/paidToInput'
@@ -26,8 +26,8 @@ import PaidToInput from '../common/paidToInput'
 const defaultValues = {
   file: '',
   runNumber: '',
-  bags: '',
-  weight: '',
+  bags: 0,
+  weight: 0,
   paidTo: '',
   date: new Date(),
   airport: '',
@@ -37,11 +37,11 @@ const defaultValues = {
 };
 
 type IProps = {
-  initialValues?: AttachmentInput | null;
+  initialValues?: Manifest | null;
   messages: MessagePayload
 };
 export default function UploadManifest({ initialValues, messages }: IProps) {
-  const [defaultRunNum, setDefaultRunNum] = useState<any>()
+
   const { mutate: uploadManifest, isLoading: uploading } = useManifestDataMutation()
   const {
     register,
@@ -49,6 +49,7 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
     control,
     watch,
     setError,
+    setValue,
     formState: { errors },
   } = useForm<ManifestFormValues>({
     // @ts-ignore
@@ -57,37 +58,19 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
       : defaultValues,
     resolver: yupResolver(manifestValidationSchema)
   });
-
+  useEffect(() => {
+    const lastFiveDigits = messages.masterAwb.toString().slice(-5)
+    setValue('runNumber',lastFiveDigits)
+  }, [messages.masterAwb])
   const onSubmit = async (values: ManifestFormValues) => {
-    let manifestData = undefined
-    const input = {
-      file: {
-        thumbnail: values?.file?.thumbnail,
-        original: values?.file?.original,
-        id: values?.file?.id,
-      },
-    };
-    const nameofCustomer = values.customer.name
-    if (messages?.masterAwb) {
-      const masterAwb = messages.masterAwb;
-      const lastFiveNum = masterAwb.slice(-5);
-      manifestData = {
-        ...values,
-        runNumber: nameofCustomer + lastFiveNum
-      }
-      setDefaultRunNum(nameofCustomer + lastFiveNum)
-    } else {
-      manifestData = {
-        ...values,
-        runNumber: nameofCustomer
-      }
-      setDefaultRunNum(nameofCustomer)
-    }
-
-
-
+    console.log(values)
     try {
-      uploadManifest({ ...manifestData })
+      uploadManifest({ 
+        ...values,
+        bags: Number(values.bags),
+        weight: Number(values.weight),
+        houseAwb: messages.masterAwb
+       })
     } catch (error) {
       const serverErrors = getErrorMessage(error);
       Object.keys(serverErrors?.validation).forEach((field: any) => {
@@ -121,13 +104,10 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
           <Card className="w-full sm:w-8/12 md:w-2/3">
             <Input
               label="Run Number"
-              name='runNumber'
+              {...register('runNumber')}
               error={errors.runNumber?.message}
               variant="outline"
               className="mb-5"
-              readOnly={true}
-              defaultValue={defaultRunNum}
-              ref={() => register('runNumber')}
             />
             <Input
               label="Bags"
@@ -135,6 +115,7 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
               error={errors.bags?.message}
               variant="outline"
               className="mb-5"
+              type='number'
             />
             <Input
               label="Weight"
@@ -142,6 +123,7 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
               error={errors.weight?.message}
               variant="outline"
               className="mb-5"
+              type='number'
             />
             <Label>Date</Label>
             <Controller
