@@ -38,7 +38,7 @@ export const CustomerInput = ({
           options={customerType}
           defaultValue={initialValues?.customer?.id}
         />
-        <ValidationError message={errors.customerId?.message} />
+        <ValidationError message={errors.customer?.message} />
       </div>
     </Card>
   );

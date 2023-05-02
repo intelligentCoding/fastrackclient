@@ -8,5 +8,6 @@ export const API_ENDPOINTS = {
   USERS: '/users',
   COMMODITY_MAPPING:'/cm',
   FILE_UPLOAD:'/file-upload',
-  MANIFEST:'manifest'
+  MANIFEST:'manifest',
+  CHECKBOOK: '/checkbook'
 };

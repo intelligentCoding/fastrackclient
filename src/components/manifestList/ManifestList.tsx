@@ -33,10 +33,10 @@ export default function ManifestList() {
                                 <p className="-mt-2 text-black">{list.uploadedFileName}</p>
                                 <div className="border-b-2 border-blue-500"></div>
                                 <Label className="mt-6">Before File URL:</Label>
-                                <Link href={list.beforeFileURL} >{list.beforeFileURL}</Link>
+                                {/* <Link href={list.beforeFileURL} >{list.beforeFileURL}</Link> */}
                                 <div className="border-b-2 border-blue-500"></div>
                                 <Label className="mt-6">After File URL:</Label>
-                                <Link href={list.afterFileURL} >{list.afterFileURL}</Link>
+                                {/* <Link href={list.afterFileURL} >{list.afterFileURL}</Link> */}
                                 <div className="border-b-2 border-blue-500"></div>
                                 <Label className="mt-6">Status:</Label>
                                 <p className="-mt-2 text-black">{list.status}</p>

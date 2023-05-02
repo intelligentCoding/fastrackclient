@@ -3,14 +3,79 @@ import ActionButtons from '@/components/common/action-buttons';
 
 import { Checkbook } from '@/types';
 import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import {
+  CheckbookModalProvider,
+  useCheckbookModalAction,
+} from '../ui/checkbook-modal/modal.context';
+import Badge from '../ui/badge/badge';
+import { CloseFillIcon } from '../icons/close-fill';
+import { CheckMarkCircle } from '../icons/checkmark-circle';
+import cn from 'classnames';
+import Link from 'next/link';
 
 type IProps = {
   checkbook: Checkbook[] | undefined;
 };
 
-const CommodityMapList = ({ checkbook }: IProps) => {
+const TableWrapper = styled.div`
+  .innerWrapper {
+    height: 100%;
+  }
+
+  @media (min-width: 640px) {
+    table {
+      display: inline-table !important;
+    }
+
+    thead tr:not(:first-child) {
+      display: none;
+    }
+  }
+
+  td:not(:last-child) {
+    border-bottom: 0;
+  }
+
+  th:not(:last-child) {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  }
+`;
+const tableheaders = [
+  'PAY',
+  'ISC',
+  'PAIDTO',
+  'DATE',
+  'RUNNUMBER',
+  'MASTER',
+  'FLIGHT',
+  'STATUS',
+  'Arrival DATE',
+  'PICKUP DATE',
+  'PICKUP Order',
+  'BAGS',
+  'weight',
+  'ULD/AKE/PMC',
+  'EXAM',
+  'Exam Pieces #',
+  'REMARKS',
+  'label?',
+  'Manifest',
+  'Actions',
+];
+const isToday = (someDate: Date) => {
+  const today = new Date(
+    new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })
+  );
+  return (
+    someDate.getDate() == today.getDate() &&
+    someDate.getMonth() == today.getMonth() &&
+    someDate.getFullYear() == today.getFullYear()
+  );
+};
+
+const CheckbookList = ({ checkbook }: IProps) => {
   // const { data, paginatorInfo } = orders! ?? {};
   const router = useRouter();
   const { t } = useTranslation();
@@ -38,335 +103,332 @@ const CommodityMapList = ({ checkbook }: IProps) => {
   //     });
   //   },
   // });
-
-  const columns = [
-    {
-      title: 'Pay',
-      dataIndex: 'pay',
-      key: 'id',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.pay}
-            editCheckbookLabel={'Pay'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'ISC',
-      dataIndex: 'isc',
-      key: 'isc',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.isc}
-            editCheckbookLabel={'ISC'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Paid To',
-      dataIndex: 'paidTo',
-      key: 'paidTo',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.paidTo}
-            editCheckbookLabel={'Paid To'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.date}
-            editCheckbookLabel={'Date'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Run Number',
-      dataIndex: 'runNumber',
-      key: 'runNumber',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.runNumber}
-            editCheckbookLabel={'Run Number'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Master',
-      dataIndex: 'masterV1',
-      key: 'masterV1',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.masterV1}
-            editCheckbookLabel={'Master'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Master',
-      dataIndex: 'masterV2',
-      key: 'masterV2',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.masterV2}
-            editCheckbookLabel={'Master'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Flight',
-      dataIndex: 'flight',
-      key: 'flight',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.flight}
-            editCheckbookLabel={'Flight'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.status}
-            editCheckbookLabel={'Status'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Arrival Date',
-      dataIndex: 'arrivalDate',
-      key: 'arrivalDate',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.arrivalDate}
-            editCheckbookLabel={'Arrival Date'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Pickup Date',
-      dataIndex: 'pickupDate',
-      key: 'pickupDate',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.pickupDate}
-            editCheckbookLabel={'Pickup Date'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Bags',
-      dataIndex: 'bags',
-      key: 'bags',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.bags}
-            editCheckbookLabel={'Bags'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Weight',
-      dataIndex: 'weight',
-      key: 'weight',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.weight}
-            editCheckbookLabel={'Weight'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'ULD/AKE/PMC',
-      dataIndex: 'pmc',
-      key: 'pmc',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.pmc}
-            editCheckbookLabel={'ULD/AKE/PMC'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Exam',
-      dataIndex: 'exam',
-      key: 'exam',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.exam}
-            editCheckbookLabel={'Exam'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'P/O',
-      dataIndex: 'p_o',
-      key: 'p_o',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.p_o}
-            editCheckbookLabel={'P/O'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Remarks',
-      dataIndex: 'remarks',
-      key: 'remarks',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.remarks}
-            editCheckbookLabel={'Remarks'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-    {
-      title: 'Label',
-      dataIndex: 'label',
-      key: 'label',
-      align: 'center',
-      width: 150,
-      render: (id: string, checkbook: Checkbook) => {
-        return (
-          <ActionButtons
-            id={checkbook.id}
-            checkbookEditData={checkbook.label}
-            editCheckbookLabel={'Label'}
-            editCheckbookModalView="EDIT_CHECKBOOK"
-          />
-        );
-      },
-    },
-  ];
-
+  const { openCheckbookModal } = useCheckbookModalAction();
   return (
-    <>
-      <div className="mb-6 overflow-hidden rounded shadow">
-        <Table
-          //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          columns={columns}
-          emptyText="No Services available"
-          data={checkbook!}
-          rowKey="id"
-          scroll={{ x: 2000 }}
-          expandable={{
-            expandedRowRender: () => '',
-            rowExpandable: rowExpandable,
-          }}
-        />
-      </div>
-    </>
+    <div className="mb-6  overflow-scroll rounded shadow">
+      <TableWrapper>
+        <div className=".innerWrapper flex">
+          <table className="flex-no-wrap my-5 flex w-full flex-row overflow-hidden rounded-lg sm:bg-white sm:shadow-lg">
+            <thead className="text-white">
+              <tr className="flex-no wrap mb-2 flex flex-col rounded-l-lg bg-teal-400 sm:mb-0 sm:table-row sm:rounded-none">
+                {tableheaders.map((header) => (
+                  <th className="p-3 text-left">{header}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="flex-1 sm:flex-none">
+              {checkbook?.map((checkbooks) => {
+                const d = new Date(checkbooks.datePaidIsc!);
+                let isArrivalToday = false;
+                let isArrivedYesterdayNotPickedup = false;
+                // if (
+                //   checkbooks.arrivalDate &&
+                //   isBeforeToday(new Date(checkbooks.arrivalDate))
+                // ) {
+                //   isArrivedYesterdayNotPickedup = true;
+                // }
+                if (checkbooks.arrivalDate) {
+                  isArrivalToday = isToday(new Date(checkbooks.arrivalDate));
+                  if (
+                    checkbooks.arrivalDate !== null && checkbooks.pickedUpDate === null && !isArrivalToday
+                  ) {
+                    isArrivedYesterdayNotPickedup = true;
+                  }
+                }
+                const rowClass = cn(
+                  'flex-no mb-2 flex flex-col sm:mb-0 sm:table-row',
+                  {
+                    'bg-[#BCF0DA]': isArrivalToday,
+                    'bg-[#F17EB8]': isArrivedYesterdayNotPickedup,
+                  }
+                );
+                return (
+                  <tr className={rowClass} key={checkbooks.id}>
+                    <td
+                      className="border-grey-light border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('CARD_NAME', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.cardName,
+                        })
+                      }
+                    >
+                      {checkbooks.cardName}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('ISC', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.isc,
+                        })
+                      }
+                    >
+                      {checkbooks.isc}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('ISC_PAID_TO', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.iscPaidTo,
+                        })
+                      }
+                    >
+                      {checkbooks.iscPaidTo}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('DATE_PAID_ISC', {
+                          id: checkbooks.id,
+                          updatedDate: checkbooks.datePaidIsc,
+                        })
+                      }
+                    >
+                      {checkbooks.datePaidIsc &&
+                        new Date(checkbooks.datePaidIsc).toDateString()}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('RUNNER_NUMBER', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.runnerNumber,
+                        })
+                      }
+                    >
+                      {checkbooks.runnerNumber}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('MASTER', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.houseAwb,
+                        })
+                      }
+                    >
+                      {' '}
+                      {checkbooks.houseAwb}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('FLIGHT_CODE', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.flightCode,
+                        })
+                      }
+                    >
+                      {' '}
+                      {checkbooks.flightCode}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('FLIGHT_STATUS', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.flightStatus,
+                        })
+                      }
+                    >
+                      {' '}
+                      {checkbooks.flightStatus}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('ARRIVAL_DATE', {
+                          id: checkbooks.id,
+                          updatedDate: checkbooks.arrivalDate,
+                        })
+                      }
+                    >
+                      {' '}
+                      {checkbooks.arrivalDate &&
+                        new Date(checkbooks.arrivalDate).toDateString()}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('PICKEDUP_DATE', {
+                          id: checkbooks.id,
+                          updatedDate: checkbooks.pickedUpDate,
+                        })
+                      }
+                    >
+                      {' '}
+                      {checkbooks.pickedUpDate &&
+                        new Date(checkbooks.pickedUpDate).toDateString()}
+                    </td>
+                    <td
+                      className="border-grey-light items-center truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('IS_PICKUP_ORDER_DONE', {
+                          id: checkbooks.id,
+                          updatedBoolean: checkbooks.isPickupOrderDone,
+                        })
+                      }
+                    >
+                      {' '}
+                      {!checkbooks.isPickupOrderDone && (
+                        <div className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none">
+                          <CloseFillIcon width={20} />
+                        </div>
+                      )}
+                      {checkbooks.isPickupOrderDone && (
+                        <div className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none">
+                          <CheckMarkCircle width={20} />
+                        </div>
+                      )}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('BAGS', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.bags,
+                        })
+                      }
+                    >
+                      {' '}
+                      {checkbooks.bags}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('WEIGHT', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.weight,
+                        })
+                      }
+                    >
+                      {' '}
+                      {checkbooks.weight}
+                    </td>
+                    <td
+                      className="border-grey-light  border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('ULD', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.uld,
+                        })
+                      }
+                    >
+                      {' '}
+                      {checkbooks.uld}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('IS_EXAM', {
+                          id: checkbooks.id,
+                          updatedBoolean: checkbooks.isExam,
+                        })
+                      }
+                    >
+                      {' '}
+                      {checkbooks.isExam && (
+                        <Badge text="Yes" color={'bg-[#EF4444]'} />
+                      )}
+                      {!checkbooks.isExam && (
+                        <Badge text="No" color={'bg-accent'} />
+                      )}
+                    </td>
+                    <td
+                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('NUMBER_OF_PIECES_EXAM', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.numberOfPiecesExam,
+                        })
+                      }
+                    >
+                      {' '}
+                      {checkbooks.numberOfPiecesExam}
+                    </td>
+                    <td
+                      className="border-grey-light max-w-[100px]  truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('REMARKS', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.remarks,
+                        })
+                      }
+                    >
+                      {' '}
+                      {checkbooks.remarks}
+                    </td>
+                    <td
+                      className="border-grey-light max-w-[100px] truncate border p-3 hover:bg-gray-100"
+                      onClick={() =>
+                        openCheckbookModal('LABEL', {
+                          id: checkbooks.id,
+                          updatedText: checkbooks.label,
+                        })
+                      }
+                    >
+                      {' '}
+                      {checkbooks.label}
+                    </td>
+                    <td className="border-grey-light  border p-3 hover:bg-gray-100">
+                      {checkbooks.manifest &&
+                        checkbooks.manifest.fileUpload.afterFileURL && (
+                          <div className="flex flex-col gap-2">
+                            <Link
+                              href={checkbooks.manifest.fileUpload.afterFileURL}
+                            >
+                              <button className="inline-flex items-center rounded bg-gray-300 py-2 px-4 font-bold text-gray-800 hover:bg-gray-400">
+                                <svg
+                                  className="mr-2 h-4 w-4 fill-current"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                                </svg>
+                                <span>Processed</span>
+                              </button>
+                            </Link>
+                            <Link
+                              href={
+                                checkbooks.manifest.fileUpload.beforeFileURL
+                              }
+                            >
+                              <button className="inline-flex items-center rounded bg-gray-300 py-2 px-4 font-bold text-gray-800 hover:bg-gray-400">
+                                <svg
+                                  className="mr-2 h-4 w-4 fill-current"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                                </svg>
+                                <span>Original</span>
+                              </button>
+                            </Link>
+                          </div>
+                        )}
+                    </td>
+
+                    <td
+                      className="border-grey-light cursor-pointer border bg-red-400 p-3 text-white hover:bg-gray-100 hover:font-medium hover:text-red-600"
+                      onClick={() =>
+                        openCheckbookModal('DELETE_CHECKBOOK', {
+                          id: checkbooks.id,
+                        })
+                      }
+                    >
+                      Delete
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </TableWrapper>
+    </div>
   );
 };
 
-export default CommodityMapList;
+export default CheckbookList;
