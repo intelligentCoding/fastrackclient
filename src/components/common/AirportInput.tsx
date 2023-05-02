@@ -36,7 +36,7 @@ export const AirportInput = ({
           options={airportType}
           defaultValue={initialValues?.airport?.id}
         />
-        <ValidationError message={errors.airportId?.message} />
+        <ValidationError message={errors.airport?.message} />
       </div>
     </Card>
   );

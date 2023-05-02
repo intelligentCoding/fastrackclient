@@ -12,6 +12,8 @@ import PrivateRoute from '@/utils/private-route';
 import { ModalProvider } from '@/components/ui/modal/modal.context';
 import ManagedModal from '@/components/ui/modal/managed-modal';
 import { socket, WebsocketProvider } from '@/context/WebsocketContext';
+import { CheckbookModalProvider } from '@/components/ui/checkbook-modal/modal.context';
+import CheckbookManagedModal from '@/components/ui/checkbook-modal/managed-modal';
 
 const Noop: React.FC = ({ children }) => <>{children}</>;
 
@@ -30,6 +32,8 @@ const CustomApp = ({ Component, pageProps }: AppPropsWithLayout) => {
         <Hydrate state={pageProps.dehydratedState}>
           <UIProvider>
             <ModalProvider>
+              <CheckbookModalProvider>
+
               <>
                 {authProps ? (
                   <PrivateRoute authProps={authProps}>
@@ -44,7 +48,9 @@ const CustomApp = ({ Component, pageProps }: AppPropsWithLayout) => {
                 )}
                 <ToastContainer autoClose={2000} theme="colored" />
                 <ManagedModal />
+                <CheckbookManagedModal />
               </>
+              </CheckbookModalProvider>
             </ModalProvider>
           </UIProvider>
           <ReactQueryDevtools />

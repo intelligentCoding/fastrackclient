@@ -18,43 +18,43 @@ const PaidToInput = ({
 const paidInputArray = [
     {
         name:'ALLIANCE',
-        id:0
+        id:"0"
     },
     {
         name:'ALLIANCE',
-        id:1
+        id:"1"
     },
     {
         name:'DELTA',
-        id:2
+        id:"2"
     },
     {
         name:'KOREAN',
-        id:3
+        id:"3"
     },
     {
         name:'LUFTHANSA',
-        id:4
+        id:"4"
     },
     {
         name:'MSN',
-        id:5
+        id:"5"
     },
     {
         name:'UNITED',
-        id:6
+        id:"6"
     },
     {
         name:'VIRGIN',
-        id:7
+        id:"7"
     },
     {
         name:'WFS',
-        id:8
+        id:"8"
     },
     {
         name:'N/A',
-        id:9
+        id:"9"
     },
 ]
 
@@ -63,7 +63,6 @@ const paidInputArray = [
       name: paid.name, value: paid.id
     }
   })
-
   return (
     <Card className="w-full sm:w-8/12 md:w-2/3">
       <div className="mb-5">
@@ -74,9 +73,9 @@ const paidInputArray = [
           getOptionLabel={(option: any) => option.name}
           getOptionValue={(option: any) => option.value}
           options={paidType}
-          defaultValue={initialValues?.broker?.id}
+          defaultValue={initialValues?.paidTo}
         />
-        <ValidationError message={errors.brokerId?.message} />
+        <ValidationError message={errors.paidTo?.message} />
       </div>
     </Card>
   );

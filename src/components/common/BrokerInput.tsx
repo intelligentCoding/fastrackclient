@@ -36,7 +36,7 @@ const BrokerInput = ({
           options={brokerType}
           defaultValue={initialValues?.broker?.id}
         />
-        <ValidationError message={errors.brokerId?.message} />
+        <ValidationError message={errors.broker?.message} />
       </div>
     </Card>
   );

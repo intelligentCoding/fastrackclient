@@ -1,3 +1,4 @@
+import { CHECK_BOOK_STATUS } from '@/components/dashboard/admin';
 import type { NextPage } from 'next';
 import { Service } from 'next-seo/lib/types';
 import { string } from 'yup';
@@ -119,6 +120,52 @@ export interface Airports {
   createdAt: string;
   updatedAt: string;
 }
+
+
+export interface CreateCheckbookInput {
+  cardName: string | null;
+  houseAwb: string | null;
+  isc: string | null;
+  iscPaidTo: string;
+  datePaidIsc: string | null;
+  runnerNumber: string;
+  airlinePrefix: string | null;
+  master: string | null;
+  flightCode: string | null;
+  flightStatus: string | null;
+  arrivalDate: string | null;
+  pickedUpDate: string | null;
+  bags: number;
+  weight: number;
+  uld: string | null;
+  isExam: false;
+  numberOfPiecesExam: string | null;
+  isPickupOrderDone: false;
+  remarks: string | null;
+  label: string | null
+  manifest: {
+    fileUpload: {
+      afterFileURL: string,
+      beforeFileURL: string
+    }
+  }
+}
+export interface Checkbook extends CreateCheckbookInput{
+  id: string;
+  createdAt: string;
+  createdBy: string | null;
+  updatedAt: string;
+  updatedBy: string | null;
+  deletedAt: string | null;
+}
+
+
+export interface CheckbookQueryOption extends QueryOptions {
+  checkbookStatus: CHECK_BOOK_STATUS
+  createdFrom: string,
+  createdTo: string,
+}
+
 export interface CommodityMapping {
   mappedFrom: string;
   mappedTo: string;
@@ -244,27 +291,7 @@ export interface CustomerQueryOptions extends QueryOptions {
   createdAt: string;
   updatedAt: string;
 }
-export interface Checkbook {
-  id: string;
-  pay: string;
-  isc:string;
-  paidTo:string;
-  date:string;
-  runNumber:string;
-  masterV1:string;
-  masterV2:string;
-  flight:string;
-  status:string;
-  arrivalDate:string;
-  pickupDate:string;
-  bags:string;
-  weight:string;
-  pmc:string;
-  exam:string;
-  p_o:string;
-  remarks:string;
-  label:string;
-}
+
 export interface uploadInputFile{
   file:File
 }

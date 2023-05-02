@@ -59,11 +59,10 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
     resolver: yupResolver(manifestValidationSchema)
   });
   useEffect(() => {
-    const lastFiveDigits = messages.masterAwb.toString().slice(-5)
+    const lastFiveDigits = messages?.masterAwb?.toString().slice(-5)
     setValue('runNumber',lastFiveDigits)
   }, [messages.masterAwb])
   const onSubmit = async (values: ManifestFormValues) => {
-    console.log(values)
     try {
       uploadManifest({ 
         ...values,
@@ -81,6 +80,7 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
       });
     }
   };
+  console.log(errors)
 
   return (
     <LoadingContainer overlayOpacity={0.7} loading={messages.processing} overlayMessage='Manifest file is processing, please wait'>

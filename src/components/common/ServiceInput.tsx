@@ -36,7 +36,7 @@ const ServiceInput = ({
           options={servicesType}
           defaultValue={initialValues?.service?.id}
         />
-        <ValidationError message={errors.serviceId?.message} />
+        <ValidationError message={errors.service?.message} />
       </div>
     </Card>
   );
