@@ -208,7 +208,7 @@ export default function Uploader({
           ) : (
             <>
               <span className="font-semibold text-accent">
-                Drop the file or click icone
+                Drop the file or click icon
               </span>
               <br />
             </>

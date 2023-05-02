@@ -268,6 +268,20 @@ export interface Checkbook {
 export interface uploadInputFile{
   file:File
 }
+export interface getManifestFile{
+  uploadedFileName:string;
+  afterFileURL:string;
+  beforeFileURL:string;
+  comments:string;
+  createdAt:string;
+  createdBy:string;
+  deletedAt:string;
+  fileKey:string;
+  id:string;
+  status:string;
+  updatedAt:string;
+  updatedBy:string;
+}
 export interface Attachment {
   thumbnail: string;
   original: string;
@@ -283,6 +297,42 @@ export interface AttachmentInput {
   thumbnail: string;
   original: string;
   id?: string;
+}
+export interface Manifest {
+  runNumber?:string;
+  bags:string;
+  weight:string;
+  paidTo:string;
+  date:string;
+  airport:Airports;
+  broker:Brokers;
+  customer:Customer;
+  file:AttachmentInput;
+  service: Service;
+  createdBy: string | null;
+  updatedBy: string | null;
+  deletedAt: string | null;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+}
+interface customerInput{
+  name:string;
+  value:string
+}
+
+export interface ManifestFormValues {
+  runNumber?:string;
+  bags:number;
+  weight:number;
+  paidTo:string;
+  date:Date;
+  airport:string;
+  service:CustomerServiceTypeInput;
+  broker:string;
+  file:AttachmentInput;
+  customer:customerInput;
+  houseAwb: string;
 }
 
 export type Maybe<T> = T | null

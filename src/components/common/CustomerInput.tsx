@@ -3,43 +3,44 @@ import Label from '@/components/ui/label';
 import { Control, FieldErrors, useFormContext } from 'react-hook-form';
 import Card from '@/components/common/card';
 import ValidationError from '@/components/ui/form-validation-error';
-import { useServicesQuery } from '@/data/services';
-import { Customer, CustomerFormValues } from '@/types';
+import { Manifest, ManifestFormValues } from '@/types';
+import { useCustomersQuery } from '@/data/customer';
 
 
-const ServiceInput = ({
+export const CustomerInput = ({
   control,
   errors,
-  initialValues
-}: {
-  control: Control<CustomerFormValues>;
-  errors: FieldErrors;
-  initialValues?: Partial<Customer> | undefined;
-}) => {
-  const { services, loading: fetchingServices, error } = useServicesQuery();
+  initialValues,
 
-  const servicesType = services.map((service) => {
+}: {
+  control: Control<ManifestFormValues>;
+  errors: FieldErrors;
+  initialValues?:  Partial<Manifest> | undefined | null;
+ 
+}) => {
+  const { customers, loading: fetchingServices, error } = useCustomersQuery();
+
+  const customerType = customers.map((customer) => {
     return {
-      name: service.code, value: service.id
+      name: customer.name, value: customer.id
     }
   })
 
   return (
     <Card className="w-full sm:w-8/12 md:w-2/3">
       <div className="mb-5">
-        <Label>Add Service</Label>
+        <Label>Add Customer</Label>
         <SelectInput
-          name="service"
+          name={'customer'}
           control={control}
           getOptionLabel={(option: any) => option.name}
           getOptionValue={(option: any) => option.value}
-          options={servicesType}
-          defaultValue={initialValues?.service?.id}
+          options={customerType}
+          defaultValue={initialValues?.customer?.id}
         />
-        <ValidationError message={errors.serviceId?.message} />
+        <ValidationError message={errors.customerId?.message} />
       </div>
     </Card>
   );
 };
 
-export default ServiceInput;

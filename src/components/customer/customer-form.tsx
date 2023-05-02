@@ -13,7 +13,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { serviceValidationSchema } from './cusotmer-validation-schema';
 import { Customer, CustomerFormValues } from '@/types';
 import { useCustomerMutation, useUpdateCustomerMutation } from '@/data/customer';
-import ServiceInput from './ServiceInput';
+import ServiceInput from '../common/ServiceInput';
 
 const defaultValues = {
   name: '',
@@ -92,7 +92,7 @@ export default function CreateOrUpdateCustomers({
             className="mb-5"
           />
           <Input
-            label="Code"
+            label="Email"
             {...register('email')}
             error={errors?.email?.message}
             variant="outline"

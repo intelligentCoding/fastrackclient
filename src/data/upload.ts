@@ -1,6 +1,7 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient, useQuery } from 'react-query';
 import { API_ENDPOINTS } from '@/data/client/api-endpoints';
-import { uploadClient } from '@/data/client/upload';
+import { uploadClient, getFile } from '@/data/client/upload';
+import { getManifestFile } from '@/types';
 
 export const useUploadMutation = () => {
   const queryClient = useQueryClient();
@@ -16,4 +17,20 @@ export const useUploadMutation = () => {
       },
     }
   );
+};
+export const useManifestListQuery = () => {
+  const { data, error, isLoading } = useQuery<getManifestFile[], Error>(
+    [API_ENDPOINTS.FILE_UPLOAD],
+    () =>
+    getFile.getList(),
+    {
+      keepPreviousData: true,
+    }
+  );
+
+  return {
+    manifestList: data ?? [],
+    error,
+    loading: isLoading,
+  };
 };

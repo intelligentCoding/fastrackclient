@@ -38,7 +38,7 @@ export const siteSettings = {
       {
         href: Routes.services,
         label: 'Services',
-        icon: 'ProductsIcon',
+        icon: 'ServiceIcon',
       },
       {
         href: Routes.customers,
@@ -58,12 +58,17 @@ export const siteSettings = {
       {
         href: Routes.commodity_mapping,
         label: 'Commodity Map',
-        icon: 'ProductsIcon',
+        icon: 'MapIcon',
       },
       {
         href: Routes.manifest_upload,
         label: 'Manifest Upload File',
-        icon: 'ProductsIcon',
+        icon: 'UploadIcon',
+      },
+      {
+        href: Routes.manifest_list,
+        label: 'Manifest File List',
+        icon: 'CategoriesIcon',
       },
     ],
   },

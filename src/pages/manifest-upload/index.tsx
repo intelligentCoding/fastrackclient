@@ -21,6 +21,7 @@ export type MessagePayload = {
   errorMessage: string;
   afterFileUrl: string;
   masterAwb: string;
+  processingFinished:boolean
 };
 export default function Upload({
   userPermissions,
@@ -35,6 +36,7 @@ export default function Upload({
       errorMessage: '',
       afterFileUrl: '',
       masterAwb: '',
+      processingFinished:false
     };
     const [messages, setMessages] = useState<MessagePayload>(
       defaultMessagePayLoad

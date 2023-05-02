@@ -7,5 +7,6 @@ export const API_ENDPOINTS = {
   BROKER: '/broker',
   USERS: '/users',
   COMMODITY_MAPPING:'/cm',
-  FILE_UPLOAD:'/file-upload'
+  FILE_UPLOAD:'/file-upload',
+  MANIFEST:'manifest'
 };
