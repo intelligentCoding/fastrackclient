@@ -50,6 +50,7 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
     watch,
     setError,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<ManifestFormValues>({
     // @ts-ignore
@@ -58,6 +59,12 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
       : defaultValues,
     resolver: yupResolver(manifestValidationSchema)
   });
+  const customer = watch('customer');
+  useEffect(() => {
+    const runNumber = getValues("runNumber")
+    const newRunNumber = customer.name + runNumber;
+    setValue('runNumber', newRunNumber)
+  }, [customer])
   useEffect(() => {
     const lastFiveDigits = messages?.masterAwb?.toString().slice(-5)
     setValue('runNumber',lastFiveDigits)
@@ -80,7 +87,6 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
       });
     }
   };
-  console.log(errors)
 
   return (
     <LoadingContainer overlayOpacity={0.7} loading={messages.processing} overlayMessage='Manifest file is processing, please wait'>

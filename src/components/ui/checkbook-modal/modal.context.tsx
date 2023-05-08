@@ -22,7 +22,8 @@ export type CHECKBOOK_MODAL_VIEWS =
 "IS_PICKUP_ORDER_DONE" |
 "REMARKS" |
 "LABEL" |
-"DELETE_CHECKBOOK"
+"DELETE_CHECKBOOK" |
+"DELETE_ULD"
 
 export const CHECKBOOK_MODAL: {
   [key: string]: string
