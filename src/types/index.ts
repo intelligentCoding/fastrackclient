@@ -121,6 +121,32 @@ export interface Airports {
   updatedAt: string;
 }
 
+export interface Uld {
+  UldNumber: string,
+  totalPieces: number,
+  losePieces: number,
+  instructions: string,
+  isPure: boolean,
+  createdBy: Date | null,
+  updatedBy: Date | null,
+  deletedAt: Date | null,
+  id: string,
+  createdAt: Date,
+  updatedAt: Date
+  checkbook: {
+    houseAwb: string
+  }
+}
+
+export interface CreateUldInput {
+  UldNumber: string,
+  totalPieces: number,
+  losePieces: number,
+  instructions: string,
+  isPure: boolean,
+  checkbookId: string,
+}
+
 
 export interface CreateCheckbookInput {
   cardName: string | null;
@@ -137,7 +163,6 @@ export interface CreateCheckbookInput {
   pickedUpDate: string | null;
   bags: number;
   weight: number;
-  uld: string | null;
   isExam: false;
   numberOfPiecesExam: string | null;
   isPickupOrderDone: false;
@@ -147,6 +172,7 @@ export interface CreateCheckbookInput {
     fileUpload: {
       afterFileURL: string,
       beforeFileURL: string
+      csvFileUrl: string
     }
   }
 }
@@ -157,6 +183,7 @@ export interface Checkbook extends CreateCheckbookInput{
   updatedAt: string;
   updatedBy: string | null;
   deletedAt: string | null;
+  uld: Uld[] | undefined
 }
 
 
@@ -270,6 +297,12 @@ export interface QueryOptions {
 export interface ServiceQueryOptions extends QueryOptions {
   code: string;
   name: string;
+}
+
+export interface UldQueryOptions extends QueryOptions {
+  checkbookId: string
+  udlId: string
+  searchTerm: string
 }
 export interface CustomerQueryOptions extends QueryOptions {
   name: string;

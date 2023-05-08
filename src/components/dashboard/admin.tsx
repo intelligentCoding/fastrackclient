@@ -65,6 +65,7 @@ const Dashboard: React.FC = () => {
     checkbooks,
     loading: fetchingCheckbooks,
     error,
+    refetch
   } = useCheckbookQuery({
     createdFrom,
   });

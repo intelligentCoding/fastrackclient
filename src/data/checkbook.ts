@@ -15,7 +15,7 @@ import { checkbookClient } from './client/checkbook';
 
 
 export const useCheckbookQuery = (options: Partial<CheckbookQueryOption> = {}) => {
-  const { data, error, isLoading } = useQuery<Checkbook[], Error>(
+  const { data, error, isLoading, refetch } = useQuery<Checkbook[], Error>(
     [API_ENDPOINTS.CHECKBOOK, options],
     ({ queryKey, pageParam }) =>
       checkbookClient.all(Object.assign({}, queryKey[1], pageParam)),
@@ -28,6 +28,7 @@ export const useCheckbookQuery = (options: Partial<CheckbookQueryOption> = {}) =
     checkbooks: data ?? [],
     error,
     loading: isLoading,
+    refetch
   };
 };
 

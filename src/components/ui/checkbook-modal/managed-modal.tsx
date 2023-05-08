@@ -1,3 +1,4 @@
+import UldDeleteView from '@/components/dashboard/uld-delete-view';
 import Modal from '@/components/ui/modal/modal';
 import dynamic from 'next/dynamic';
 import { CHECKBOOK_MODAL_VIEWS, useCheckbookModalAction, useCheckbookModalState } from './modal.context';
@@ -14,6 +15,9 @@ const CheckbookEditDate = dynamic(
 const CheckbookDeleteView = dynamic(
   () => import('@/components/dashboard/edit-checkbook/delete-checkbook')
 );
+const CheckbookUldList = dynamic(
+  () => import('@/components/dashboard/checkbook-uld')
+);
 
 function renderModal(view: CHECKBOOK_MODAL_VIEWS | undefined, data: any) {
   switch (view) {
@@ -26,7 +30,6 @@ function renderModal(view: CHECKBOOK_MODAL_VIEWS | undefined, data: any) {
     case 'FLIGHT_STATUS':
     case 'BAGS':
     case 'WEIGHT':
-    case 'ULD':
     case 'NUMBER_OF_PIECES_EXAM':
     case 'REMARKS':
     case 'LABEL':
@@ -38,19 +41,21 @@ function renderModal(view: CHECKBOOK_MODAL_VIEWS | undefined, data: any) {
     case 'IS_EXAM':
     case 'IS_PICKUP_ORDER_DONE':
         return <CheckbookEditBoolean />
+    case 'ULD':
+        return <CheckbookUldList />
     case 'DELETE_CHECKBOOK':
         return <CheckbookDeleteView />
+    case 'DELETE_ULD':
+        return <UldDeleteView />
 
 
     default:
-      console.log("NULLLLL")
       return null;
   }
 }
 
 const CheckbookManagedModal = () => {
   const { isOpen, view, data } = useCheckbookModalState();
-  console.log("the view ", view)
   const { closeCheckbookModal } = useCheckbookModalAction();
 
   return (

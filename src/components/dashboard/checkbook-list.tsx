@@ -316,8 +316,14 @@ const CheckbookList = ({ checkbook }: IProps) => {
                         })
                       }
                     >
-                      {' '}
-                      {checkbooks.uld}
+                      <div className='flex flex-col gap-1'>
+                      {checkbooks.uld?.map((uld) => {
+                        const bgColor = uld.isPure ? 'bg-[#84cc16]' : 'bg-[#ef4444]'
+                        return (
+                          <Badge text={uld.UldNumber} color={bgColor}/>
+                        )
+                      })}
+                      </div>
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
@@ -373,9 +379,9 @@ const CheckbookList = ({ checkbook }: IProps) => {
                       {checkbooks.label}
                     </td>
                     <td className="border-grey-light  border p-3 hover:bg-gray-100">
+                      <div className="flex flex-col gap-2">
                       {checkbooks.manifest &&
                         checkbooks.manifest.fileUpload.afterFileURL && (
-                          <div className="flex flex-col gap-2">
                             <Link
                               href={checkbooks.manifest.fileUpload.afterFileURL}
                             >
@@ -390,10 +396,28 @@ const CheckbookList = ({ checkbook }: IProps) => {
                                 <span>Processed</span>
                               </button>
                             </Link>
+                        )}
+                      {checkbooks.manifest &&
+                        checkbooks.manifest.fileUpload.csvFileUrl && (
                             <Link
-                              href={
-                                checkbooks.manifest.fileUpload.beforeFileURL
-                              }
+                              href={checkbooks.manifest.fileUpload.csvFileUrl}
+                            >
+                              <button className="inline-flex items-center rounded bg-gray-300 py-2 px-4 font-bold text-gray-800 hover:bg-gray-400">
+                                <svg
+                                  className="mr-2 h-4 w-4 fill-current"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                                </svg>
+                                <span>Processed CSV</span>
+                              </button>
+                            </Link>
+                        )}
+                      {checkbooks.manifest &&
+                        checkbooks.manifest.fileUpload.beforeFileURL && (
+                            <Link
+                              href={checkbooks.manifest.fileUpload.beforeFileURL}
                             >
                               <button className="inline-flex items-center rounded bg-gray-300 py-2 px-4 font-bold text-gray-800 hover:bg-gray-400">
                                 <svg
@@ -406,8 +430,8 @@ const CheckbookList = ({ checkbook }: IProps) => {
                                 <span>Original</span>
                               </button>
                             </Link>
-                          </div>
                         )}
+                        </div>
                     </td>
 
                     <td

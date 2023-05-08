@@ -9,5 +9,6 @@ export const API_ENDPOINTS = {
   COMMODITY_MAPPING:'/cm',
   FILE_UPLOAD:'/file-upload',
   MANIFEST:'manifest',
-  CHECKBOOK: '/checkbook'
+  CHECKBOOK: '/checkbook',
+  ULD: '/uld',
 };
