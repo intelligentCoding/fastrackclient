@@ -10,4 +10,5 @@ export const Routes = {
   commodity_mapping:'/cm',
   manifest_upload:'/manifest-upload',
   manifest_list:'/manifest-list',
+  uld:'/uld',
 }

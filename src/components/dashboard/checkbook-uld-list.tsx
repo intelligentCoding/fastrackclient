@@ -98,6 +98,28 @@ IProps) => {
       },
     },
     {
+      title: 'Is Picked Up?',
+      dataIndex: 'isPickedUp',
+      key: 'isPickedUp',
+      align: 'center',
+      width: 100,
+      render: (isPickedUp: boolean, airports: Airports) => {
+        if (!isPickedUp) {
+          return (
+            <div className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none">
+              <CloseFillIcon width={20} />
+            </div>
+          );
+        } else {
+          return (
+          <div className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none">
+            <CheckMarkCircle width={20} />
+          </div>
+          )
+        }
+      },
+    },
+    {
       title: 'losePieces',
       dataIndex: 'losePieces',
       key: 'losePieces',
