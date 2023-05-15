@@ -136,6 +136,7 @@ export interface Uld {
   checkbook: {
     houseAwb: string
   }
+  isPickedUp: boolean
 }
 
 export interface CreateUldInput {

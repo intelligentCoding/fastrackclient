@@ -70,6 +70,11 @@ export const siteSettings = {
         label: 'Manifest File List',
         icon: 'CategoriesIcon',
       },
+      {
+        href: Routes.uld,
+        label: 'ULDs',
+        icon: 'CategoriesIcon',
+      },
     ],
   },
   product: {

@@ -22,6 +22,7 @@ type FormValues = {
   losePieces: number;
   instructions: string;
   isPure: boolean;
+  isPickedUp: boolean;
 };
 
 const defaultValues = {
@@ -30,17 +31,20 @@ const defaultValues = {
   losePieces: 0,
   instructions: '',
   isPure: false,
+  isPickedUp: false,
 };
 
 type IProps = {
   initialValues?: Partial<Uld> | undefined;
   checkbookId: string;
-  setEditMode: (value: boolean) => void
+  setEditMode: () => void;
+  refetch: () => void;
 };
 export default function CreateOrUpdateUld({
   initialValues,
   checkbookId,
   setEditMode,
+  refetch,
 }: IProps) {
   const router = useRouter();
   const {
@@ -70,6 +74,7 @@ export default function CreateOrUpdateUld({
       losePieces: values.isPure ? 0 : values.losePieces,
       instructions: values.instructions,
       isPure: values.isPure,
+      isPickedUp: values.isPickedUp,
     };
     if (!initialValues) {
       createUld({
@@ -77,7 +82,7 @@ export default function CreateOrUpdateUld({
         checkbookId,
       });
       // closeCheckbookModal()
-      setEditMode(false)
+      setEditMode()
       // openCheckbookModal('ULD', {
       //   id: data.id,
       // })
@@ -86,12 +91,7 @@ export default function CreateOrUpdateUld({
         ...input,
         id: initialValues.id!,
       });
-      setEditMode(false)
-      // refetch()
-      // closeCheckbookModal()
-      // openCheckbookModal('ULD', {
-      //   id: data.id,
-      // })
+      refetch()
     }
   };
 
@@ -125,6 +125,12 @@ export default function CreateOrUpdateUld({
             error={errors.isPure?.message!}
             className="mb-5"
           />
+          <Checkbox
+          label='Is it picked up?'
+            {...register('isPickedUp')}
+            error={errors.isPickedUp?.message!}
+            className="mb-5"
+          />
           {!isItPure && (
             <Input
               label="Loose Pieces"
@@ -146,7 +152,10 @@ export default function CreateOrUpdateUld({
       <div className="mb-4 text-end">
           <Button
             variant="outline"
-            onClick={() => setEditMode(false)}
+            onClick={(event) => {
+              event.preventDefault();
+              setEditMode()
+            }}
             className="me-4"
             type="button"
           >
