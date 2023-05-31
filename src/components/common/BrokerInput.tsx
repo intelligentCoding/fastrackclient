@@ -1,9 +1,9 @@
 import SelectInput from '@/components/ui/select-input';
 import Label from '@/components/ui/label';
-import { Control, FieldErrors, useFormContext } from 'react-hook-form';
+import { Control, FieldErrors} from 'react-hook-form';
 import Card from '@/components/common/card';
 import ValidationError from '@/components/ui/form-validation-error';
-import { Manifest, ManifestFormValues } from '@/types';
+import { Brokers, CustomerFormValues, ManifestFormValues } from '@/types';
 import { useBrokersQuery } from '@/data/broker';
 
 
@@ -12,9 +12,9 @@ const BrokerInput = ({
   errors,
   initialValues
 }: {
-  control: Control<ManifestFormValues>;
+  control: Control<ManifestFormValues>  | Control<CustomerFormValues> ;
   errors: FieldErrors;
-  initialValues?:  Partial<Manifest> | undefined | null;
+  initialValues?:  Partial<Brokers> | undefined | null;
 }) => {
   const { brokers, loading: fetchingServices, error } = useBrokersQuery();
 
@@ -34,7 +34,7 @@ const BrokerInput = ({
           getOptionLabel={(option: any) => option.name}
           getOptionValue={(option: any) => option.value}
           options={brokerType}
-          defaultValue={initialValues?.broker?.id}
+          defaultValue={initialValues?.id}
         />
         <ValidationError message={errors.broker?.message} />
       </div>

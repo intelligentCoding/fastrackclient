@@ -18,7 +18,7 @@ const AirportsDeleteView = () => {
         deleteCommodityMap({ id: data });
       closeModal();
     } catch (error) {
-      toast.error(error)
+      // toast.error(error)
       closeModal();
       getErrorMessage(error);
     }

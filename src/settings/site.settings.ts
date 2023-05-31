@@ -66,6 +66,11 @@ export const siteSettings = {
         icon: 'UploadIcon',
       },
       {
+        href: Routes.express_upload,
+        label: 'Express Manifest Upload',
+        icon: 'UploadIcon',
+      },
+      {
         href: Routes.manifest_list,
         label: 'Manifest File List',
         icon: 'CategoriesIcon',

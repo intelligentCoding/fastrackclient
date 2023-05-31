@@ -51,7 +51,7 @@ export const useUpdateCheckbookMutation = () => {
   return useMutation(checkbookClient.update, {
     onSuccess: () => {
       // Router.push(Routes.services);
-      toast.success("Service has been updated");
+      toast.success("Checkbook has been updated");
     },
     // Always refetch after error or success:
     onSettled: () => {

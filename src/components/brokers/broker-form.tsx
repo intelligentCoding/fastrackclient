@@ -79,7 +79,7 @@ export default function CreateOrUpdateBroker({
 
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
-          title={initialValues ? 'Update Airport Details' : 'Create a Airport'}
+          title={initialValues ? 'Update Airport Details' : 'Create a Broker'}
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5 "
         />
 

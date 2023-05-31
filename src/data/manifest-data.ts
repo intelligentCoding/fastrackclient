@@ -20,3 +20,17 @@ export const useManifestDataMutation = () => {
       },
     });
   };
+
+export const useManifestDataExpressMutation = () => {
+    const queryClient = useQueryClient();
+    return useMutation(uploadManifestClient.createExpress, {
+      onSuccess: () => {
+        Router.push(Routes.dashboard);
+        toast.success("Table has been created");
+      },
+      // Always refetch after error or success:å
+      onSettled: () => {
+        queryClient.invalidateQueries(API_ENDPOINTS.MANIFEST);
+      },
+    });
+  };
