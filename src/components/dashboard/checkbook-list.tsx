@@ -204,15 +204,9 @@ const CheckbookList = ({ checkbook }: IProps) => {
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
-                        openCheckbookModal('MASTER', {
-                          id: checkbooks.id,
-                          updatedText: checkbooks.houseAwb,
-                        })
-                      }
                     >
                       {' '}
-                      {checkbooks.houseAwb}
+                      {`${checkbooks.houseAwb?.slice(0,3)} ${checkbooks.houseAwb?.slice(3)}`}
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
