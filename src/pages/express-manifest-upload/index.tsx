@@ -9,11 +9,9 @@ import {
 import { ADMIN } from '@/utils/constants';
 import AppLayout from '@/components/layouts/app';
 import { Routes } from '@/config/routes';
-import { WebsocketContext } from '@/context/WebsocketContext';
-import { useContext, useEffect, useState } from 'react';
 
-const UploadManifest = dynamic(
-  () => import('@/components/upload-file/UploadManifest')
+const UploadManifestExpress = dynamic(
+  () => import('@/components/upload-file/UploadManifestExpress')
 );
 export type MessagePayload = {
   processing: boolean;
@@ -29,36 +27,8 @@ export default function Upload({
   userPermissions: string[];
 }) {
   if (userPermissions?.includes(ADMIN)) {
-    const socket = useContext(WebsocketContext);
-    const defaultMessagePayLoad = {
-      processing: false,
-      processError: false,
-      errorMessage: {},
-      afterFileUrl: '',
-      masterAwb: '',
-      processingFinished:false
-    };
-    const [messages, setMessages] = useState<MessagePayload>(
-      defaultMessagePayLoad
-    );
-
-    useEffect(() => {
-      socket.on('connect', () => {
-        // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        console.log('connected');
-      });
-
-      socket.on('excelParserMessages', (newMessage: MessagePayload) => {
-        setMessages(newMessage);
-      });
-      return () => {
-        socket.off('connect');
-        socket.off('excelParserMessages');
-      };
-    }, []);
     return (
-        <UploadManifest messages={messages}/>      
+        <UploadManifestExpress />      
     );
   }
 }

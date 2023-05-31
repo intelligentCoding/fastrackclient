@@ -8,6 +8,8 @@ import { useTranslation } from 'next-i18next';
 import { useUploadMutation } from '@/data/upload';
 import Image from 'next/image';
 import { zipPlaceholder } from '@/utils/placeholders';
+import { Errors } from '../upload-file/UploadManifestExpress';
+import classNames from 'classnames';
 // import { ACCEPTED_FILE_TYPES } from '@/utils/constants';
 // import { processFileWithName } from '@/utils/process-file-with-name';
 const getPreviewImage = (value: any) => {
@@ -24,7 +26,10 @@ export default function Uploader({
   acceptFile,
   helperText,
   uploadedFileUrl,
+  isProcessingError,
   processingErrorMessage,
+  processingCode,
+  isExpress,
 }: any) {
   const { t } = useTranslation();
   const [files, setFiles] = useState<Attachment[]>(getPreviewImage(value));
@@ -36,18 +41,21 @@ export default function Uploader({
     onDrop: async (acceptedFiles) => {
       if (acceptedFiles.length) {
         upload(
-          acceptedFiles, // it will be an array of uploaded attachments
+          {
+            isExpress,
+            acceptedFiles, // it will be an array of uploaded attachments
+          },
           {
             onSuccess: (data: any) => {
               // Process Digital File Name section
               data &&
                 data?.map((file: any, idx: any) => {
-                  const splitArray = file?.original?.split('/');
-                  let fileSplitName =
-                    splitArray[splitArray?.length - 1]?.split('.');
-                  const fileType = fileSplitName?.pop(); // it will pop the last item from the fileSplitName arr which is the file ext
-                  const filename = fileSplitName?.join('.'); // it will join the array with dot, which restore the original filename
-                  data[idx]['file_name'] = filename + '.' + fileType;
+                    const splitArray = file?.original?.split('/');
+                    let fileSplitName =
+                      splitArray[splitArray?.length - 1]?.split('.');
+                    const fileType = fileSplitName?.pop(); // it will pop the last item from the fileSplitName arr which is the file ext
+                    const filename = fileSplitName?.join('.'); // it will join the array with dot, which restore the original filename
+                    data[idx]['file_name'] = filename + '.' + fileType;
                 });
 
               let mergedData;
@@ -137,17 +145,6 @@ export default function Uploader({
             </figure>
           ) : (
             <div className="flex flex-col items-center">
-              {uploadedFileUrl && (
-                <a className="flex hover:text-white items-start px-4 pt-4 pb-3 border-b border-border-200 bg-green-200 hover:bg-green-500" href={uploadedFileUrl}>
-                  The file has been processed, click to view the file.
-                </a>
-              )}
-              {processingErrorMessage && (
-                <a className="flex hover:text-white items-start px-4 pt-4 pb-3 border-b border-border-200 bg-rose-200 hover:bg-rose-600" href={uploadedFileUrl}>
-                 The following error recieved while processing the manifest file:
-                 {processingErrorMessage}
-                </a>
-              )}
               <div className="w-213 flex h-20 min-w-0 items-center justify-center overflow-hidden">
                 <Image
                   src={zipPlaceholder}
@@ -180,57 +177,105 @@ export default function Uploader({
       );
     }
   });
-
+  const uploadedFileUrlClass = classNames('flex items-start border-b border-border-200 px-4 pt-4 pb-3', isProcessingError ? 'bg-red-600 text-white hover:bg-white hover:text-red-600 ' : 'bg-green-200 hover:bg-green-500 hover:text-white')
   useEffect(
     () => () => {
       // Reset error after upload new file
       setError(null);
-
       // Make sure to revoke the data uris to avoid memory leaks
-      files.forEach((file: any) => URL.revokeObjectURL(file.thumbnail));
+      files?.forEach((file: any) => URL.revokeObjectURL(file.thumbnail));
     },
     [files]
   );
 
   return (
-    <section className="upload">
-      <div
-        {...getRootProps({
-          className:
-            'border-dashed border-2 border-border-base h-36 rounded flex flex-col justify-center items-center cursor-pointer focus:border-accent-400 focus:outline-none',
-        })}
-      >
-        <input {...getInputProps()} />
-        <UploadIcon className="text-muted-light" />
-        <p className="mt-4 text-center text-sm text-body">
-          {helperText ? (
-            <span className="font-semibold text-gray-500">{helperText}</span>
-          ) : (
-            <>
-              <span className="font-semibold text-accent">
-                Drop the file or click icon
-              </span>
-              <br />
-            </>
-          )}
-        </p>
-        {error && (
+    <>
+      <section className="upload">
+        <div
+          {...getRootProps({
+            className:
+              'border-dashed border-2 border-border-base h-36 rounded flex flex-col justify-center items-center cursor-pointer focus:border-accent-400 focus:outline-none',
+          })}
+        >
+          <input {...getInputProps()} />
+          <UploadIcon className="text-muted-light" />
+          <p className="mt-4 text-center text-sm text-body">
+            {helperText ? (
+              <span className="font-semibold text-gray-500">{helperText}</span>
+            ) : (
+              <>
+                <span className="font-semibold text-accent">
+                  Drop the file or click icon
+                </span>
+                <br />
+              </>
+            )}
+          </p>
           <p className="mt-4 text-center text-sm text-red-600 text-body">
             {error}
           </p>
-        )}
-      </div>
+        </div>
 
-      {(!!thumbs.length || loading) && (
-        <aside className="mt-2 flex flex-wrap">
-          {!!thumbs.length && thumbs}
-          {loading && (
-            <div className="mt-2 flex h-16 items-center ms-2">
-              <Loader simple={true} className="h-6 w-6" />
-            </div>
+        {(!!thumbs.length || loading) && (
+          <aside className="mt-2 flex flex-wrap">
+            {!!thumbs.length && thumbs}
+            {loading && (
+              <div className="mt-2 flex h-16 items-center ms-2">
+                <Loader simple={true} className="h-6 w-6" />
+              </div>
+            )}
+          </aside>
+        )}
+      </section>
+      <div>
+        <div className="flex flex-col items-center">
+          {uploadedFileUrl && (
+            <a
+              className={uploadedFileUrlClass}
+              href={uploadedFileUrl}
+            >
+              Click at the file to view.
+            </a>
           )}
-        </aside>
-      )}
-    </section>
+          {isProcessingError && (
+            <>
+              The following error recieved while processing the manifest file:
+
+              {processingCode === 3 && (
+                <p className="mt-4 text-center text-sm text-red-600 text-body">
+                  Master AWB exists already.
+                </p>
+              )}
+              {
+                processingCode === 10 && (
+                <p className="mt-4 text-center text-sm text-red-600 text-body">
+                  Invalid file, please upload valid manifestation file.
+                </p>
+                )
+              }
+              {
+                processingCode === 11 && (
+                <p className="mt-4 text-center text-sm text-red-600 text-body">
+                  This file has been processed. Check checkbook. 
+                </p>
+                )
+              }
+              {
+                processingErrorMessage && processingErrorMessage.length > 0 && (
+                  processingErrorMessage?.map((error: Errors) => {
+                    return (
+                      <p className="mt-4 text-center text-sm text-red-600 text-body">
+                        Error: {error.error}
+                        Location: {error.location}
+                      </p>
+                    );
+                  })
+                ) 
+              }
+            </>
+          )}
+        </div>
+      </div>
+    </>
   );
 }

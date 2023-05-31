@@ -1,7 +1,7 @@
 
 import { Table } from '@/components/ui/table';
 import ActionButtons from '@/components/common/action-buttons';
-import { Customer, Services, SortOrder } from '@/types';
+import { Brokers, Customer, Services, SortOrder } from '@/types';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
@@ -139,6 +139,20 @@ const CustomersList = ({
         return (
           <div className="w-max">
             {service.code}
+          </div>
+        )
+      }
+    },
+    {
+      title: "Broker",
+      dataIndex: 'broker',
+      key: 'service',
+      align: 'center',
+      render: (broker: any, brokers: Brokers) => {
+        console.log(broker)
+        return (
+          <div className="w-max">
+            {broker.code}
           </div>
         )
       }

@@ -1,5 +1,6 @@
 import Uploader from '@/components/common/uploader';
 import { Controller } from 'react-hook-form';
+import { Errors } from '../upload-file/UploadManifestExpress';
 
 interface FileInputProps {
   control: any;
@@ -10,7 +11,9 @@ interface FileInputProps {
   defaultValue?: any;
   uploadedFileUrl?: string;
   isProcessingError?: boolean
-  processingErrorMessage?: string
+  processingErrorMessage?: Errors[]
+  processingCode: number
+  isExpress: boolean
 }
 
 const FileInput = ({
@@ -22,7 +25,9 @@ const FileInput = ({
   defaultValue = [],
   uploadedFileUrl,
   isProcessingError,
-  processingErrorMessage
+  processingErrorMessage,
+  processingCode,
+  isExpress,
 }: FileInputProps) => {
   return (
     <Controller
@@ -38,6 +43,8 @@ const FileInput = ({
           uploadedFileUrl={uploadedFileUrl}
           isProcessingError={isProcessingError}
           processingErrorMessage={processingErrorMessage}
+          isExpress={isExpress}
+          processingCode={processingCode}
         />
       )}
     />

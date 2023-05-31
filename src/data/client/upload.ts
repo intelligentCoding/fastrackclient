@@ -6,7 +6,7 @@ export const uploadClient = {
   upload: async (variables: any) => {
     let formData = new FormData();
     //we will run loop in case multiple files files
-    variables?.map((variable: any) => {
+    variables?.acceptedFiles.map((variable: any) => {
       formData.append('file', variable);
     })
     const options = {
@@ -15,7 +15,7 @@ export const uploadClient = {
       },
     };
     return HttpClient.post(
-      API_ENDPOINTS.FILE_UPLOAD,
+      variables.isExpress ? API_ENDPOINTS.FILE_UPLOAD_EXPRESS : API_ENDPOINTS.FILE_UPLOAD,
       formData,
       options
     );

@@ -1,23 +1,15 @@
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Description from '@/components/ui/description';
 import Card from '@/components/common/card';
-import FileInput from '@/components/ui/file-input';
-import { getErrorMessage } from '@/utils/form-error';
-import { AttachmentInput, Manifest, ManifestFormValues } from '@/types';
+import { Manifest, ManifestFormValues } from '@/types';
 import { MessagePayload } from '@/pages/manifest-upload';
 import { useManifestDataMutation } from '@/data/manifest-data';
-
-import Input from '../ui/input';
 import Button from '../ui/button';
-import Label from '../ui/label';
-import { DatePicker } from '../ui/date-picker';
-
 import ServiceInput from '../common/ServiceInput';
 import BrokerInput from '../common/BrokerInput';
 import { LoadingContainer } from '../common/loading-container';
 import { AirportInput } from '../common/AirportInput';
 import { CustomerInput } from '../common/CustomerInput';
-import { useEffect, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { manifestValidationSchema } from './manifest-validation-schema'
 import PaidToInput from '../common/paidToInput'
@@ -60,46 +52,48 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
     resolver: yupResolver(manifestValidationSchema)
   });
   const customer = watch('customer');
-  useEffect(() => {
-    const runNumber = getValues("runNumber")
-    const newRunNumber = customer.name + runNumber;
-    setValue('runNumber', newRunNumber)
-  }, [customer])
-  useEffect(() => {
-    const lastFiveDigits = messages?.masterAwb?.toString().slice(-5)
-    setValue('runNumber',lastFiveDigits)
-  }, [messages.masterAwb])
-  const onSubmit = async (values: ManifestFormValues) => {
-    try {
-      uploadManifest({ 
-        ...values,
-        bags: Number(values.bags),
-        weight: Number(values.weight),
-        houseAwb: messages.masterAwb
-       })
-    } catch (error) {
-      const serverErrors = getErrorMessage(error);
-      Object.keys(serverErrors?.validation).forEach((field: any) => {
-        setError(field.split('.')[1], {
-          type: 'manual',
-          message: serverErrors?.validation[field][0],
-        });
-      });
-    }
-  };
+  // useEffect(() => {
+  //   const runNumber = getValues("runNumber")
+  //   const newRunNumber = customer.name + runNumber;
+  //   setValue('runNumber', newRunNumber)
+  // }, [customer])
+  // useEffect(() => {
+  //   const lastFiveDigits = messages?.masterAwb?.toString().slice(-5)
+  //   setValue('runNumber',lastFiveDigits)
+  // }, [messages.masterAwb])
+  // const onSubmit = async (values: ManifestFormValues) => {
+  //   try {
+  //     uploadManifest({ 
+  //       ...values,
+  //       bags: Number(values.bags),
+  //       weight: Number(values.weight),
+  //       houseAwb: messages.masterAwb
+  //      })
+  //   } catch (error) {
+  //     const serverErrors = getErrorMessage(error);
+  //     Object.keys(serverErrors?.validation).forEach((field: any) => {
+  //       setError(field.split('.')[1], {
+  //         type: 'manual',
+  //         message: serverErrors?.validation[field][0],
+  //       });
+  //     });
+  //   }
+  // };
 
   return (
     <LoadingContainer overlayOpacity={0.7} loading={messages.processing} overlayMessage='Manifest file is processing, please wait'>
-      <form onSubmit={handleSubmit(onSubmit)} id="formManifest">
+      <form 
+      // onSubmit={handleSubmit(onSubmit)} id="formManifest"
+      >
         <div className="flex flex-wrap pb-8 my-5 border-b border-dashed border-border-base sm:my-8">
           <Description
             title="Upload manifest file"
             details="Upload manifest file for it to process"
             className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
           />
-          <Card className="w-full sm:w-8/12 md:w-2/3">
-            <FileInput name="file" control={control} multiple={false} uploadedFileUrl={messages.afterFileUrl} isProcessingError={messages.processError} processingErrorMessage={messages.errorMessage} />
-          </Card>
+          {/* <Card className="w-full sm:w-8/12 md:w-2/3">
+            <FileInput isExpress={false} name="file" control={control} multiple={false} uploadedFileUrl={messages.afterFileUrl} isProcessingError={messages.processError} processingErrorMessage={messages.errorMessage} />
+          </Card> */}
         </div>
         {!messages.processError && messages.processingFinished ? <div className="flex flex-wrap pb-8 my-5 border-b border-dashed border-border-base sm:my-8">
           <Description
@@ -108,7 +102,7 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
             className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
           />
           <Card className="w-full sm:w-8/12 md:w-2/3">
-            <Input
+            {/* <Input
               label="Run Number"
               {...register('runNumber')}
               error={errors.runNumber?.message}
@@ -143,7 +137,7 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
                   onBlur={onBlur}
                 />
               )}
-            />
+            /> */}
           </Card>
           <div className='w-full flex justify-end mt-3'>
             <PaidToInput initialValues={initialValues} control={control} errors={errors} />

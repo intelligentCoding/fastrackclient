@@ -1,6 +1,6 @@
 import SelectInput from '@/components/ui/select-input';
 import Label from '@/components/ui/label';
-import { Control, FieldErrors, useFormContext } from 'react-hook-form';
+import { Control, FieldErrors} from 'react-hook-form';
 import Card from '@/components/common/card';
 import ValidationError from '@/components/ui/form-validation-error';
 import { useServicesQuery } from '@/data/services';
@@ -34,7 +34,7 @@ const ServiceInput = ({
           getOptionLabel={(option: any) => option.name}
           getOptionValue={(option: any) => option.value}
           options={servicesType}
-          defaultValue={initialValues?.service?.id}
+          defaultValue={initialValues?.id}
         />
         <ValidationError message={errors.service?.message} />
       </div>

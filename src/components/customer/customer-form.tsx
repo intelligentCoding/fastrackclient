@@ -14,6 +14,7 @@ import { serviceValidationSchema } from './cusotmer-validation-schema';
 import { Customer, CustomerFormValues } from '@/types';
 import { useCustomerMutation, useUpdateCustomerMutation } from '@/data/customer';
 import ServiceInput from '../common/ServiceInput';
+import BrokerInput from '../common/BrokerInput';
 
 const defaultValues = {
   name: '',
@@ -28,6 +29,10 @@ const defaultValues = {
   cfsMinWeight: 0,
   cfsMinCharge: 0,
   service: {
+    code: '',
+    id: '',
+  },
+  broker: {
     code: '',
     id: '',
   }
@@ -171,8 +176,15 @@ export default function CreateOrUpdateCustomers({
               details="Select a service for this customer"
               className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pr-4 md:w-1/3 md:pr-5"
             />
-
             <ServiceInput initialValues={initialValues} control={control} errors={errors} />
+          </div>
+          <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
+            <Description
+              title="Broker"
+              details="Select a Broker for this customer"
+              className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pr-4 md:w-1/3 md:pr-5"
+            />
+            <BrokerInput initialValues={initialValues} control={control} errors={errors} />
           </div>
       <div className="mb-4 text-end">
         {initialValues && (

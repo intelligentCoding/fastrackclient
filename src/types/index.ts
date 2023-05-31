@@ -79,6 +79,7 @@ export type CustomerFormValues = {
   cfsMinWeight: number;
   cfsMinCharge: number;
   service: CustomerServiceTypeInput;
+  broker: CustomerServiceTypeInput;
 };
 
 export interface Services {
@@ -347,6 +348,11 @@ export interface Attachment {
   thumbnail: string;
   original: string;
   id?: string;
+  status?: string;
+  errors?: any;
+  masterAwb?: string;
+  code: number;
+  afterFileUpload: string;
 }
 
 export interface AttachmentInput {
@@ -368,7 +374,7 @@ export interface Manifest {
   airport:Airports;
   broker:Brokers;
   customer:Customer;
-  file:AttachmentInput;
+  file:Attachment;
   service: Service;
   createdBy: string | null;
   updatedBy: string | null;
@@ -383,15 +389,16 @@ interface customerInput{
 }
 
 export interface ManifestFormValues {
-  runNumber?:string;
-  bags:number;
-  weight:number;
   paidTo:string;
-  date:Date;
   airport:string;
-  service:CustomerServiceTypeInput;
-  broker:string;
-  file:AttachmentInput;
+  file:Attachment;
+  customer:customerInput;
+  houseAwb: string;
+}
+export interface ManifestFormValuesExpress {
+  paidTo:string;
+  airport:string;
+  file:Attachment;
   customer:customerInput;
   houseAwb: string;
 }

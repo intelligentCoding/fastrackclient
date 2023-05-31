@@ -12,7 +12,6 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import Search from '../common/search';
-import debounce from 'lodash.debounce';
 
 export default function Ulds() {
   const router = useRouter();

@@ -130,7 +130,9 @@ const CheckbookList = ({ checkbook }: IProps) => {
                 if (checkbooks.arrivalDate) {
                   isArrivalToday = isToday(new Date(checkbooks.arrivalDate));
                   if (
-                    checkbooks.arrivalDate !== null && checkbooks.pickedUpDate === null && !isArrivalToday
+                    checkbooks.arrivalDate !== null &&
+                    checkbooks.pickedUpDate === null &&
+                    !isArrivalToday
                   ) {
                     isArrivedYesterdayNotPickedup = true;
                   }
@@ -316,13 +318,13 @@ const CheckbookList = ({ checkbook }: IProps) => {
                         })
                       }
                     >
-                      <div className='flex flex-col gap-1'>
-                      {checkbooks.uld?.map((uld) => {
-                        const bgColor = uld.isPure ? 'bg-[#84cc16]' : 'bg-[#ef4444]'
-                        return (
-                          <Badge text={uld.UldNumber} color={bgColor}/>
-                        )
-                      })}
+                      <div className="flex flex-col gap-1">
+                        {checkbooks.uld?.map((uld) => {
+                          const bgColor = uld.isPure
+                            ? 'bg-[#84cc16]'
+                            : 'bg-[#ef4444]';
+                          return <Badge text={uld.UldNumber} color={bgColor} />;
+                        })}
                       </div>
                     </td>
                     <td
@@ -380,8 +382,8 @@ const CheckbookList = ({ checkbook }: IProps) => {
                     </td>
                     <td className="border-grey-light  border p-3 hover:bg-gray-100">
                       <div className="flex flex-col gap-2">
-                      {checkbooks.manifest &&
-                        checkbooks.manifest.fileUpload.afterFileURL && (
+                        {checkbooks.manifest &&
+                          checkbooks.manifest.fileUpload.afterFileURL && (
                             <Link
                               href={checkbooks.manifest.fileUpload.afterFileURL}
                             >
@@ -396,9 +398,9 @@ const CheckbookList = ({ checkbook }: IProps) => {
                                 <span>Processed</span>
                               </button>
                             </Link>
-                        )}
-                      {checkbooks.manifest &&
-                        checkbooks.manifest.fileUpload.csvFileUrl && (
+                          )}
+                        {checkbooks.manifest &&
+                          checkbooks.manifest.fileUpload.csvFileUrl && (
                             <Link
                               href={checkbooks.manifest.fileUpload.csvFileUrl}
                             >
@@ -413,11 +415,13 @@ const CheckbookList = ({ checkbook }: IProps) => {
                                 <span>Processed CSV</span>
                               </button>
                             </Link>
-                        )}
-                      {checkbooks.manifest &&
-                        checkbooks.manifest.fileUpload.beforeFileURL && (
+                          )}
+                        {checkbooks.manifest &&
+                          checkbooks.manifest.fileUpload.beforeFileURL && (
                             <Link
-                              href={checkbooks.manifest.fileUpload.beforeFileURL}
+                              href={
+                                checkbooks.manifest.fileUpload.beforeFileURL
+                              }
                             >
                               <button className="inline-flex items-center rounded bg-gray-300 py-2 px-4 font-bold text-gray-800 hover:bg-gray-400">
                                 <svg
@@ -430,19 +434,30 @@ const CheckbookList = ({ checkbook }: IProps) => {
                                 <span>Original</span>
                               </button>
                             </Link>
-                        )}
-                        </div>
+                          )}
+                      </div>
                     </td>
 
                     <td
-                      className="border-grey-light cursor-pointer border bg-red-400 p-3 text-white hover:bg-gray-100 hover:font-medium hover:text-red-600"
-                      onClick={() =>
-                        openCheckbookModal('DELETE_CHECKBOOK', {
-                          id: checkbooks.id,
-                        })
-                      }
-                    >
-                      Delete
+                      className="border-grey-light cursor-pointer border  p-3 text-white hover:bg-gray-100">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          openCheckbookModal('DELETE_CHECKBOOK', {
+                            id: checkbooks.id,
+                          })
+                        }
+                        className="bg-red-400 hover:bg-red-600 focus:bg-red-600 active:bg-primary-700 mb-2 block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        className="bg-blue-400 border-primary text-primary hover:border-blue-600 hover:text-blue-600 focus:border-blue-600 focus:text-primary-600 active:border-primary-700 active:text-primary-700 mb-2 block w-full rounded border-2 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out hover:bg-neutral-500 hover:bg-opacity-10 focus:outline-none focus:ring-0 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                        data-te-ripple-init
+                      >
+                        Edit
+                      </button>
                     </td>
                   </tr>
                 );
