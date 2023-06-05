@@ -13,4 +13,5 @@ export const manifestValidationSchema = yup.object().shape({
         name: yup.string().required('Missing air port'),
         value: yup.string().required('Missing air port')
     }).required("airport is required").nullable(),
+    bags: yup.number().required("bags are required"),
 });

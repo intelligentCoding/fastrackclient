@@ -367,7 +367,7 @@ export interface AttachmentInput {
 }
 export interface Manifest {
   runNumber?:string;
-  bags:string;
+  bags:number;
   weight:string;
   paidTo:string;
   date:string;
@@ -394,6 +394,7 @@ export interface ManifestFormValues {
   file:Attachment;
   customer:customerInput;
   houseAwb: string;
+  bags: number;
 }
 export interface ManifestFormValuesExpress {
   paidTo:string;
@@ -401,6 +402,7 @@ export interface ManifestFormValuesExpress {
   file:Attachment;
   customer:customerInput;
   houseAwb: string;
+  bags: number;
 }
 
 export type Maybe<T> = T | null

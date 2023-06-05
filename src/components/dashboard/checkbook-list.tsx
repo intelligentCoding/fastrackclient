@@ -14,7 +14,9 @@ import { CloseFillIcon } from '../icons/close-fill';
 import { CheckMarkCircle } from '../icons/checkmark-circle';
 import cn from 'classnames';
 import Link from 'next/link';
-
+import { useEffect } from 'react';
+import { socket } from '@/context/WebsocketContext';
+import { toast } from 'react-toastify';
 type IProps = {
   checkbook: Checkbook[] | undefined;
 };
@@ -80,6 +82,23 @@ const CheckbookList = ({ checkbook }: IProps) => {
   const router = useRouter();
   const { t } = useTranslation();
   const rowExpandable = (record: any) => record.children?.length;
+
+  useEffect(() => {
+    socket.on('connect', () => {
+      // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      console.log('connected');
+    });
+
+    socket.on('newCheckbookCreated', (newMessage) => {
+      toast.info("New checkbook entry added, pleae refresh the page.")
+      checkbook?.push(newMessage)
+    });
+    return () => {
+      socket.off('connect');
+      socket.off('newCheckbookCreated');
+    };
+  }, []);
 
   //   const [sortingObj, setSortingObj] = useState<{
   //     sort: SortOrder;
