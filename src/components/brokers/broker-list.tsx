@@ -87,7 +87,7 @@ const BrokersList = ({
           <ActionButtons
             id={id}
             editUrl={`${router.asPath}/${id}`}
-            deleteModalView="DELETE_SERVICE"
+            deleteModalView="DELETE_BROKER"
           />
         );
       },
