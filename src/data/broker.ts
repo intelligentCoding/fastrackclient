@@ -74,7 +74,7 @@ export const useDeleteBrokerMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(brokersClient.delete, {
     onSuccess: () => {
-      toast.success("Successfully deleted the airport");
+      toast.success("Successfully deleted the broker");
     },
     // Always refetch after error or success:
     onSettled: () => {
