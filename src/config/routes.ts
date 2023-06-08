@@ -5,6 +5,7 @@ export const Routes = {
   settings: '/settings',
   services: '/services',
   airports: '/airports',
+  lastmileprovider: '/last-mile-provider',
   brokers: '/brokers',
   customers: '/customers',
   commodity_mapping:'/cm',
