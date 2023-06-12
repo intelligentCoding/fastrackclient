@@ -407,3 +407,14 @@ export interface ManifestFormValuesExpress {
 
 export type Maybe<T> = T | null
 
+export interface Description {
+  id: string,
+  descRaw: string,
+  descProcessed: string
+}
+
+export interface CustomDescription {
+  descriptionId: string,
+  descRaw: string,
+  userEnteredValue: string
+}
