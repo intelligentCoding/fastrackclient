@@ -53,6 +53,9 @@ export const useUpdateLastMileProviderMutation = () => {
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.LASTMILEPROVIDER);
     },
+    onError: (error) => {
+      toast.error("Thre was an error updating last mile provider");
+    },
   });
 };
 
@@ -79,6 +82,9 @@ export const useDeleteLastMileProviderMutation = () => {
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.LASTMILEPROVIDER);
+    },
+    onError: (error) => {
+      toast.error("Thre was an error updating last mile provider");
     },
   });
 };
