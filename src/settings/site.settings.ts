@@ -80,6 +80,11 @@ export const siteSettings = {
         label: 'ULDs',
         icon: 'CategoriesIcon',
       },
+      {
+        href: Routes.users,
+        label: 'Users',
+        icon: 'CategoriesIcon',
+      },
     ],
   },
   product: {

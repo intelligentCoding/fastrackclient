@@ -12,4 +12,6 @@ export const API_ENDPOINTS = {
   MANIFEST:'manifest',
   CHECKBOOK: '/checkbook',
   ULD: '/uld',
+  AUTH: '/auth',
+  ROLE:'/roles'
 };

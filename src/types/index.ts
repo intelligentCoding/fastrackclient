@@ -105,10 +105,50 @@ export interface Brokers {
   updatedAt: string;
 }
 
+
+export interface Users {
+  firstName: string,
+  lastName: string,
+  email: string,
+  role: string,
+  createdBy: string | null;
+  updatedBy: string | null;
+  deletedAt: string | null;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface Roles {
+  name: string,
+  description: string
+  createdBy: string | null;
+  updatedBy: string | null;
+  deletedAt: string | null;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AddUser {
+  email: string,
+  firstName: string,
+  lastName: string,
+  role: string
+}
+
 export interface CreateBrokersInput {
   name: string;
   code: string;
   email: string;
+}
+export interface CreateUsersInput {
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string
+}
+export interface RoleInput {
+  id: string
 }
 
 export interface Airports {
@@ -178,7 +218,7 @@ export interface CreateCheckbookInput {
     }
   }
 }
-export interface Checkbook extends CreateCheckbookInput{
+export interface Checkbook extends CreateCheckbookInput {
   id: string;
   createdAt: string;
   createdBy: string | null;
@@ -218,7 +258,12 @@ export interface BrokersQueryOptions extends QueryOptions {
   code: string;
   email: string;
 }
-
+export interface UsersQueryOptions extends QueryOptions {
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string
+}
 export interface CreateAirportsInput {
   name: string;
   code: string;
@@ -327,22 +372,22 @@ export interface CustomerQueryOptions extends QueryOptions {
   updatedAt: string;
 }
 
-export interface uploadInputFile{
-  file:File
+export interface uploadInputFile {
+  file: File
 }
-export interface getManifestFile{
-  uploadedFileName:string;
-  afterFileURL:string;
-  beforeFileURL:string;
-  comments:string;
-  createdAt:string;
-  createdBy:string;
-  deletedAt:string;
-  fileKey:string;
-  id:string;
-  status:string;
-  updatedAt:string;
-  updatedBy:string;
+export interface getManifestFile {
+  uploadedFileName: string;
+  afterFileURL: string;
+  beforeFileURL: string;
+  comments: string;
+  createdAt: string;
+  createdBy: string;
+  deletedAt: string;
+  fileKey: string;
+  id: string;
+  status: string;
+  updatedAt: string;
+  updatedBy: string;
 }
 export interface Attachment {
   thumbnail: string;
@@ -366,15 +411,15 @@ export interface AttachmentInput {
   id?: string;
 }
 export interface Manifest {
-  runNumber?:string;
-  bags:number;
-  weight:string;
-  paidTo:string;
-  date:string;
-  airport:Airports;
-  broker:Brokers;
-  customer:Customer;
-  file:Attachment;
+  runNumber?: string;
+  bags: number;
+  weight: string;
+  paidTo: string;
+  date: string;
+  airport: Airports;
+  broker: Brokers;
+  customer: Customer;
+  file: Attachment;
   service: Service;
   createdBy: string | null;
   updatedBy: string | null;
@@ -383,24 +428,24 @@ export interface Manifest {
   createdAt: string;
   updatedAt: string;
 }
-interface customerInput{
-  name:string;
-  value:string
+interface customerInput {
+  name: string;
+  value: string
 }
 
 export interface ManifestFormValues {
-  paidTo:string;
-  airport:string;
-  file:Attachment;
-  customer:customerInput;
+  paidTo: string;
+  airport: string;
+  file: Attachment;
+  customer: customerInput;
   houseAwb: string;
   bags: number;
 }
 export interface ManifestFormValuesExpress {
-  paidTo:string;
-  airport:string;
-  file:Attachment;
-  customer:customerInput;
+  paidTo: string;
+  airport: string;
+  file: Attachment;
+  customer: customerInput;
   houseAwb: string;
   bags: number;
 }

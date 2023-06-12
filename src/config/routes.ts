@@ -12,4 +12,5 @@ export const Routes = {
   express_upload:'/express-manifest-upload',
   manifest_list:'/manifest-list',
   uld:'/uld',
+  users: '/users'
 }
