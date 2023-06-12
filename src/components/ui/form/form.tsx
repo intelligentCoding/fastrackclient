@@ -25,7 +25,7 @@ type FormProps<TFormValues> = {
 };
 
 export const Form = <
-  TFormValues extends Record<string, any> = Record<string, any>
+  TFormValues extends Record<string, any> = Record<string, any>,
 >({
   onSubmit,
   children,

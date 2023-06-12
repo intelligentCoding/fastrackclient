@@ -24,7 +24,7 @@ type Action =
     }
   | {
       type: 'CLOSE_SIDEBAR';
-    } 
+    }
   | {
       type: 'OPEN_CART_SIDEBAR';
     }
@@ -45,12 +45,12 @@ type Action =
       type: 'SET_MODAL_DATA';
       data: MODAL_DATA;
     }
-    | {
+  | {
       type: 'OPEN_FULLSCREEN';
     }
   | {
       type: 'CLOSE_FULLSCREEN';
-    }
+    };
 
 type MODAL_VIEWS =
   | 'SIGNUP_VIEW'
@@ -179,7 +179,7 @@ export const UIProvider: FC = (props) => {
       closeFullScreen,
       toggleFullScreen,
     }),
-    [state]
+    [state],
   );
 
   return <UIContext.Provider value={value} {...props} />;

@@ -6,7 +6,8 @@
     "dev": "next dev -p 3002",
     "build": "next build",
     "start": "next start -p 3002",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write --ignore-path .gitignore . && git add ."
   },
   "dependencies": {
     "@floating-ui/react-dom-interactions": "0.6.3",
@@ -77,6 +78,7 @@
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
     "eslint-config-prettier": "8.5.0",
+    "husky": "^8.0.3",
     "postcss": "8.4.8",
     "prettier": "2.6.0",
     "prettier-plugin-tailwindcss": "0.1.8",

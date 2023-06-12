@@ -7,9 +7,9 @@ export const Routes = {
   airports: '/airports',
   brokers: '/brokers',
   customers: '/customers',
-  commodity_mapping:'/cm',
-  manifest_upload:'/manifest-upload',
-  express_upload:'/express-manifest-upload',
-  manifest_list:'/manifest-list',
-  uld:'/uld',
-}
+  commodity_mapping: '/cm',
+  manifest_upload: '/manifest-upload',
+  express_upload: '/express-manifest-upload',
+  manifest_list: '/manifest-list',
+  uld: '/uld',
+};

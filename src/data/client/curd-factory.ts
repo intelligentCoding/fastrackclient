@@ -6,7 +6,7 @@ interface LanguageParam {
 }
 
 export function crudFactory<Type, QueryParams extends LanguageParam, InputType>(
-  endpoint: string
+  endpoint: string,
 ) {
   return {
     all(params: QueryParams) {
@@ -24,7 +24,7 @@ export function crudFactory<Type, QueryParams extends LanguageParam, InputType>(
     createExpress(data: InputType) {
       return HttpClient.post<Type>(`${endpoint}/createExpress`, data);
     },
-  
+
     update({ id, ...input }: Partial<InputType> & { id: string }) {
       return HttpClient.put<Type>(`${endpoint}/edit/${id}`, input);
     },

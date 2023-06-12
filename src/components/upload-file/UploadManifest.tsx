@@ -11,9 +11,8 @@ import { LoadingContainer } from '../common/loading-container';
 import { AirportInput } from '../common/AirportInput';
 import { CustomerInput } from '../common/CustomerInput';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { manifestValidationSchema } from './manifest-validation-schema'
-import PaidToInput from '../common/paidToInput'
-
+import { manifestValidationSchema } from './manifest-validation-schema';
+import PaidToInput from '../common/paidToInput';
 
 const defaultValues = {
   file: '',
@@ -25,16 +24,16 @@ const defaultValues = {
   airport: '',
   service: '',
   broker: '',
-  customer: ''
+  customer: '',
 };
 
 type IProps = {
   initialValues?: Manifest | null;
-  messages: MessagePayload
+  messages: MessagePayload;
 };
 export default function UploadManifest({ initialValues, messages }: IProps) {
-
-  const { mutate: uploadManifest, isLoading: uploading } = useManifestDataMutation()
+  const { mutate: uploadManifest, isLoading: uploading } =
+    useManifestDataMutation();
   const {
     register,
     handleSubmit,
@@ -46,10 +45,8 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
     formState: { errors },
   } = useForm<ManifestFormValues>({
     // @ts-ignore
-    defaultValues: initialValues
-      ? initialValues
-      : defaultValues,
-    resolver: yupResolver(manifestValidationSchema)
+    defaultValues: initialValues ? initialValues : defaultValues,
+    resolver: yupResolver(manifestValidationSchema),
   });
   const customer = watch('customer');
   // useEffect(() => {
@@ -63,7 +60,7 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
   // }, [messages.masterAwb])
   // const onSubmit = async (values: ManifestFormValues) => {
   //   try {
-  //     uploadManifest({ 
+  //     uploadManifest({
   //       ...values,
   //       bags: Number(values.bags),
   //       weight: Number(values.weight),
@@ -81,11 +78,15 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
   // };
 
   return (
-    <LoadingContainer overlayOpacity={0.7} loading={messages.processing} overlayMessage='Manifest file is processing, please wait'>
-      <form 
+    <LoadingContainer
+      overlayOpacity={0.7}
+      loading={messages.processing}
+      overlayMessage="Manifest file is processing, please wait"
+    >
+      <form
       // onSubmit={handleSubmit(onSubmit)} id="formManifest"
       >
-        <div className="flex flex-wrap pb-8 my-5 border-b border-dashed border-border-base sm:my-8">
+        <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
           <Description
             title="Upload manifest file"
             details="Upload manifest file for it to process"
@@ -95,14 +96,15 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
             <FileInput isExpress={false} name="file" control={control} multiple={false} uploadedFileUrl={messages.afterFileUrl} isProcessingError={messages.processError} processingErrorMessage={messages.errorMessage} />
           </Card> */}
         </div>
-        {!messages.processError && messages.processingFinished ? <div className="flex flex-wrap pb-8 my-5 border-b border-dashed border-border-base sm:my-8">
-          <Description
-            title="Upload manifest data"
-            details="Upload manifest data for it to process"
-            className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
-          />
-          <Card className="w-full sm:w-8/12 md:w-2/3">
-            {/* <Input
+        {!messages.processError && messages.processingFinished ? (
+          <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
+            <Description
+              title="Upload manifest data"
+              details="Upload manifest data for it to process"
+              className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
+            />
+            <Card className="w-full sm:w-8/12 md:w-2/3">
+              {/* <Input
               label="Run Number"
               {...register('runNumber')}
               error={errors.runNumber?.message}
@@ -138,29 +140,47 @@ export default function UploadManifest({ initialValues, messages }: IProps) {
                 />
               )}
             /> */}
-          </Card>
-          <div className='w-full flex justify-end mt-3'>
-            <PaidToInput initialValues={initialValues} control={control} errors={errors} />
+            </Card>
+            <div className="mt-3 flex w-full justify-end">
+              <PaidToInput
+                initialValues={initialValues}
+                control={control}
+                errors={errors}
+              />
+            </div>
+            <div className="mt-3 flex w-full justify-end">
+              <CustomerInput
+                initialValues={initialValues}
+                control={control}
+                errors={errors}
+              />
+            </div>
+            <div className="mt-3 flex w-full justify-end">
+              <AirportInput
+                initialValues={initialValues}
+                control={control}
+                errors={errors}
+              />
+            </div>
+            <div className="mt-3 flex w-full justify-end">
+              <ServiceInput
+                initialValues={initialValues}
+                control={control}
+                errors={errors}
+              />
+            </div>
+            <div className="mt-3 flex w-full justify-end">
+              <BrokerInput
+                initialValues={initialValues}
+                control={control}
+                errors={errors}
+              />
+            </div>
+            <div className="mb-4 mt-4 w-full text-end">
+              <Button id="formManifest">Submit</Button>
+            </div>
           </div>
-          <div className='w-full flex justify-end mt-3'>
-            <CustomerInput initialValues={initialValues} control={control} errors={errors} />
-          </div>
-          <div className='w-full flex justify-end mt-3'>
-            <AirportInput initialValues={initialValues} control={control} errors={errors} />
-          </div>
-          <div className='w-full flex justify-end mt-3'>
-            <ServiceInput initialValues={initialValues} control={control} errors={errors} />
-          </div>
-          <div className='w-full flex justify-end mt-3'>
-            <BrokerInput initialValues={initialValues} control={control} errors={errors} />
-          </div>
-          <div className="mb-4 mt-4 text-end w-full">
-            <Button id="formManifest">
-              Submit
-            </Button>
-          </div>
-        </div> : null}
-
+        ) : null}
       </form>
     </LoadingContainer>
   );

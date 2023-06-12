@@ -23,7 +23,7 @@ const AccessDeniedPage = () => {
 
         <Link
           href="/"
-          className="ps-1 text-accent transition-colors hover:text-accent-hover"
+          className="text-accent transition-colors ps-1 hover:text-accent-hover"
         >
           {t('text-return-home')}
         </Link>

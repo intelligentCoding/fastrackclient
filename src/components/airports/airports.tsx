@@ -1,16 +1,15 @@
-import { Routes } from "@/config/routes";
-import { useAirportsQuery } from "@/data/airports";
-import { SortOrder } from "@/types";
-import { Menu, Transition } from "@headlessui/react";
-import classNames from "classnames";
-import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
-import Card from "../common/card";
-import ErrorMessage from "../ui/error-message";
-import LinkButton from "../ui/link-button";
-import Loader from "../ui/loader/loader";
-import AirportsList from "./airport-list";
-
+import { Routes } from '@/config/routes';
+import { useAirportsQuery } from '@/data/airports';
+import { SortOrder } from '@/types';
+import { Menu, Transition } from '@headlessui/react';
+import classNames from 'classnames';
+import { useRouter } from 'next/router';
+import { Fragment, useState } from 'react';
+import Card from '../common/card';
+import ErrorMessage from '../ui/error-message';
+import LinkButton from '../ui/link-button';
+import Loader from '../ui/loader/loader';
+import AirportsList from './airport-list';
 
 export default function Airports() {
   const router = useRouter();
@@ -31,7 +30,11 @@ export default function Airports() {
   //   setPage(current);
   // }
 
-  const { airports, loading: fetchingServices, error } = useAirportsQuery ({
+  const {
+    airports,
+    loading: fetchingServices,
+    error,
+  } = useAirportsQuery({
     name: searchTerm,
     orderBy,
     sortedBy,
@@ -40,14 +43,11 @@ export default function Airports() {
 
   if (error) return <ErrorMessage message={error.message} />;
 
-
   return (
     <>
       <Card className="mb-8 flex flex-col items-center justify-between md:flex-row">
         <div className="mb-4 md:mb-0 md:w-1/4">
-          <h1 className="text-lg font-semibold text-heading">
-            Airports
-          </h1>
+          <h1 className="text-lg font-semibold text-heading">Airports</h1>
         </div>
 
         {/* To Be Implemented */}
@@ -66,9 +66,7 @@ export default function Airports() {
             href={`/${Routes.airports}/create`}
             className="h-12 ms-4 md:ms-6"
           >
-            <span>
-              + Add Airport
-            </span>
+            <span>+ Add Airport</span>
           </LinkButton>
           <Transition
             as={Fragment}
@@ -82,7 +80,7 @@ export default function Airports() {
             <Menu.Items
               as="ul"
               className={classNames(
-                'shadow-700 absolute z-50 mt-2 w-52 overflow-hidden rounded border border-border-200 bg-light py-2 focus:outline-none ltr:right-0 ltr:origin-top-right rtl:left-0 rtl:origin-top-left'
+                'shadow-700 absolute z-50 mt-2 w-52 overflow-hidden rounded border border-border-200 bg-light py-2 focus:outline-none ltr:right-0 ltr:origin-top-right rtl:left-0 rtl:origin-top-left',
               )}
             >
               {/* <Menu.Item>
@@ -105,18 +103,15 @@ export default function Airports() {
           </Transition>
         </Menu>
       </Card>
-      {
-        airports && (
-
-          <AirportsList
-            airports={airports || []}
+      {airports && (
+        <AirportsList
+          airports={airports || []}
           // paginatorInfo={paginatorInfo}
           // onPagination={handlePagination}
           // onOrder={setOrder}
           // onSort={setColumn}
-          />
-        )
-      }
+        />
+      )}
     </>
   );
 }

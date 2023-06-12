@@ -10,10 +10,10 @@ interface FileInputProps {
   helperText?: string;
   defaultValue?: any;
   uploadedFileUrl?: string;
-  isProcessingError?: boolean
-  processingErrorMessage?: Errors[]
-  processingCode: number
-  isExpress: boolean
+  isProcessingError?: boolean;
+  processingErrorMessage?: Errors[];
+  processingCode: number;
+  isExpress: boolean;
 }
 
 const FileInput = ({

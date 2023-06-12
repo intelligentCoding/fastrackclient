@@ -15,7 +15,7 @@ export default function AuthorizedMenu() {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className="flex items-center focus:outline-none">
-      <AdminIcon width={18} />
+        <AdminIcon width={18} />
       </Menu.Button>
 
       <Transition
@@ -29,7 +29,7 @@ export default function AuthorizedMenu() {
       >
         <Menu.Items
           as="ul"
-          className="end-0 origin-top-end absolute mt-1 w-48 rounded bg-white shadow-md focus:outline-none"
+          className="absolute mt-1 w-48 rounded bg-white shadow-md end-0 origin-top-end focus:outline-none"
         >
           {/* <Menu.Item key={data?.email}>
             <li
@@ -49,7 +49,7 @@ export default function AuthorizedMenu() {
                     href={href}
                     className={cn(
                       'block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent',
-                      active ? 'text-accent' : 'text-heading'
+                      active ? 'text-accent' : 'text-heading',
                     )}
                   >
                     {t(labelTransKey)}

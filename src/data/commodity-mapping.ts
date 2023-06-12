@@ -6,19 +6,24 @@ import { useRouter } from 'next/router';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { API_ENDPOINTS } from './client/api-endpoints';
-import { CommodityMapping, CommodityMappingQueryOptions, GetParams } from '@/types';
+import {
+  CommodityMapping,
+  CommodityMappingQueryOptions,
+  GetParams,
+} from '@/types';
 import Router from 'next/router';
 import { commodityMappingClient } from './client/commodity-mapping';
 
-
-export const useCommodityMappingQuery = (options: Partial<CommodityMappingQueryOptions> = {}) => {
+export const useCommodityMappingQuery = (
+  options: Partial<CommodityMappingQueryOptions> = {},
+) => {
   const { data, error, isLoading } = useQuery<CommodityMapping[], Error>(
     [API_ENDPOINTS.COMMODITY_MAPPING, options],
     ({ queryKey, pageParam }) =>
-    commodityMappingClient.all(Object.assign({}, queryKey[1], pageParam)),
+      commodityMappingClient.all(Object.assign({}, queryKey[1], pageParam)),
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   return {
@@ -33,7 +38,7 @@ export const useCommodityMapMutation = () => {
   return useMutation(commodityMappingClient.create, {
     onSuccess: () => {
       Router.push(Routes.commodity_mapping);
-      toast.success("Map has been created");
+      toast.success('Map has been created');
     },
     // Always refetch after error or success:å
     onSettled: () => {
@@ -47,7 +52,7 @@ export const useUpdateCommodityMapMutation = () => {
   return useMutation(commodityMappingClient.update, {
     onSuccess: () => {
       Router.push(Routes.commodity_mapping);
-      toast.success("Map has been updated");
+      toast.success('Map has been updated');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -56,11 +61,10 @@ export const useUpdateCommodityMapMutation = () => {
   });
 };
 
-
 export const useCommodityMapQuery = ({ id }: GetParams) => {
   const { data, error, isLoading } = useQuery<CommodityMapping, Error>(
     [API_ENDPOINTS.COMMODITY_MAPPING, { id }],
-    () => commodityMappingClient.get({ id })
+    () => commodityMappingClient.get({ id }),
   );
 
   return {
@@ -74,10 +78,10 @@ export const useDeleteCommodityMapMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(commodityMappingClient.delete, {
     onSuccess: () => {
-      toast.success("Successfully deleted the map");
+      toast.success('Successfully deleted the map');
     },
-    onError:()=>{
-        toast.error('Error deleting map')
+    onError: () => {
+      toast.error('Error deleting map');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -85,7 +89,3 @@ export const useDeleteCommodityMapMutation = () => {
     },
   });
 };
-
-
-
-

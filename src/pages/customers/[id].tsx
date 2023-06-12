@@ -1,7 +1,12 @@
 import Layout from '@/components/layouts/admin';
 // import CreateOrUpdateCategoriesForm from '@/components/category/category-form';
 import type { GetServerSideProps } from 'next';
-import { allowedRoles, getAuthCredentials, hasAccess, isAuthenticated } from '@/utils/auth-utils';
+import {
+  allowedRoles,
+  getAuthCredentials,
+  hasAccess,
+  isAuthenticated,
+} from '@/utils/auth-utils';
 import { Routes } from '@/config/routes';
 import { useRouter } from 'next/router';
 import Loader from '@/components/ui/loader/loader';
@@ -16,7 +21,7 @@ export default function CreateCategoriesPage() {
     isLoading: loading,
     error,
   } = useCustomerQuery({
-    id: query.id as string
+    id: query.id as string,
   });
 
   if (loading) return <Loader text="Loading Customer" />;
@@ -24,9 +29,7 @@ export default function CreateCategoriesPage() {
   return (
     <>
       <div className="flex border-b border-dashed border-border-base py-5 sm:py-8">
-        <h1 className="text-lg font-semibold text-heading">
-          Edit Customer
-        </h1>
+        <h1 className="text-lg font-semibold text-heading">Edit Customer</h1>
       </div>
       <CreateOrUpdateCustomers initialValues={customer} />
     </>

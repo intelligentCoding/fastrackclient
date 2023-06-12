@@ -5,11 +5,13 @@ import {
 } from '@/components/ui/modal/modal.context';
 import { useDeleteUldMutation } from '@/data/uld';
 import { getErrorMessage } from '@/utils/form-error';
-import { useCheckbookModalAction, useCheckbookModalState } from '../ui/checkbook-modal/modal.context';
+import {
+  useCheckbookModalAction,
+  useCheckbookModalState,
+} from '../ui/checkbook-modal/modal.context';
 
 const UldDeleteView = () => {
-  const { mutate: deleteUld, isLoading: loading } =
-    useDeleteUldMutation();
+  const { mutate: deleteUld, isLoading: loading } = useDeleteUldMutation();
   const { data } = useCheckbookModalState();
   const { closeCheckbookModal, openCheckbookModal } = useCheckbookModalAction();
 
@@ -19,12 +21,12 @@ const UldDeleteView = () => {
       closeCheckbookModal();
       openCheckbookModal('ULD', {
         id: data.id,
-      })
+      });
     } catch (error) {
       closeCheckbookModal();
       openCheckbookModal('ULD', {
         id: data.id,
-      })
+      });
       getErrorMessage(error);
     }
   }
@@ -40,4 +42,3 @@ const UldDeleteView = () => {
 };
 
 export default UldDeleteView;
- 

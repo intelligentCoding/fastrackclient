@@ -83,7 +83,7 @@ const GradientGraphChart = ({
   return (
     <div className="h-full w-full rounded bg-light shadow-sm">
       <div className="flex items-start justify-between p-8">
-        <div className="ms-auto flex flex-col">
+        <div className="flex flex-col ms-auto">
           {/* label */}
           <span className="text-xs text-body">{topRowTitle}</span>
 

@@ -28,9 +28,8 @@ export interface AuthResponse {
   id: string;
   email: string;
   roles: string[];
-  token: string
+  token: string;
 }
-
 
 export interface User {
   id: string;
@@ -64,7 +63,7 @@ export interface Customer {
 export type CustomerServiceTypeInput = {
   code: string;
   id: string;
-}
+};
 
 export type CustomerFormValues = {
   name: string;
@@ -89,7 +88,7 @@ export interface Services {
   updatedAt: string;
   updatedBy: string | null;
   deletedAt: string | null;
-  name: string | null
+  name: string | null;
   code: string | null;
 }
 
@@ -123,32 +122,31 @@ export interface Airports {
 }
 
 export interface Uld {
-  UldNumber: string,
-  totalPieces: number,
-  losePieces: number,
-  instructions: string,
-  isPure: boolean,
-  createdBy: Date | null,
-  updatedBy: Date | null,
-  deletedAt: Date | null,
-  id: string,
-  createdAt: Date,
-  updatedAt: Date
+  UldNumber: string;
+  totalPieces: number;
+  losePieces: number;
+  instructions: string;
+  isPure: boolean;
+  createdBy: Date | null;
+  updatedBy: Date | null;
+  deletedAt: Date | null;
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
   checkbook: {
-    houseAwb: string
-  }
-  isPickedUp: boolean
+    houseAwb: string;
+  };
+  isPickedUp: boolean;
 }
 
 export interface CreateUldInput {
-  UldNumber: string,
-  totalPieces: number,
-  losePieces: number,
-  instructions: string,
-  isPure: boolean,
-  checkbookId: string,
+  UldNumber: string;
+  totalPieces: number;
+  losePieces: number;
+  instructions: string;
+  isPure: boolean;
+  checkbookId: string;
 }
-
 
 export interface CreateCheckbookInput {
   cardName: string | null;
@@ -169,30 +167,29 @@ export interface CreateCheckbookInput {
   numberOfPiecesExam: string | null;
   isPickupOrderDone: false;
   remarks: string | null;
-  label: string | null
+  label: string | null;
   manifest: {
     fileUpload: {
-      afterFileURL: string,
-      beforeFileURL: string
-      csvFileUrl: string
-    }
-  }
+      afterFileURL: string;
+      beforeFileURL: string;
+      csvFileUrl: string;
+    };
+  };
 }
-export interface Checkbook extends CreateCheckbookInput{
+export interface Checkbook extends CreateCheckbookInput {
   id: string;
   createdAt: string;
   createdBy: string | null;
   updatedAt: string;
   updatedBy: string | null;
   deletedAt: string | null;
-  uld: Uld[] | undefined
+  uld: Uld[] | undefined;
 }
 
-
 export interface CheckbookQueryOption extends QueryOptions {
-  checkbookStatus: CHECK_BOOK_STATUS
-  createdFrom: string,
-  createdTo: string,
+  checkbookStatus: CHECK_BOOK_STATUS;
+  createdFrom: string;
+  createdTo: string;
 }
 
 export interface CommodityMapping {
@@ -231,7 +228,6 @@ export interface AirportsQueryOptions extends QueryOptions {
 export interface UpdateUser {
   name?: string;
 }
-
 
 //needed when implementing pagination
 export interface PaginatorInfo<T> {
@@ -284,9 +280,7 @@ export interface CreateCustomerInput {
   cfsMinWeight: number;
   cfsMinCharge: number;
   service: CustomerServiceTypeInput;
-
 }
-
 
 export interface QueryOptions {
   language: string;
@@ -302,9 +296,9 @@ export interface ServiceQueryOptions extends QueryOptions {
 }
 
 export interface UldQueryOptions extends QueryOptions {
-  checkbookId: string
-  udlId: string
-  searchTerm: string
+  checkbookId: string;
+  udlId: string;
+  searchTerm: string;
 }
 export interface CustomerQueryOptions extends QueryOptions {
   name: string;
@@ -327,22 +321,22 @@ export interface CustomerQueryOptions extends QueryOptions {
   updatedAt: string;
 }
 
-export interface uploadInputFile{
-  file:File
+export interface uploadInputFile {
+  file: File;
 }
-export interface getManifestFile{
-  uploadedFileName:string;
-  afterFileURL:string;
-  beforeFileURL:string;
-  comments:string;
-  createdAt:string;
-  createdBy:string;
-  deletedAt:string;
-  fileKey:string;
-  id:string;
-  status:string;
-  updatedAt:string;
-  updatedBy:string;
+export interface getManifestFile {
+  uploadedFileName: string;
+  afterFileURL: string;
+  beforeFileURL: string;
+  comments: string;
+  createdAt: string;
+  createdBy: string;
+  deletedAt: string;
+  fileKey: string;
+  id: string;
+  status: string;
+  updatedAt: string;
+  updatedBy: string;
 }
 export interface Attachment {
   thumbnail: string;
@@ -366,15 +360,15 @@ export interface AttachmentInput {
   id?: string;
 }
 export interface Manifest {
-  runNumber?:string;
-  bags:number;
-  weight:string;
-  paidTo:string;
-  date:string;
-  airport:Airports;
-  broker:Brokers;
-  customer:Customer;
-  file:Attachment;
+  runNumber?: string;
+  bags: number;
+  weight: string;
+  paidTo: string;
+  date: string;
+  airport: Airports;
+  broker: Brokers;
+  customer: Customer;
+  file: Attachment;
   service: Service;
   createdBy: string | null;
   updatedBy: string | null;
@@ -383,27 +377,26 @@ export interface Manifest {
   createdAt: string;
   updatedAt: string;
 }
-interface customerInput{
-  name:string;
-  value:string
+interface customerInput {
+  name: string;
+  value: string;
 }
 
 export interface ManifestFormValues {
-  paidTo:string;
-  airport:string;
-  file:Attachment;
-  customer:customerInput;
+  paidTo: string;
+  airport: string;
+  file: Attachment;
+  customer: customerInput;
   houseAwb: string;
   bags: number;
 }
 export interface ManifestFormValuesExpress {
-  paidTo:string;
-  airport:string;
-  file:Attachment;
-  customer:customerInput;
+  paidTo: string;
+  airport: string;
+  file: Attachment;
+  customer: customerInput;
   houseAwb: string;
   bags: number;
 }
 
-export type Maybe<T> = T | null
-
+export type Maybe<T> = T | null;

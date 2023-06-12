@@ -3,7 +3,12 @@ import Layout from '@/components/layouts/admin';
 import type { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
-import { allowedRoles, getAuthCredentials, hasAccess, isAuthenticated } from '@/utils/auth-utils';
+import {
+  allowedRoles,
+  getAuthCredentials,
+  hasAccess,
+  isAuthenticated,
+} from '@/utils/auth-utils';
 import { Routes } from '@/config/routes';
 import { useRouter } from 'next/router';
 import Loader from '@/components/ui/loader/loader';
@@ -18,7 +23,7 @@ export default function CreateCategoriesPage() {
     isLoading: loading,
     error,
   } = useAirportQuery({
-    id: query.id as string
+    id: query.id as string,
   });
 
   if (loading) return <Loader text="Loading Airport" />;
@@ -26,9 +31,7 @@ export default function CreateCategoriesPage() {
   return (
     <>
       <div className="flex border-b border-dashed border-border-base py-5 sm:py-8">
-        <h1 className="text-lg font-semibold text-heading">
-          Edit Airport
-        </h1>
+        <h1 className="text-lg font-semibold text-heading">Edit Airport</h1>
       </div>
       <CreateOrUpdateAirport initialValues={airport} />
     </>

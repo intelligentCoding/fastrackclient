@@ -1,17 +1,16 @@
-import { Routes } from "@/config/routes";
-import { useCommodityMappingQuery } from "@/data/commodity-mapping";
-import { SortOrder } from "@/types";
-import { Menu, Transition } from "@headlessui/react";
-import classNames from "classnames";
-import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
-import Card from "../common/card";
-import ErrorMessage from "../ui/error-message";
-import LinkButton from "../ui/link-button";
-import Loader from "../ui/loader/loader";
+import { Routes } from '@/config/routes';
+import { useCommodityMappingQuery } from '@/data/commodity-mapping';
+import { SortOrder } from '@/types';
+import { Menu, Transition } from '@headlessui/react';
+import classNames from 'classnames';
+import { useRouter } from 'next/router';
+import { Fragment, useState } from 'react';
+import Card from '../common/card';
+import ErrorMessage from '../ui/error-message';
+import LinkButton from '../ui/link-button';
+import Loader from '../ui/loader/loader';
 // import AirportsList from "./airport-list";
-import CommodityMapList from './commodityMap-list'
-
+import CommodityMapList from './commodityMap-list';
 
 export default function Airports() {
   const router = useRouter();
@@ -32,7 +31,11 @@ export default function Airports() {
   //   setPage(current);
   // }
 
-  const { commodityMap, loading: fetchingServices, error } = useCommodityMappingQuery ({
+  const {
+    commodityMap,
+    loading: fetchingServices,
+    error,
+  } = useCommodityMappingQuery({
     mappedTo: searchTerm,
     orderBy,
     sortedBy,
@@ -40,7 +43,6 @@ export default function Airports() {
   if (fetchingServices) return <Loader text="Loading Maps" />;
 
   if (error) return <ErrorMessage message={error.message} />;
-
 
   return (
     <>
@@ -67,9 +69,7 @@ export default function Airports() {
             href={`/${Routes.commodity_mapping}/create`}
             className="h-12 ms-4 md:ms-6"
           >
-            <span>
-              + Add Destination
-            </span>
+            <span>+ Add Destination</span>
           </LinkButton>
           <Transition
             as={Fragment}
@@ -83,7 +83,7 @@ export default function Airports() {
             <Menu.Items
               as="ul"
               className={classNames(
-                'shadow-700 absolute z-50 mt-2 w-52 overflow-hidden rounded border border-border-200 bg-light py-2 focus:outline-none ltr:right-0 ltr:origin-top-right rtl:left-0 rtl:origin-top-left'
+                'shadow-700 absolute z-50 mt-2 w-52 overflow-hidden rounded border border-border-200 bg-light py-2 focus:outline-none ltr:right-0 ltr:origin-top-right rtl:left-0 rtl:origin-top-left',
               )}
             >
               {/* <Menu.Item>
@@ -106,18 +106,15 @@ export default function Airports() {
           </Transition>
         </Menu>
       </Card>
-      {
-        commodityMap && (
-
-          <CommodityMapList
+      {commodityMap && (
+        <CommodityMapList
           commodityMap={commodityMap || []}
           // paginatorInfo={paginatorInfo}
           // onPagination={handlePagination}
           // onOrder={setOrder}
           // onSort={setColumn}
-          />
-        )
-      }
+        />
+      )}
     </>
   );
 }

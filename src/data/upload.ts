@@ -15,17 +15,16 @@ export const useUploadMutation = () => {
       onSettled: () => {
         queryClient.invalidateQueries(API_ENDPOINTS.FILE_UPLOAD);
       },
-    }
+    },
   );
 };
 export const useManifestListQuery = () => {
   const { data, error, isLoading } = useQuery<getManifestFile[], Error>(
     [API_ENDPOINTS.FILE_UPLOAD],
-    () =>
-    getFile.getList(),
+    () => getFile.getList(),
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   return {

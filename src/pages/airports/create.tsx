@@ -10,7 +10,9 @@ import { ADMIN } from '@/utils/constants';
 import AppLayout from '@/components/layouts/app';
 import { Routes } from '@/config/routes';
 
-const CreateOrUpdateAirport = dynamic(() => import('@/components/airports/airport-form'));
+const CreateOrUpdateAirport = dynamic(
+  () => import('@/components/airports/airport-form'),
+);
 
 export default function Airport({
   userPermissions,

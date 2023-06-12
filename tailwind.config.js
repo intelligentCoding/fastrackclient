@@ -96,7 +96,7 @@ module.exports = {
 
       boxShadow: {
         base: 'rgba(0, 0, 0, 0.16) 0px 4px 16px',
-        translatePanel: '0px 15px 50px rgba(71, 92, 111, 0.15)'
+        translatePanel: '0px 15px 50px rgba(71, 92, 111, 0.15)',
       },
       gridTemplateColumns: {
         fit: 'repeat(auto-fit, minmax(0, 1fr))',

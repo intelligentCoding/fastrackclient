@@ -1,18 +1,18 @@
 import Input from '@/components/ui/input';
-import {
-  useForm,
-} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Button from '@/components/ui/button';
 import Card from '@/components/common/card';
 import Description from '@/components/ui/description';
 import { useRouter } from 'next/router';
 
-
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { serviceValidationSchema } from './cusotmer-validation-schema';
 import { Customer, CustomerFormValues } from '@/types';
-import { useCustomerMutation, useUpdateCustomerMutation } from '@/data/customer';
+import {
+  useCustomerMutation,
+  useUpdateCustomerMutation,
+} from '@/data/customer';
 import ServiceInput from '../common/ServiceInput';
 import BrokerInput from '../common/BrokerInput';
 
@@ -35,15 +35,13 @@ const defaultValues = {
   broker: {
     code: '',
     id: '',
-  }
+  },
 };
 
 type IProps = {
   initialValues?: Partial<Customer> | undefined;
 };
-export default function CreateOrUpdateCustomers({
-  initialValues,
-}: IProps) {
+export default function CreateOrUpdateCustomers({ initialValues }: IProps) {
   const router = useRouter();
   const {
     register,
@@ -55,36 +53,34 @@ export default function CreateOrUpdateCustomers({
   } = useForm<CustomerFormValues>({
     // shouldUnregister: true,
     //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-    defaultValues: initialValues
-      ? initialValues
-      : defaultValues,
+    // @ts-ignore
+    defaultValues: initialValues ? initialValues : defaultValues,
     resolver: yupResolver(serviceValidationSchema),
   });
-  const { mutate: createCustomer, isLoading: creating } =
-    useCustomerMutation();
+  const { mutate: createCustomer, isLoading: creating } = useCustomerMutation();
   const { mutate: updateCustomer, isLoading: updating } =
     useUpdateCustomerMutation();
 
   const onSubmit = async (values: CustomerFormValues) => {
     if (!initialValues) {
       createCustomer({
-        ...values
-      })
+        ...values,
+      });
     } else {
       updateCustomer({
         ...values,
-        id: initialValues.id!
-      })
+        id: initialValues.id!,
+      });
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} id="formName">
-
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
-          title={initialValues ? 'Update Customer Details' : 'Create a Customer'}
+          title={
+            initialValues ? 'Update Customer Details' : 'Create a Customer'
+          }
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5 "
         />
 
@@ -166,26 +162,32 @@ export default function CreateOrUpdateCustomers({
             variant="outline"
             className="mb-5"
           />
-
         </Card>
-        
       </div>
-          <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
-            <Description
-              title="Service"
-              details="Select a service for this customer"
-              className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pr-4 md:w-1/3 md:pr-5"
-            />
-            <ServiceInput initialValues={initialValues} control={control} errors={errors} />
-          </div>
-          <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
-            <Description
-              title="Broker"
-              details="Select a Broker for this customer"
-              className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pr-4 md:w-1/3 md:pr-5"
-            />
-            <BrokerInput initialValues={initialValues} control={control} errors={errors} />
-          </div>
+      <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
+        <Description
+          title="Service"
+          details="Select a service for this customer"
+          className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pr-4 md:w-1/3 md:pr-5"
+        />
+        <ServiceInput
+          initialValues={initialValues}
+          control={control}
+          errors={errors}
+        />
+      </div>
+      <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
+        <Description
+          title="Broker"
+          details="Select a Broker for this customer"
+          className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pr-4 md:w-1/3 md:pr-5"
+        />
+        <BrokerInput
+          initialValues={initialValues}
+          control={control}
+          errors={errors}
+        />
+      </div>
       <div className="mb-4 text-end">
         {initialValues && (
           <Button
@@ -199,9 +201,7 @@ export default function CreateOrUpdateCustomers({
         )}
 
         <Button loading={creating || updating} id="formName">
-          {initialValues
-            ? 'Update'
-            : 'Create'}
+          {initialValues ? 'Update' : 'Create'}
         </Button>
       </div>
     </form>

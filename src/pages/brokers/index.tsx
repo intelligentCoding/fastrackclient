@@ -23,12 +23,12 @@ export default function Service({
 }) {
   const socket = useContext(WebsocketContext);
   const [value, setValue] = useState('');
-    const [messages, setMessages] = useState<MessagePayload[]>([]);
+  const [messages, setMessages] = useState<MessagePayload[]>([]);
   useEffect(() => {
     socket.on('connect', () => {
       // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-      console.log("connected")
+      // @ts-ignore
+      console.log('connected');
     });
     socket.on('onMessage', (newMessage: MessagePayload) => {
       setMessages((prev) => [...prev, newMessage]);
@@ -39,7 +39,6 @@ export default function Service({
     };
   }, []);
   if (userPermissions?.includes(ADMIN)) {
-
     return <Brokers />;
   }
 }

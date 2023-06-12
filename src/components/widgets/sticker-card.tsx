@@ -29,7 +29,7 @@ const StickerCard = ({
         </div>
 
         <div
-          className="ms-3 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gray-200"
+          className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gray-200 ms-3"
           style={iconBgStyle}
         >
           {icon}

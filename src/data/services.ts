@@ -12,15 +12,16 @@ import { GetParams, ServiceQueryOptions, Services } from '@/types';
 import Router from 'next/router';
 import { Service } from 'next-seo/lib/types';
 
-
-export const useServicesQuery = (options: Partial<ServiceQueryOptions> = {}) => {
+export const useServicesQuery = (
+  options: Partial<ServiceQueryOptions> = {},
+) => {
   const { data, error, isLoading } = useQuery<Services[], Error>(
     [API_ENDPOINTS.SERVICES, options],
     ({ queryKey, pageParam }) =>
       serviceClient.all(Object.assign({}, queryKey[1], pageParam)),
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   return {
@@ -35,7 +36,7 @@ export const useServiceMutation = () => {
   return useMutation(serviceClient.create, {
     onSuccess: () => {
       Router.push(Routes.services);
-      toast.success("Service has been created");
+      toast.success('Service has been created');
     },
     // Always refetch after error or success:å
     onSettled: () => {
@@ -49,7 +50,7 @@ export const useUpdateServiceMutation = () => {
   return useMutation(serviceClient.update, {
     onSuccess: () => {
       Router.push(Routes.services);
-      toast.success("Service has been updated");
+      toast.success('Service has been updated');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -58,11 +59,10 @@ export const useUpdateServiceMutation = () => {
   });
 };
 
-
 export const useServiceQuery = ({ id }: GetParams) => {
   const { data, error, isLoading } = useQuery<Services, Error>(
     [API_ENDPOINTS.SERVICES, { id }],
-    () => serviceClient.get({ id })
+    () => serviceClient.get({ id }),
   );
 
   return {
@@ -78,7 +78,7 @@ export const useDeleteServiceMutation = () => {
 
   return useMutation(serviceClient.delete, {
     onSuccess: () => {
-      toast.success("Successfully deleted the service");
+      toast.success('Successfully deleted the service');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -86,7 +86,3 @@ export const useDeleteServiceMutation = () => {
     },
   });
 };
-
-
-
-

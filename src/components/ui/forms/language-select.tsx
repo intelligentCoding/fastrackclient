@@ -1,4 +1,3 @@
-
 export default function LanguageSelect() {
   return <div>LanguageSelect</div>;
 }

@@ -5,7 +5,6 @@ import Button from '@/components/ui/button';
 import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-
 import * as yup from 'yup';
 import { useUpdateCheckbookMutation } from '@/data/checkbook';
 import {
@@ -40,7 +39,7 @@ export default function CheckbookEditText() {
     resolver: yupResolver(
       yup.object().shape({
         updatedText: yup.string().required('Text field is required'),
-      })
+      }),
     ),
   });
   const { mutate: editTextField, isLoading: updating } =

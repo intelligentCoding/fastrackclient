@@ -13,8 +13,15 @@ import { uldValidationSchema } from './uld-validation-schema';
 import { useUldMutation, useUpdateUldMutation } from '@/data/uld';
 import TextArea from '../ui/text-area';
 import Checkbox from '../ui/checkbox/checkbox';
-import { useCheckbookModalAction, useCheckbookModalState } from '../ui/checkbook-modal/modal.context';
-import { QueryObserverResult, RefetchOptions, RefetchQueryFilters } from 'react-query';
+import {
+  useCheckbookModalAction,
+  useCheckbookModalState,
+} from '../ui/checkbook-modal/modal.context';
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+} from 'react-query';
 
 type FormValues = {
   UldNumber: string;
@@ -65,8 +72,8 @@ export default function CreateOrUpdateUld({
 
   const { mutate: createUld, isLoading: creating } = useUldMutation();
   const { mutate: updateUld, isLoading: updating } = useUpdateUldMutation();
-  const {data} = useCheckbookModalState()
-  const {openCheckbookModal, closeCheckbookModal} = useCheckbookModalAction()
+  const { data } = useCheckbookModalState();
+  const { openCheckbookModal, closeCheckbookModal } = useCheckbookModalAction();
   const onSubmit = async (values: FormValues) => {
     const input = {
       UldNumber: values.UldNumber,
@@ -82,7 +89,7 @@ export default function CreateOrUpdateUld({
         checkbookId,
       });
       // closeCheckbookModal()
-      setEditMode()
+      setEditMode();
       // openCheckbookModal('ULD', {
       //   id: data.id,
       // })
@@ -91,7 +98,7 @@ export default function CreateOrUpdateUld({
         ...input,
         id: initialValues.id!,
       });
-      refetch()
+      refetch();
     }
   };
 
@@ -120,13 +127,13 @@ export default function CreateOrUpdateUld({
             type="number"
           />
           <Checkbox
-          label='Is it pure?'
+            label="Is it pure?"
             {...register('isPure')}
             error={errors.isPure?.message!}
             className="mb-5"
           />
           <Checkbox
-          label='Is it picked up?'
+            label="Is it picked up?"
             {...register('isPickedUp')}
             error={errors.isPickedUp?.message!}
             className="mb-5"
@@ -150,17 +157,17 @@ export default function CreateOrUpdateUld({
         </Card>
       </div>
       <div className="mb-4 text-end">
-          <Button
-            variant="outline"
-            onClick={(event) => {
-              event.preventDefault();
-              setEditMode()
-            }}
-            className="me-4"
-            type="button"
-          >
-            Go Back
-          </Button>
+        <Button
+          variant="outline"
+          onClick={(event) => {
+            event.preventDefault();
+            setEditMode();
+          }}
+          className="me-4"
+          type="button"
+        >
+          Go Back
+        </Button>
 
         <Button loading={creating || updating} id="formName">
           {initialValues ? 'Update' : 'Create'}
@@ -169,5 +176,3 @@ export default function CreateOrUpdateUld({
     </form>
   );
 }
-
-

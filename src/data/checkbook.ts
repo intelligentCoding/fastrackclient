@@ -8,27 +8,34 @@ import { toast } from 'react-toastify';
 import { API_ENDPOINTS } from './client/api-endpoints';
 import { userClient } from './client/user';
 import { serviceClient } from './client/services';
-import { Checkbook, CheckbookQueryOption, GetParams, ServiceQueryOptions, Services } from '@/types';
+import {
+  Checkbook,
+  CheckbookQueryOption,
+  GetParams,
+  ServiceQueryOptions,
+  Services,
+} from '@/types';
 import Router from 'next/router';
 import { Service } from 'next-seo/lib/types';
 import { checkbookClient } from './client/checkbook';
 
-
-export const useCheckbookQuery = (options: Partial<CheckbookQueryOption> = {}) => {
+export const useCheckbookQuery = (
+  options: Partial<CheckbookQueryOption> = {},
+) => {
   const { data, error, isLoading, refetch } = useQuery<Checkbook[], Error>(
     [API_ENDPOINTS.CHECKBOOK, options],
     ({ queryKey, pageParam }) =>
       checkbookClient.all(Object.assign({}, queryKey[1], pageParam)),
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   return {
     checkbooks: data ?? [],
     error,
     loading: isLoading,
-    refetch
+    refetch,
   };
 };
 
@@ -51,7 +58,7 @@ export const useUpdateCheckbookMutation = () => {
   return useMutation(checkbookClient.update, {
     onSuccess: () => {
       // Router.push(Routes.services);
-      toast.success("Checkbook has been updated");
+      toast.success('Checkbook has been updated');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -64,7 +71,7 @@ export const useDeleteCheckbookMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(checkbookClient.delete, {
     onSuccess: () => {
-      toast.success("Successfully deleted the checkbook");
+      toast.success('Successfully deleted the checkbook');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -72,7 +79,3 @@ export const useDeleteCheckbookMutation = () => {
     },
   });
 };
-
-
-
-

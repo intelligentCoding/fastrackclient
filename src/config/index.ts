@@ -1,4 +1,3 @@
-
 export const Config = {
   defaultLanguage: process.env.NEXT_PUBLIC_DEFAULT_LANGUAGE ?? 'en',
   availableLanguages: process.env.NEXT_PUBLIC_AVAILABLE_LANGUAGES

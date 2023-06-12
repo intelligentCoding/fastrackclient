@@ -46,7 +46,7 @@ const NotificationMenu: React.FC<MenuType> = ({ data }) => {
       >
         <Bell className="h-5 w-5" />
 
-        <div className="end-0 absolute -top-1 flex text-green-500">
+        <div className="absolute -top-1 flex text-green-500 end-0">
           <Dot />
         </div>
       </button>
@@ -100,7 +100,7 @@ const NotificationMenu: React.FC<MenuType> = ({ data }) => {
               </a>
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence>,
       )}
     </>
   );

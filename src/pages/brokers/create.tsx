@@ -10,7 +10,9 @@ import { ADMIN } from '@/utils/constants';
 import AppLayout from '@/components/layouts/app';
 import { Routes } from '@/config/routes';
 
-const CreateOrUpdateBroker = dynamic(() => import('@/components/brokers/broker-form'));
+const CreateOrUpdateBroker = dynamic(
+  () => import('@/components/brokers/broker-form'),
+);
 
 export default function Broker({
   userPermissions,

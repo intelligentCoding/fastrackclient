@@ -7,11 +7,9 @@ import {
 import { API_ENDPOINTS } from './api-endpoints';
 import { crudFactory } from './curd-factory';
 
-
-
 export const checkbookClient = {
   ...crudFactory<Checkbook, QueryOptions, CreateCheckbookInput>(
-    API_ENDPOINTS.CHECKBOOK
+    API_ENDPOINTS.CHECKBOOK,
   ),
   // paginated: ({ type, name, ...params }: Partial<CategoryQueryOptions>) => {
   //   return HttpClient.get<CategoryPaginator>(API_ENDPOINTS.SERVICES, {

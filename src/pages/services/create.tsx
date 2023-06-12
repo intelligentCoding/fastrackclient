@@ -10,7 +10,9 @@ import { ADMIN } from '@/utils/constants';
 import AppLayout from '@/components/layouts/app';
 import { Routes } from '@/config/routes';
 
-const CreateOrUpdateServices = dynamic(() => import('@/components/services/service-form'));
+const CreateOrUpdateServices = dynamic(
+  () => import('@/components/services/service-form'),
+);
 
 export default function Service({
   userPermissions,

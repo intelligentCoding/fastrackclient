@@ -1,4 +1,3 @@
-
 import { Table } from '@/components/ui/table';
 import ActionButtons from '@/components/common/action-buttons';
 
@@ -17,11 +16,11 @@ type IProps = {
 
 const AirportsList = ({
   airports,
-  // paginatorInfo,
-  // onPagination,
-  // onSort,
-  // onOrder,
-}: IProps) => {
+}: // paginatorInfo,
+// onPagination,
+// onSort,
+// onOrder,
+IProps) => {
   // const { data, paginatorInfo } = orders! ?? {};
   const router = useRouter();
   const { t } = useTranslation();
@@ -52,21 +51,21 @@ const AirportsList = ({
 
   const columns = [
     {
-      title: "name",
+      title: 'name',
       dataIndex: 'name',
       key: 'name',
       align: 'center',
       width: 150,
     },
     {
-      title: "code",
+      title: 'code',
       dataIndex: 'code',
       key: 'code',
       align: 'center',
     },
 
     {
-      title: "Actions",
+      title: 'Actions',
       dataIndex: 'id',
       key: 'actions',
       align: 'center',
@@ -88,7 +87,7 @@ const AirportsList = ({
       <div className="mb-6 overflow-hidden rounded shadow">
         <Table
           //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+          // @ts-ignore
           columns={columns}
           emptyText="No Services available"
           data={airports!}
@@ -100,7 +99,7 @@ const AirportsList = ({
           }}
         />
       </div>
-{/* 
+      {/* 
       {!!paginatorInfo?.total && (
         <div className="flex items-center justify-end">
           <Pagination
