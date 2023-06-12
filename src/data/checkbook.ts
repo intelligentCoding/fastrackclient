@@ -53,6 +53,25 @@ export const useUpdateCheckbookMutation = () => {
       // Router.push(Routes.services);
       toast.success("Checkbook has been updated");
     },
+    onError:(error, variables, context) => {
+      toast.error(error.response.data.message);
+    },
+    // Always refetch after error or success:
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.CHECKBOOK);
+    },
+  });
+};
+
+export const useGetCheckbookMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation(checkbookClient.get, {
+    onSuccess: () => {
+      
+    },
+    onError:(error, variables, context) => {
+      toast.error(error.response.data.message);
+    },
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.CHECKBOOK);

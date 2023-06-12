@@ -12,13 +12,14 @@ import {
 export const allowedRoles = [OFFICE, ADMIN, VIEW];
 export const adminOnly = [ADMIN];
 
-export function setAuthCredentials(permissions: string[], token: string) {
-  Cookie.set(AUTH_CRED, JSON.stringify({ token, permissions }));
+export function setAuthCredentials(permissions: string[], token: string, id: string) {
+  Cookie.set(AUTH_CRED, JSON.stringify({ token, permissions, id }));
 }
 
 export function getAuthCredentials(context?: any): {
   permissions: string[] | null;
-  token: string | null
+  token: string | null;
+  id: string | null
 } {
   let authCred;
   if (context) {
@@ -29,7 +30,7 @@ export function getAuthCredentials(context?: any): {
   if (authCred) {
     return JSON.parse(authCred);
   }
-  return { permissions: null, token: null };
+  return { permissions: null, token: null, id: null };
 }
 
 export function parseSSRCookie(context: any) {

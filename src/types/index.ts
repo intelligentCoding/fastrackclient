@@ -177,6 +177,7 @@ export interface CreateCheckbookInput {
       csvFileUrl: string
     }
   }
+  isEditing: boolean
 }
 export interface Checkbook extends CreateCheckbookInput{
   id: string;
@@ -185,7 +186,9 @@ export interface Checkbook extends CreateCheckbookInput{
   updatedAt: string;
   updatedBy: string | null;
   deletedAt: string | null;
+  isEditing: boolean | false;
   uld: Uld[] | undefined
+  isEditingBy: User | undefined
 }
 
 

@@ -1,12 +1,8 @@
-import { Table } from '@/components/ui/table';
-import ActionButtons from '@/components/common/action-buttons';
-
 import { Checkbook } from '@/types';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import {
-  CheckbookModalProvider,
   useCheckbookModalAction,
 } from '../ui/checkbook-modal/modal.context';
 import Badge from '../ui/badge/badge';
@@ -14,9 +10,13 @@ import { CloseFillIcon } from '../icons/close-fill';
 import { CheckMarkCircle } from '../icons/checkmark-circle';
 import cn from 'classnames';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { socket } from '@/context/WebsocketContext';
 import { toast } from 'react-toastify';
+import {
+  useGetCheckbookMutation,
+} from '@/data/checkbook';
+import { getAuthCredentials } from '@/utils/auth-utils';
 type IProps = {
   checkbook: Checkbook[] | undefined;
 };
@@ -78,6 +78,10 @@ const isToday = (someDate: Date) => {
 };
 
 const CheckbookList = ({ checkbook }: IProps) => {
+  const { id } = getAuthCredentials();
+
+  const loggedInUserId = id;
+
   // const { data, paginatorInfo } = orders! ?? {};
   const router = useRouter();
   const { t } = useTranslation();
@@ -91,8 +95,8 @@ const CheckbookList = ({ checkbook }: IProps) => {
     });
 
     socket.on('newCheckbookCreated', (newMessage) => {
-      toast.info("New checkbook entry added, pleae refresh the page.")
-      checkbook?.push(newMessage)
+      toast.info('New checkbook entry added, pleae refresh the page.');
+      checkbook?.push(newMessage);
     });
     return () => {
       socket.off('connect');
@@ -122,7 +126,60 @@ const CheckbookList = ({ checkbook }: IProps) => {
   //     });
   //   },
   // });
+  const [checkbookConflictErrorMessage, setCheckbookConflictErrorMessage] =
+    useState('Someone is editing the checkbook; please wait.');
+
   const { openCheckbookModal } = useCheckbookModalAction();
+
+  const { mutateAsync: getCheckbookDetail, data: checkbookInfo } =
+    useGetCheckbookMutation();
+
+  const [clikedCheckbook, setClikedCheckbook] = useState<Checkbook | null>(
+    null
+  );
+
+  /**
+   * Get checkbook details
+   * @param checkbookId
+   */
+  const handleGetCheckbook = async (checkbookId: string) => {
+    const checkbookInfo = await getCheckbookDetail({
+      id: checkbookId,
+    });
+
+    if (
+      checkbookInfo &&
+      checkbookInfo?.isEditing &&
+      loggedInUserId != checkbookInfo.isEditingBy?.id
+    ) {
+      toast.error(checkbookConflictErrorMessage);
+      setClikedCheckbook(null);
+      return false;
+    } else {
+      setClikedCheckbook(checkbookInfo);
+    }
+  };
+
+  /**
+   * Check if anyone is editing current checkbook
+   * @param checkbook
+   * @returns
+   */
+  const isSomeoneEditing = (checkbook: Checkbook) => {
+    return (clikedCheckbook?.isEditing || checkbook.isEditing) &&
+      loggedInUserId != checkbook.isEditingBy?.id
+      ? true
+      : false;
+  };
+
+  /**
+   * handle clear checkbook info
+   */
+  const handleClearCheckbookInfo = () => {
+    // Reset edit button to normal state
+    setClikedCheckbook(null);
+  };
+
   return (
     <div className="mb-6  overflow-scroll rounded shadow">
       <TableWrapper>
@@ -167,98 +224,115 @@ const CheckbookList = ({ checkbook }: IProps) => {
                   <tr className={rowClass} key={checkbooks.id}>
                     <td
                       className="border-grey-light border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('CARD_NAME', {
                           id: checkbooks.id,
                           updatedText: checkbooks.cardName,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {checkbooks.cardName}
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('ISC', {
                           id: checkbooks.id,
                           updatedText: checkbooks.isc,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {checkbooks.isc}
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('ISC_PAID_TO', {
                           id: checkbooks.id,
                           updatedText: checkbooks.iscPaidTo,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {checkbooks.iscPaidTo}
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('DATE_PAID_ISC', {
                           id: checkbooks.id,
                           updatedDate: checkbooks.datePaidIsc,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {checkbooks.datePaidIsc &&
                         new Date(checkbooks.datePaidIsc).toDateString()}
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('RUNNER_NUMBER', {
                           id: checkbooks.id,
                           updatedText: checkbooks.runnerNumber,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {checkbooks.runnerNumber}
                     </td>
-                    <td
-                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                    >
+                    <td className="border-grey-light truncate border p-3 hover:bg-gray-100">
                       {' '}
-                      {`${checkbooks.houseAwb?.slice(0,3)} ${checkbooks.houseAwb?.slice(3)}`}
+                      {`${checkbooks.houseAwb?.slice(
+                        0,
+                        3
+                      )} ${checkbooks.houseAwb?.slice(3)}`}
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('FLIGHT_CODE', {
                           id: checkbooks.id,
                           updatedText: checkbooks.flightCode,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {' '}
                       {checkbooks.flightCode}
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('FLIGHT_STATUS', {
                           id: checkbooks.id,
                           updatedText: checkbooks.flightStatus,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {' '}
                       {checkbooks.flightStatus}
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('ARRIVAL_DATE', {
                           id: checkbooks.id,
                           updatedDate: checkbooks.arrivalDate,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {' '}
                       {checkbooks.arrivalDate &&
@@ -266,12 +340,14 @@ const CheckbookList = ({ checkbook }: IProps) => {
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('PICKEDUP_DATE', {
                           id: checkbooks.id,
                           updatedDate: checkbooks.pickedUpDate,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {' '}
                       {checkbooks.pickedUpDate &&
@@ -279,12 +355,14 @@ const CheckbookList = ({ checkbook }: IProps) => {
                     </td>
                     <td
                       className="border-grey-light items-center truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('IS_PICKUP_ORDER_DONE', {
                           id: checkbooks.id,
                           updatedBoolean: checkbooks.isPickupOrderDone,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {' '}
                       {!checkbooks.isPickupOrderDone && (
@@ -300,36 +378,42 @@ const CheckbookList = ({ checkbook }: IProps) => {
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('BAGS', {
                           id: checkbooks.id,
                           updatedText: checkbooks.bags,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {' '}
                       {checkbooks.bags}
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('WEIGHT', {
                           id: checkbooks.id,
                           updatedText: checkbooks.weight,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {' '}
                       {checkbooks.weight}
                     </td>
                     <td
                       className="border-grey-light  border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('ULD', {
                           id: checkbooks.id,
                           updatedText: checkbooks.uld,
-                        })
-                      }
+                        });
+                      }}
                     >
                       <div className="flex flex-col gap-1">
                         {checkbooks.uld?.map((uld) => {
@@ -342,12 +426,14 @@ const CheckbookList = ({ checkbook }: IProps) => {
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('IS_EXAM', {
                           id: checkbooks.id,
                           updatedBoolean: checkbooks.isExam,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {' '}
                       {checkbooks.isExam && (
@@ -359,36 +445,43 @@ const CheckbookList = ({ checkbook }: IProps) => {
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
+
                         openCheckbookModal('NUMBER_OF_PIECES_EXAM', {
                           id: checkbooks.id,
                           updatedText: checkbooks.numberOfPiecesExam,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {' '}
                       {checkbooks.numberOfPiecesExam}
                     </td>
                     <td
                       className="border-grey-light max-w-[100px]  truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('REMARKS', {
                           id: checkbooks.id,
                           updatedText: checkbooks.remarks,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {' '}
                       {checkbooks.remarks}
                     </td>
                     <td
                       className="border-grey-light max-w-[100px] truncate border p-3 hover:bg-gray-100"
-                      onClick={() =>
+                      onClick={() => {
+                        if (isSomeoneEditing(checkbooks))
+                          return toast.error(checkbookConflictErrorMessage);
                         openCheckbookModal('LABEL', {
                           id: checkbooks.id,
                           updatedText: checkbooks.label,
-                        })
-                      }
+                        });
+                      }}
                     >
                       {' '}
                       {checkbooks.label}
@@ -451,8 +544,7 @@ const CheckbookList = ({ checkbook }: IProps) => {
                       </div>
                     </td>
 
-                    <td
-                      className="border-grey-light cursor-pointer border  p-3 text-white hover:bg-gray-100">
+                    <td className="border-grey-light cursor-pointer border  p-3 text-white hover:bg-gray-100">
                       <button
                         type="button"
                         onClick={() =>
@@ -460,16 +552,23 @@ const CheckbookList = ({ checkbook }: IProps) => {
                             id: checkbooks.id,
                           })
                         }
-                        className="bg-red-400 hover:bg-red-600 focus:bg-red-600 active:bg-primary-700 mb-2 block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                        className="active:bg-primary-700 mb-2 block w-full rounded bg-red-400 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-red-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-red-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                       >
                         Delete
                       </button>
+
                       <button
                         type="button"
-                        className="bg-blue-400 border-primary text-primary hover:border-blue-600 hover:text-blue-600 focus:border-blue-600 focus:text-primary-600 active:border-primary-700 active:text-primary-700 mb-2 block w-full rounded border-2 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out hover:bg-neutral-500 hover:bg-opacity-10 focus:outline-none focus:ring-0 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                        className="border-primary text-primary focus:text-primary-600 active:border-primary-700 active:text-primary-700 mb-2 block w-full rounded border-2 bg-blue-400 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out hover:border-blue-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-blue-600 focus:border-blue-600 focus:outline-none focus:ring-0 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
                         data-te-ripple-init
+                        onClick={() => {
+                          if (clikedCheckbook?.id != checkbooks.id) {
+                            return handleGetCheckbook(checkbooks.id);
+                          }
+                          return handleClearCheckbookInfo();
+                        }}
                       >
-                        Edit
+                        {clikedCheckbook?.id != checkbooks.id ? 'Edit' : 'Done'}
                       </button>
                     </td>
                   </tr>
