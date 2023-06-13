@@ -85,6 +85,11 @@ export const siteSettings = {
         label: 'ULDs',
         icon: 'CategoriesIcon',
       },
+      {
+        href: Routes.description_list,
+        label: 'Description List',
+        icon: "CategoriesIcon"
+      }
     ],
   },
   product: {
