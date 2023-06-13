@@ -121,6 +121,11 @@ export interface Users {
 export interface Roles {
   name: string,
   description: string
+}
+export interface LastMileProviders {
+  name: string;
+  email: string;
+  code: string;
   createdBy: string | null;
   updatedBy: string | null;
   deletedAt: string | null;
@@ -149,6 +154,12 @@ export interface CreateUsersInput {
 }
 export interface RoleInput {
   id: string
+}
+
+export interface CreateLastMileProvidersInput {
+  name: string;
+  code: string;
+  email: string;
 }
 
 export interface Airports {
@@ -264,6 +275,13 @@ export interface UsersQueryOptions extends QueryOptions {
   email: string;
   role: string
 }
+
+export interface LastMileProviderQueryOptions extends QueryOptions {
+  name: string;
+  code: string;
+  email: string;
+}
+
 export interface CreateAirportsInput {
   name: string;
   code: string;
@@ -452,3 +470,14 @@ export interface ManifestFormValuesExpress {
 
 export type Maybe<T> = T | null
 
+export interface Description {
+  id: string,
+  descRaw: string,
+  descProcessed: string
+}
+
+export interface CustomDescription {
+  descriptionId: string,
+  descRaw: string,
+  userEnteredValue: string
+}

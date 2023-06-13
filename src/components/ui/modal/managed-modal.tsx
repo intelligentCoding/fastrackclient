@@ -1,3 +1,4 @@
+import LastMileProvidersDeleteView from '@/components/lastMileProvider/last-mile-provider-delete-view';
 import Modal from '@/components/ui/modal/modal';
 import dynamic from 'next/dynamic';
 import { MODAL_VIEWS, useModalAction, useModalState } from './modal.context';
@@ -29,6 +30,8 @@ function renderModal(view: MODAL_VIEWS | undefined, data: any) {
       return <BrokerDeleteView />
     case 'DELETE_CUSTOMER':
       return <CustomereDeleteView />
+    case 'DELETE_LAST_MILE_PROVIDER':
+      return <LastMileProvidersDeleteView/>
     default:
       return null;
   }
