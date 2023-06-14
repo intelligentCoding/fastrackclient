@@ -6,19 +6,24 @@ import { useRouter } from 'next/router';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { API_ENDPOINTS } from './client/api-endpoints';
-import {  LastMileProviders, LastMileProviderQueryOptions, GetParams } from '@/types';
+import {
+  LastMileProviders,
+  LastMileProviderQueryOptions,
+  GetParams,
+} from '@/types';
 import Router from 'next/router';
 import { lastMileProviderClient } from './client/last-mile-provider';
 
-
-export const useLastMileProvidersQuery = (options: Partial<LastMileProviderQueryOptions> = {}) => {
+export const useLastMileProvidersQuery = (
+  options: Partial<LastMileProviderQueryOptions> = {},
+) => {
   const { data, error, isLoading } = useQuery<LastMileProviders[], Error>(
     [API_ENDPOINTS.LASTMILEPROVIDER, options],
     ({ queryKey, pageParam }) =>
-        lastMileProviderClient.all(Object.assign({}, queryKey[1], pageParam)),
+      lastMileProviderClient.all(Object.assign({}, queryKey[1], pageParam)),
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   return {
@@ -33,7 +38,7 @@ export const useLastMileProviderMutation = () => {
   return useMutation(lastMileProviderClient.create, {
     onSuccess: () => {
       Router.push(Routes.lastmileprovider);
-      toast.success("Last mile provider has been created");
+      toast.success('Last mile provider has been created');
     },
     // Always refetch after error or success:å
     onSettled: () => {
@@ -47,23 +52,22 @@ export const useUpdateLastMileProviderMutation = () => {
   return useMutation(lastMileProviderClient.update, {
     onSuccess: () => {
       Router.push(Routes.lastmileprovider);
-      toast.success("Last mile provider has been updated");
+      toast.success('Last mile provider has been updated');
     },
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.LASTMILEPROVIDER);
     },
     onError: (error) => {
-      toast.error("Thre was an error updating last mile provider");
+      toast.error('Thre was an error updating last mile provider');
     },
   });
 };
 
-
 export const useLastMileProviderQuery = ({ id }: GetParams) => {
   const { data, error, isLoading } = useQuery<LastMileProviders, Error>(
     [API_ENDPOINTS.LASTMILEPROVIDER, { id }],
-    () => lastMileProviderClient.get({ id })
+    () => lastMileProviderClient.get({ id }),
   );
 
   return {
@@ -77,18 +81,14 @@ export const useDeleteLastMileProviderMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(lastMileProviderClient.delete, {
     onSuccess: () => {
-      toast.success("Successfully deleted the last mile provider");
+      toast.success('Successfully deleted the last mile provider');
     },
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.LASTMILEPROVIDER);
     },
     onError: (error) => {
-      toast.error("Thre was an error updating last mile provider");
+      toast.error('Thre was an error updating last mile provider');
     },
   });
 };
-
-
-
-

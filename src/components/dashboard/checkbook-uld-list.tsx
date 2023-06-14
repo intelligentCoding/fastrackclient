@@ -8,16 +8,19 @@ import { useRouter } from 'next/router';
 import { CloseFillIcon } from '../icons/close-fill';
 import { CheckMarkCircle } from '../icons/checkmark-circle';
 import { TrashIcon } from '../icons/trash';
-import { useCheckbookModalAction, useCheckbookModalState } from '../ui/checkbook-modal/modal.context';
+import {
+  useCheckbookModalAction,
+  useCheckbookModalState,
+} from '../ui/checkbook-modal/modal.context';
 import { PencilIcon } from '../icons/pencil-icon';
 import CreateOrUpdateUld from './checkbook-uld-form';
 import Button from '../ui/button';
 
 type IProps = {
   uld: Uld[] | undefined;
-  refetch: () => void
-  setEditMode: () => void 
-  setCurrentUld:(value: Uld) => void
+  refetch: () => void;
+  setEditMode: () => void;
+  setCurrentUld: (value: Uld) => void;
 };
 
 const CheckbookUldList = ({
@@ -37,7 +40,7 @@ IProps) => {
   const { t } = useTranslation();
   const rowExpandable = (record: any) => record.children?.length;
   const { openCheckbookModal, closeCheckbookModal } = useCheckbookModalAction();
-  const {data} = useCheckbookModalState();
+  const { data } = useCheckbookModalState();
   const [sortingObj, setSortingObj] = useState<{
     sort: SortOrder;
     column: string | null;
@@ -90,10 +93,10 @@ IProps) => {
           );
         } else {
           return (
-          <div className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none">
-            <CheckMarkCircle width={20} />
-          </div>
-          )
+            <div className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none">
+              <CheckMarkCircle width={20} />
+            </div>
+          );
         }
       },
     },
@@ -112,10 +115,10 @@ IProps) => {
           );
         } else {
           return (
-          <div className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none">
-            <CheckMarkCircle width={20} />
-          </div>
-          )
+            <div className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none">
+              <CheckMarkCircle width={20} />
+            </div>
+          );
         }
       },
     },
@@ -150,25 +153,26 @@ IProps) => {
       render: (id: string, uld: Uld) => {
         return (
           <>
-          <div className="flex gap-6">
-          <div className="h-[20px] w-[20px] cursor-pointer text-red-500 transition duration-200  hover:text-red-300 focus:outline-none">
-            <TrashIcon
-              onClick={() =>
-                openCheckbookModal('DELETE_ULD', {
-                  uldId: id,
-                  id: data.id
-                })
-              }
-            />
-          </div>
-          <div className="h-[25px] w-[25px] cursor-pointer">
-            <PencilIcon onClick={() =>  {
-              setCurrentUld(uld)
-              setEditMode()
-            }
-            } />
-          </div>
-          </div>
+            <div className="flex gap-6">
+              <div className="h-[20px] w-[20px] cursor-pointer text-red-500 transition duration-200  hover:text-red-300 focus:outline-none">
+                <TrashIcon
+                  onClick={() =>
+                    openCheckbookModal('DELETE_ULD', {
+                      uldId: id,
+                      id: data.id,
+                    })
+                  }
+                />
+              </div>
+              <div className="h-[25px] w-[25px] cursor-pointer">
+                <PencilIcon
+                  onClick={() => {
+                    setCurrentUld(uld);
+                    setEditMode();
+                  }}
+                />
+              </div>
+            </div>
           </>
         );
       },
@@ -178,7 +182,6 @@ IProps) => {
   return (
     <>
       <div className="mb-6 overflow-hidden rounded shadow">
-
         <Table
           //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
@@ -192,14 +195,14 @@ IProps) => {
             rowExpandable: rowExpandable,
           }}
         />
-                  <Button
-            variant="outline"
-            onClick={() => closeCheckbookModal()}
-            className="me-4"
-            type="button"
-          >
-            Go Back
-          </Button>
+        <Button
+          variant="outline"
+          onClick={() => closeCheckbookModal()}
+          className="me-4"
+          type="button"
+        >
+          Go Back
+        </Button>
       </div>
       {/* 
       {!!paginatorInfo?.total && (

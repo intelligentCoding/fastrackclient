@@ -1,17 +1,16 @@
-import { Routes } from "@/config/routes";
-import { useServiceQuery, useServicesQuery } from "@/data/services";
-import { SortOrder } from "@/types";
-import { Menu, Transition } from "@headlessui/react";
-import classNames from "classnames";
-import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
-import Card from "../common/card";
-import { MoreIcon } from "../icons/more-icon";
-import ErrorMessage from "../ui/error-message";
-import LinkButton from "../ui/link-button";
-import Loader from "../ui/loader/loader";
-import ServicesList from "./service-list";
-
+import { Routes } from '@/config/routes';
+import { useServiceQuery, useServicesQuery } from '@/data/services';
+import { SortOrder } from '@/types';
+import { Menu, Transition } from '@headlessui/react';
+import classNames from 'classnames';
+import { useRouter } from 'next/router';
+import { Fragment, useState } from 'react';
+import Card from '../common/card';
+import { MoreIcon } from '../icons/more-icon';
+import ErrorMessage from '../ui/error-message';
+import LinkButton from '../ui/link-button';
+import Loader from '../ui/loader/loader';
+import ServicesList from './service-list';
 
 export default function Services() {
   const router = useRouter();
@@ -32,7 +31,11 @@ export default function Services() {
   //   setPage(current);
   // }
 
-  const { services, loading: fetchingServices, error } = useServicesQuery({
+  const {
+    services,
+    loading: fetchingServices,
+    error,
+  } = useServicesQuery({
     name: searchTerm,
     orderBy,
     sortedBy,
@@ -41,14 +44,11 @@ export default function Services() {
 
   if (error) return <ErrorMessage message={error.message} />;
 
-
   return (
     <>
       <Card className="mb-8 flex flex-col items-center justify-between md:flex-row">
         <div className="mb-4 md:mb-0 md:w-1/4">
-          <h1 className="text-lg font-semibold text-heading">
-            Services
-          </h1>
+          <h1 className="text-lg font-semibold text-heading">Services</h1>
         </div>
 
         {/* To Be Implemented */}
@@ -67,9 +67,7 @@ export default function Services() {
             href={`/${Routes.services}/create`}
             className="h-12 ms-4 md:ms-6"
           >
-            <span>
-              + Add Service
-            </span>
+            <span>+ Add Service</span>
           </LinkButton>
           <Transition
             as={Fragment}
@@ -83,7 +81,7 @@ export default function Services() {
             <Menu.Items
               as="ul"
               className={classNames(
-                'shadow-700 absolute z-50 mt-2 w-52 overflow-hidden rounded border border-border-200 bg-light py-2 focus:outline-none ltr:right-0 ltr:origin-top-right rtl:left-0 rtl:origin-top-left'
+                'shadow-700 absolute z-50 mt-2 w-52 overflow-hidden rounded border border-border-200 bg-light py-2 focus:outline-none ltr:right-0 ltr:origin-top-right rtl:left-0 rtl:origin-top-left',
               )}
             >
               {/* <Menu.Item>
@@ -106,18 +104,15 @@ export default function Services() {
           </Transition>
         </Menu>
       </Card>
-      {
-        services && (
-
-          <ServicesList
-            services={services || []}
+      {services && (
+        <ServicesList
+          services={services || []}
           // paginatorInfo={paginatorInfo}
           // onPagination={handlePagination}
           // onOrder={setOrder}
           // onSort={setColumn}
-          />
-        )
-      }
+        />
+      )}
     </>
   );
 }

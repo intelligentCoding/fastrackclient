@@ -10,7 +10,9 @@ import { ADMIN } from '@/utils/constants';
 import AppLayout from '@/components/layouts/app';
 import { Routes } from '@/config/routes';
 
-const CreateOrUpdateLastMileProvider = dynamic(() => import('@/components/lastMileProvider/last-mile-provider-form'));
+const CreateOrUpdateLastMileProvider = dynamic(
+  () => import('@/components/lastMileProvider/last-mile-provider-form'),
+);
 
 export default function LastMileProvider({
   userPermissions,

@@ -7,19 +7,20 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { API_ENDPOINTS } from './client/api-endpoints';
 import { userClient } from './client/user';
-import { Customer, CustomerQueryOptions, GetParams} from '@/types';
+import { Customer, CustomerQueryOptions, GetParams } from '@/types';
 import Router from 'next/router';
 import { customerClient } from './client/customers';
 
-
-export const useCustomersQuery = (options: Partial<CustomerQueryOptions> = {}) => {
+export const useCustomersQuery = (
+  options: Partial<CustomerQueryOptions> = {},
+) => {
   const { data, error, isLoading } = useQuery<Customer[], Error>(
     [API_ENDPOINTS.CUSTOMER, options],
     ({ queryKey, pageParam }) =>
       customerClient.all(Object.assign({}, queryKey[1], pageParam)),
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   return {
@@ -34,7 +35,7 @@ export const useCustomerMutation = () => {
   return useMutation(customerClient.create, {
     onSuccess: () => {
       Router.push(Routes.customers);
-      toast.success("Customer has been created");
+      toast.success('Customer has been created');
     },
     // Always refetch after error or success:å
     onSettled: () => {
@@ -48,7 +49,7 @@ export const useUpdateCustomerMutation = () => {
   return useMutation(customerClient.update, {
     onSuccess: () => {
       Router.push(Routes.customers);
-      toast.success("Customer has been updated");
+      toast.success('Customer has been updated');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -57,11 +58,10 @@ export const useUpdateCustomerMutation = () => {
   });
 };
 
-
 export const useCustomerQuery = ({ id }: GetParams) => {
   const { data, error, isLoading } = useQuery<Customer, Error>(
     [API_ENDPOINTS.CUSTOMER, { id }],
-    () => customerClient.get({ id })
+    () => customerClient.get({ id }),
   );
 
   return {
@@ -76,7 +76,7 @@ export const useDeleteCustomerMutation = () => {
 
   return useMutation(customerClient.delete, {
     onSuccess: () => {
-      toast.success("Successfully deleted the customer");
+      toast.success('Successfully deleted the customer');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -84,7 +84,3 @@ export const useDeleteCustomerMutation = () => {
     },
   });
 };
-
-
-
-

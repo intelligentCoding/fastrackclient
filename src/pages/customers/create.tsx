@@ -11,7 +11,9 @@ import AppLayout from '@/components/layouts/app';
 import { Routes } from '@/config/routes';
 import { Config } from '@/config';
 
-const CreateOrUpdateCustomers = dynamic(() => import('@/components/customer/customer-form'));
+const CreateOrUpdateCustomers = dynamic(
+  () => import('@/components/customer/customer-form'),
+);
 
 export default function Service({
   userPermissions,

@@ -33,23 +33,22 @@ const CustomApp = ({ Component, pageProps }: AppPropsWithLayout) => {
           <UIProvider>
             <ModalProvider>
               <CheckbookModalProvider>
-
-              <>
-                {authProps ? (
-                  <PrivateRoute authProps={authProps}>
+                <>
+                  {authProps ? (
+                    <PrivateRoute authProps={authProps}>
+                      <Layout {...pageProps}>
+                        <Component {...pageProps} />
+                      </Layout>
+                    </PrivateRoute>
+                  ) : (
                     <Layout {...pageProps}>
                       <Component {...pageProps} />
                     </Layout>
-                  </PrivateRoute>
-                ) : (
-                  <Layout {...pageProps}>
-                    <Component {...pageProps} />
-                  </Layout>
-                )}
-                <ToastContainer autoClose={2000} theme="colored" />
-                <ManagedModal />
-                <CheckbookManagedModal />
-              </>
+                  )}
+                  <ToastContainer autoClose={2000} theme="colored" />
+                  <ManagedModal />
+                  <CheckbookManagedModal />
+                </>
               </CheckbookModalProvider>
             </ModalProvider>
           </UIProvider>

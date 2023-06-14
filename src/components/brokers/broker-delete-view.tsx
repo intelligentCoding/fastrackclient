@@ -28,7 +28,7 @@ const BrokersDeleteView = () => {
       onCancel={closeModal}
       onDelete={handleDelete}
       deleteBtnLoading={loading}
-      title="Delete Airport?"
+      title="Delete Broker?"
     />
   );
 };

@@ -1,4 +1,3 @@
-
 import { Table } from '@/components/ui/table';
 import ActionButtons from '@/components/common/action-buttons';
 import { Brokers, Customer, Services, SortOrder } from '@/types';
@@ -16,11 +15,11 @@ type IProps = {
 
 const CustomersList = ({
   customers,
-  // paginatorInfo,
-  // onPagination,
-  // onSort,
-  // onOrder,
-}: IProps) => {
+}: // paginatorInfo,
+// onPagination,
+// onSort,
+// onOrder,
+IProps) => {
   // const { data, paginatorInfo } = orders! ?? {};
   const router = useRouter();
   const { t } = useTranslation();
@@ -51,115 +50,98 @@ const CustomersList = ({
 
   const columns = [
     {
-      title: "name",
+      title: 'name',
       dataIndex: 'name',
       key: 'name',
       align: 'center',
       render: (name: any, customers: Customer) => {
-        return (
-          <div className="w-max">
-            {name}
-          </div>
-        )
-      }
+        return <div className="w-max">{name}</div>;
+      },
     },
     {
-      title: "email",
+      title: 'email',
       dataIndex: 'email',
       key: 'email',
       align: 'center',
       render: (email: any, customers: Customer) => {
-        return (
-          <div className="w-max">
-            {email}
-          </div>
-        )
-      }
+        return <div className="w-max">{email}</div>;
+      },
     },
     {
-      title: "clearanceFee",
+      title: 'clearanceFee',
       dataIndex: 'clearanceFee',
       key: 'clearanceFee',
       align: 'center',
     },
     {
-      title: "airlineFee",
+      title: 'airlineFee',
       dataIndex: 'airlineFee',
       key: 'airlineFee',
       align: 'center',
     },
     {
-      title: "airwayBillPerPcs",
+      title: 'airwayBillPerPcs',
       dataIndex: 'airwayBillPerPcs',
       key: 'airwayBillPerPcs',
       align: 'center',
     },
     {
-      title: "fteHandlingFee",
+      title: 'fteHandlingFee',
       dataIndex: 'fteHandlingFee',
       key: 'fteHandlingFee',
       align: 'center',
     },
     {
-      title: "cfsRecoveryCharges",
+      title: 'cfsRecoveryCharges',
       dataIndex: 'cfsRecoveryCharges',
       key: 'cfsRecoveryCharges',
       align: 'center',
     },
     {
-      title: "fteMinWeight",
+      title: 'fteMinWeight',
       dataIndex: 'fteMinWeight',
       key: 'fteMinWeight',
       align: 'center',
     },
     {
-      title: "fteMinCharge",
+      title: 'fteMinCharge',
       dataIndex: 'fteMinCharge',
       key: 'fteMinCharge',
       align: 'center',
     },
     {
-      title: "cfsMinWeight",
+      title: 'cfsMinWeight',
       dataIndex: 'cfsMinWeight',
       key: 'cfsMinWeight',
       align: 'center',
     },
     {
-      title: "cfsMinCharge",
+      title: 'cfsMinCharge',
       dataIndex: 'cfsMinCharge',
       key: 'cfsMinCharge',
       align: 'center',
     },
     {
-      title: "Service",
+      title: 'Service',
       dataIndex: 'service',
       key: 'service',
       align: 'center',
       render: (service: any, customers: Customer) => {
-        return (
-          <div className="w-max">
-            {service.code}
-          </div>
-        )
-      }
+        return <div className="w-max">{service.code}</div>;
+      },
     },
     {
-      title: "Broker",
+      title: 'Broker',
       dataIndex: 'broker',
       key: 'service',
       align: 'center',
       render: (broker: any, brokers: Brokers) => {
-        console.log(broker)
-        return (
-          <div className="w-max">
-            {broker.code}
-          </div>
-        )
-      }
+        return <div className="w-max">{broker.code}</div>;
+      },
     },
 
     {
-      title: "Actions",
+      title: 'Actions',
       dataIndex: 'id',
       key: 'actions',
       align: 'center',
@@ -181,7 +163,7 @@ const CustomersList = ({
       <div className="mb-6 overflow-hidden rounded shadow">
         <Table
           //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+          // @ts-ignore
           columns={columns}
           emptyText="No customers available"
           data={customers}
@@ -193,7 +175,7 @@ const CustomersList = ({
           }}
         />
       </div>
-{/* 
+      {/* 
       {!!paginatorInfo?.total && (
         <div className="flex items-center justify-end">
           <Pagination

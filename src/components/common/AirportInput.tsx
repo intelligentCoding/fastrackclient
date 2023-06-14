@@ -6,23 +6,23 @@ import ValidationError from '@/components/ui/form-validation-error';
 import { Manifest, ManifestFormValues } from '@/types';
 import { useAirportsQuery } from '@/data/airports';
 
-
 export const AirportInput = ({
   control,
   errors,
-  initialValues
+  initialValues,
 }: {
   control: Control<ManifestFormValues>;
   errors: FieldErrors;
-  initialValues?:  Partial<Manifest> | undefined | null;
+  initialValues?: Partial<Manifest> | undefined | null;
 }) => {
   const { airports, loading: fetchingServices, error } = useAirportsQuery();
 
   const airportType = airports.map((airport) => {
     return {
-      name: airport.code, value: airport.id
-    }
-  })
+      name: airport.code,
+      value: airport.id,
+    };
+  });
 
   return (
     <Card className="w-full sm:w-8/12 md:w-2/3">

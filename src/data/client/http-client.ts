@@ -36,14 +36,13 @@ Axios.interceptors.response.use(
     if (
       (error.response && error.response.status === 401) ||
       (error.response && error.response.status === 403) ||
-      (error.response &&
-        error.response.data.message === 'Not Authorized')
+      (error.response && error.response.data.message === 'Not Authorized')
     ) {
       Cookies.remove(AUTH_TOKEN_KEY);
       Router.reload();
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 function formatBooleanSearchParam(key: string, value: boolean) {
@@ -89,7 +88,7 @@ export class HttpClient {
           ? `${k}.slug:${v}`
           : ['is_approved'].includes(k)
           ? formatBooleanSearchParam(k, v as boolean)
-          : `${k}:${v}`
+          : `${k}:${v}`,
       )
       .join(';');
   }

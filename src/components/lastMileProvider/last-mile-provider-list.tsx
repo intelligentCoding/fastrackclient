@@ -1,4 +1,3 @@
-
 import { Table } from '@/components/ui/table';
 import ActionButtons from '@/components/common/action-buttons';
 
@@ -20,11 +19,11 @@ type MessagePayload = {
 };
 const LastMileProvidersList = ({
   lastMileProviders,
-  // paginatorInfo,
-  // onPagination,
-  // onSort,
-  // onOrder,
-}: IProps) => {
+}: // paginatorInfo,
+// onPagination,
+// onSort,
+// onOrder,
+IProps) => {
   // const { data, paginatorInfo } = orders! ?? {};
   const router = useRouter();
   const { t } = useTranslation();
@@ -57,27 +56,27 @@ const LastMileProvidersList = ({
 
   const columns = [
     {
-      title: "name",
+      title: 'name',
       dataIndex: 'name',
       key: 'name',
       align: 'center',
       width: 150,
     },
     {
-      title: "code",
+      title: 'code',
       dataIndex: 'code',
       key: 'code',
       align: 'center',
     },
     {
-      title: "email",
+      title: 'email',
       dataIndex: 'email',
       key: 'email',
       align: 'center',
     },
 
     {
-      title: "Actions",
+      title: 'Actions',
       dataIndex: 'id',
       key: 'actions',
       align: 'center',
@@ -99,7 +98,7 @@ const LastMileProvidersList = ({
       <div className="mb-6 overflow-hidden rounded shadow">
         <Table
           //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+          // @ts-ignore
           columns={columns}
           emptyText="No Services available"
           data={lastMileProviders!}
@@ -111,7 +110,7 @@ const LastMileProvidersList = ({
           }}
         />
       </div>
-{/* 
+      {/* 
       {!!paginatorInfo?.total && (
         <div className="flex items-center justify-end">
           <Pagination

@@ -1,22 +1,27 @@
 import UldDeleteView from '@/components/dashboard/uld-delete-view';
 import Modal from '@/components/ui/modal/modal';
 import dynamic from 'next/dynamic';
-import { CHECKBOOK_MODAL_VIEWS, useCheckbookModalAction, useCheckbookModalState } from './modal.context';
+import {
+  CHECKBOOK_MODAL_VIEWS,
+  useCheckbookModalAction,
+  useCheckbookModalState,
+} from './modal.context';
 
 const CheckbookEditText = dynamic(
-  () => import('@/components/dashboard/edit-checkbook/checkbook-update-text')
+  () => import('@/components/dashboard/edit-checkbook/checkbook-update-text'),
 );
 const CheckbookEditBoolean = dynamic(
-  () => import('@/components/dashboard/edit-checkbook/checkbook-update-boolean')
+  () =>
+    import('@/components/dashboard/edit-checkbook/checkbook-update-boolean'),
 );
 const CheckbookEditDate = dynamic(
-  () => import('@/components/dashboard/edit-checkbook/checkbook-update-date')
+  () => import('@/components/dashboard/edit-checkbook/checkbook-update-date'),
 );
 const CheckbookDeleteView = dynamic(
-  () => import('@/components/dashboard/edit-checkbook/delete-checkbook')
+  () => import('@/components/dashboard/edit-checkbook/delete-checkbook'),
 );
 const CheckbookUldList = dynamic(
-  () => import('@/components/dashboard/checkbook-uld')
+  () => import('@/components/dashboard/checkbook-uld'),
 );
 
 function renderModal(view: CHECKBOOK_MODAL_VIEWS | undefined, data: any) {
@@ -33,21 +38,20 @@ function renderModal(view: CHECKBOOK_MODAL_VIEWS | undefined, data: any) {
     case 'NUMBER_OF_PIECES_EXAM':
     case 'REMARKS':
     case 'LABEL':
-      return <CheckbookEditText />
+      return <CheckbookEditText />;
     case 'DATE_PAID_ISC':
     case 'ARRIVAL_DATE':
     case 'PICKEDUP_DATE':
-        return <CheckbookEditDate />
+      return <CheckbookEditDate />;
     case 'IS_EXAM':
     case 'IS_PICKUP_ORDER_DONE':
-        return <CheckbookEditBoolean />
+      return <CheckbookEditBoolean />;
     case 'ULD':
-        return <CheckbookUldList />
+      return <CheckbookUldList />;
     case 'DELETE_CHECKBOOK':
-        return <CheckbookDeleteView />
+      return <CheckbookDeleteView />;
     case 'DELETE_ULD':
-        return <UldDeleteView />
-
+      return <UldDeleteView />;
 
     default:
       return null;

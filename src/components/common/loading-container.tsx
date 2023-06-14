@@ -1,12 +1,12 @@
-import { useDebounce } from '@/hooks/useDebounce'
-import React, { HTMLAttributes } from 'react'
-import styled from 'styled-components'
-import { Spinner } from '@/components/common/Spinner'
+import { useDebounce } from '@/hooks/useDebounce';
+import React, { HTMLAttributes } from 'react';
+import styled from 'styled-components';
+import { Spinner } from '@/components/common/Spinner';
 
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
-`
+`;
 
 const StyledOverlay = styled.div<
   HTMLAttributes<HTMLDivElement> & { overlayOpacity?: number }
@@ -22,11 +22,11 @@ const StyledOverlay = styled.div<
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 interface ILoadingOverlayProps {
-  overlayMessage?: string
-  overlayOpacity?: number
+  overlayMessage?: string;
+  overlayOpacity?: number;
 }
 
 export const LoadingOverlay: React.FC<ILoadingOverlayProps> = ({
@@ -35,22 +35,22 @@ export const LoadingOverlay: React.FC<ILoadingOverlayProps> = ({
 }) => {
   return (
     <StyledOverlay overlayOpacity={overlayOpacity}>
-      <div className="text-center flex flex-col items-center content-center">
+      <div className="flex flex-col content-center items-center text-center">
         <Spinner />
         {overlayMessage && <p>{overlayMessage}</p>}
       </div>
     </StyledOverlay>
-  )
-}
+  );
+};
 
 interface LoadingContainerProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'placeholder'> {
-  children?: React.ReactNode
-  loading?: boolean
-  overlay?: boolean
-  overlayMessage?: string
-  overlayOpacity?: number
-  placeholder?: React.ReactNode
+  children?: React.ReactNode;
+  loading?: boolean;
+  overlay?: boolean;
+  overlayMessage?: string;
+  overlayOpacity?: number;
+  placeholder?: React.ReactNode;
 }
 
 /**
@@ -69,7 +69,7 @@ export const LoadingContainer: React.FC<LoadingContainerProps> = ({
   placeholder = null,
   ...rest
 }: LoadingContainerProps) => {
-  const debouncedLoading = useDebounce(loading, 200)
+  const debouncedLoading = useDebounce(loading, 200);
   return (
     <Wrapper {...rest}>
       {debouncedLoading && overlay && (
@@ -80,5 +80,5 @@ export const LoadingContainer: React.FC<LoadingContainerProps> = ({
       )}
       {overlay ? children : (!loading && children) || placeholder}
     </Wrapper>
-  )
-}
+  );
+};

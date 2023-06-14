@@ -21,6 +21,6 @@ export { FountainPenIcon } from '@/components/icons/sidebar/fountain-pen';
 export { CalendarScheduleIcon } from '@/components/icons/sidebar/calendar-schedule';
 export { ReviewIcon } from '@/components/icons/sidebar/review';
 export { QuestionIcon } from '@/components/icons/sidebar/question';
-export { UploadIcon } from "@/components/icons/sidebar/uploadIcon"
-export { MapIcon } from "@/components/icons/sidebar/map"
-export { ServiceIcon } from "@/components/icons/sidebar/service"
+export { UploadIcon } from '@/components/icons/sidebar/uploadIcon';
+export { MapIcon } from '@/components/icons/sidebar/map';
+export { ServiceIcon } from '@/components/icons/sidebar/service';

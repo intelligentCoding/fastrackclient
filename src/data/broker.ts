@@ -6,10 +6,9 @@ import { useRouter } from 'next/router';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { API_ENDPOINTS } from './client/api-endpoints';
-import {  Brokers, BrokersQueryOptions, GetParams } from '@/types';
+import { Brokers, BrokersQueryOptions, GetParams } from '@/types';
 import Router from 'next/router';
 import { brokersClient } from './client/broker';
-
 
 export const useBrokersQuery = (options: Partial<BrokersQueryOptions> = {}) => {
   const { data, error, isLoading } = useQuery<Brokers[], Error>(
@@ -18,7 +17,7 @@ export const useBrokersQuery = (options: Partial<BrokersQueryOptions> = {}) => {
       brokersClient.all(Object.assign({}, queryKey[1], pageParam)),
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   return {
@@ -33,7 +32,7 @@ export const useBrokersMutation = () => {
   return useMutation(brokersClient.create, {
     onSuccess: () => {
       Router.push(Routes.brokers);
-      toast.success("Airport has been created");
+      toast.success('Airport has been created');
     },
     // Always refetch after error or success:å
     onSettled: () => {
@@ -47,7 +46,7 @@ export const useUpdateBrokersMutation = () => {
   return useMutation(brokersClient.update, {
     onSuccess: () => {
       Router.push(Routes.brokers);
-      toast.success("Airport has been updated");
+      toast.success('Airport has been updated');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -56,11 +55,10 @@ export const useUpdateBrokersMutation = () => {
   });
 };
 
-
 export const useBrokerQuery = ({ id }: GetParams) => {
   const { data, error, isLoading } = useQuery<Brokers, Error>(
     [API_ENDPOINTS.BROKER, { id }],
-    () => brokersClient.get({ id })
+    () => brokersClient.get({ id }),
   );
 
   return {
@@ -74,7 +72,7 @@ export const useDeleteBrokerMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(brokersClient.delete, {
     onSuccess: () => {
-      toast.success("Successfully deleted the airport");
+      toast.success('Successfully deleted the airport');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -82,7 +80,3 @@ export const useDeleteBrokerMutation = () => {
     },
   });
 };
-
-
-
-

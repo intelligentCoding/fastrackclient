@@ -1,16 +1,20 @@
 import SelectInput from '@/components/ui/select-input';
 import Label from '@/components/ui/label';
-import { Control, FieldErrors} from 'react-hook-form';
+import { Control, FieldErrors } from 'react-hook-form';
 import Card from '@/components/common/card';
 import ValidationError from '@/components/ui/form-validation-error';
 import { useServicesQuery } from '@/data/services';
-import { Customer, CustomerFormValues, Manifest, ManifestFormValues } from '@/types';
-
+import {
+  Customer,
+  CustomerFormValues,
+  Manifest,
+  ManifestFormValues,
+} from '@/types';
 
 const ServiceInput = ({
   control,
   errors,
-  initialValues
+  initialValues,
 }: {
   control: Control<CustomerFormValues> | Control<ManifestFormValues>;
   errors: FieldErrors;
@@ -20,9 +24,10 @@ const ServiceInput = ({
 
   const servicesType = services.map((service) => {
     return {
-      name: service.code, value: service.id
-    }
-  })
+      name: service.code,
+      value: service.id,
+    };
+  });
 
   return (
     <Card className="w-full sm:w-8/12 md:w-2/3">

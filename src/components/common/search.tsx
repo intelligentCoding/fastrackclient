@@ -66,7 +66,7 @@ const Search: React.FC<SearchProps> = ({
     {
       [classes.shadow]: shadow,
     },
-    inputClassName
+    inputClassName,
   );
 
   function clear() {
@@ -83,7 +83,7 @@ const Search: React.FC<SearchProps> = ({
       <label htmlFor="search" className="sr-only">
         {t('form:input-label-search')}
       </label>
-      <button className="start-1 absolute p-2 text-body outline-none focus:outline-none active:outline-none">
+      <button className="absolute p-2 text-body outline-none start-1 focus:outline-none active:outline-none">
         <SearchIcon className="h-5 w-5" />
       </button>
       <input
@@ -101,7 +101,7 @@ const Search: React.FC<SearchProps> = ({
         <button
           type="button"
           onClick={clear}
-          className="end-1 absolute p-2 text-body outline-none focus:outline-none active:outline-none"
+          className="absolute p-2 text-body outline-none end-1 focus:outline-none active:outline-none"
         >
           <CloseIcon className="h-5 w-5" />
         </button>

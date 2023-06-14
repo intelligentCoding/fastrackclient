@@ -1,18 +1,17 @@
-import { Routes } from "@/config/routes";
-import { useCustomersQuery } from "@/data/customer";
-import { useServiceQuery, useServicesQuery } from "@/data/services";
-import { SortOrder } from "@/types";
-import { Menu, Transition } from "@headlessui/react";
-import classNames from "classnames";
-import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
-import Card from "../common/card";
-import { MoreIcon } from "../icons/more-icon";
-import ErrorMessage from "../ui/error-message";
-import LinkButton from "../ui/link-button";
-import Loader from "../ui/loader/loader";
-import CustomersList from "./customer-list";
-
+import { Routes } from '@/config/routes';
+import { useCustomersQuery } from '@/data/customer';
+import { useServiceQuery, useServicesQuery } from '@/data/services';
+import { SortOrder } from '@/types';
+import { Menu, Transition } from '@headlessui/react';
+import classNames from 'classnames';
+import { useRouter } from 'next/router';
+import { Fragment, useState } from 'react';
+import Card from '../common/card';
+import { MoreIcon } from '../icons/more-icon';
+import ErrorMessage from '../ui/error-message';
+import LinkButton from '../ui/link-button';
+import Loader from '../ui/loader/loader';
+import CustomersList from './customer-list';
 
 export default function Customer() {
   const router = useRouter();
@@ -33,7 +32,11 @@ export default function Customer() {
   //   setPage(current);
   // }
 
-  const { customers, loading: fetchingServices, error } = useCustomersQuery({
+  const {
+    customers,
+    loading: fetchingServices,
+    error,
+  } = useCustomersQuery({
     name: searchTerm,
     orderBy,
     sortedBy,
@@ -42,14 +45,11 @@ export default function Customer() {
 
   if (error) return <ErrorMessage message={error.message} />;
 
-
   return (
     <>
       <Card className="mb-8 flex flex-col items-center justify-between md:flex-row">
         <div className="mb-4 md:mb-0 md:w-1/4">
-          <h1 className="text-lg font-semibold text-heading">
-            Customer
-          </h1>
+          <h1 className="text-lg font-semibold text-heading">Customer</h1>
         </div>
 
         {/* To Be Implemented */}
@@ -68,9 +68,7 @@ export default function Customer() {
             href={`/${Routes.customers}/create`}
             className="h-12 ms-4 md:ms-6"
           >
-            <span>
-              + Add Customer
-            </span>
+            <span>+ Add Customer</span>
           </LinkButton>
           <Transition
             as={Fragment}
@@ -84,7 +82,7 @@ export default function Customer() {
             <Menu.Items
               as="ul"
               className={classNames(
-                'shadow-700 absolute z-50 mt-2 w-52 overflow-hidden rounded border border-border-200 bg-light py-2 focus:outline-none ltr:right-0 ltr:origin-top-right rtl:left-0 rtl:origin-top-left'
+                'shadow-700 absolute z-50 mt-2 w-52 overflow-hidden rounded border border-border-200 bg-light py-2 focus:outline-none ltr:right-0 ltr:origin-top-right rtl:left-0 rtl:origin-top-left',
               )}
             >
               {/* <Menu.Item>
@@ -107,18 +105,15 @@ export default function Customer() {
           </Transition>
         </Menu>
       </Card>
-      {
-        customers && (
-
-          <CustomersList
-            customers={customers || []}
+      {customers && (
+        <CustomersList
+          customers={customers || []}
           // paginatorInfo={paginatorInfo}
           // onPagination={handlePagination}
           // onOrder={setOrder}
           // onSort={setColumn}
-          />
-        )
-      }
+        />
+      )}
     </>
   );
 }

@@ -20,7 +20,6 @@ export default function Service({
   userPermissions: string[];
 }) {
   if (userPermissions?.includes(ADMIN)) {
-
     return <Customers />;
   }
 }

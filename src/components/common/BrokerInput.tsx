@@ -1,28 +1,28 @@
 import SelectInput from '@/components/ui/select-input';
 import Label from '@/components/ui/label';
-import { Control, FieldErrors} from 'react-hook-form';
+import { Control, FieldErrors } from 'react-hook-form';
 import Card from '@/components/common/card';
 import ValidationError from '@/components/ui/form-validation-error';
 import { Brokers, CustomerFormValues, ManifestFormValues } from '@/types';
 import { useBrokersQuery } from '@/data/broker';
 
-
 const BrokerInput = ({
   control,
   errors,
-  initialValues
+  initialValues,
 }: {
-  control: Control<ManifestFormValues>  | Control<CustomerFormValues> ;
+  control: Control<ManifestFormValues> | Control<CustomerFormValues>;
   errors: FieldErrors;
-  initialValues?:  Partial<Brokers> | undefined | null;
+  initialValues?: Partial<Brokers> | undefined | null;
 }) => {
   const { brokers, loading: fetchingServices, error } = useBrokersQuery();
 
   const brokerType = brokers.map((broker) => {
     return {
-      name: broker.code, value: broker.id
-    }
-  })
+      name: broker.code,
+      value: broker.id,
+    };
+  });
 
   return (
     <Card className="w-full sm:w-8/12 md:w-2/3">

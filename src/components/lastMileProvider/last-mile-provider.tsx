@@ -1,18 +1,20 @@
-import { Routes } from "@/config/routes";
-import { useAirportsQuery } from "@/data/airports";
-import { useBrokersQuery } from "@/data/broker";
-import { useLastMileProviderQuery, useLastMileProvidersQuery } from "@/data/lastMileProvider";
-import { SortOrder } from "@/types";
-import { Menu, Transition } from "@headlessui/react";
-import classNames from "classnames";
-import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
-import Card from "../common/card";
-import ErrorMessage from "../ui/error-message";
-import LinkButton from "../ui/link-button";
-import Loader from "../ui/loader/loader";
-import LastMileProvidersList from "./last-mile-provider-list";
-
+import { Routes } from '@/config/routes';
+import { useAirportsQuery } from '@/data/airports';
+import { useBrokersQuery } from '@/data/broker';
+import {
+  useLastMileProviderQuery,
+  useLastMileProvidersQuery,
+} from '@/data/lastMileProvider';
+import { SortOrder } from '@/types';
+import { Menu, Transition } from '@headlessui/react';
+import classNames from 'classnames';
+import { useRouter } from 'next/router';
+import { Fragment, useState } from 'react';
+import Card from '../common/card';
+import ErrorMessage from '../ui/error-message';
+import LinkButton from '../ui/link-button';
+import Loader from '../ui/loader/loader';
+import LastMileProvidersList from './last-mile-provider-list';
 
 export default function LastMileProviders() {
   const router = useRouter();
@@ -33,15 +35,19 @@ export default function LastMileProviders() {
   //   setPage(current);
   // }
 
-  const { lastMileProviders, loading: fetchingLastMileProviders, error } = useLastMileProvidersQuery ({
+  const {
+    lastMileProviders,
+    loading: fetchingLastMileProviders,
+    error,
+  } = useLastMileProvidersQuery({
     name: searchTerm,
     orderBy,
     sortedBy,
   });
-  if (fetchingLastMileProviders) return <Loader text="Loading Last Mile Provider" />;
+  if (fetchingLastMileProviders)
+    return <Loader text="Loading Last Mile Provider" />;
 
   if (error) return <ErrorMessage message={error.message} />;
-
 
   return (
     <>
@@ -68,9 +74,7 @@ export default function LastMileProviders() {
             href={`/${Routes.lastmileprovider}/create`}
             className="h-12 ms-4 md:ms-6"
           >
-            <span>
-              + Add Last Mile Provider
-            </span>
+            <span>+ Add Last Mile Provider</span>
           </LinkButton>
           <Transition
             as={Fragment}
@@ -84,7 +88,7 @@ export default function LastMileProviders() {
             <Menu.Items
               as="ul"
               className={classNames(
-                'shadow-700 absolute z-50 mt-2 w-52 overflow-hidden rounded border border-border-200 bg-light py-2 focus:outline-none ltr:right-0 ltr:origin-top-right rtl:left-0 rtl:origin-top-left'
+                'shadow-700 absolute z-50 mt-2 w-52 overflow-hidden rounded border border-border-200 bg-light py-2 focus:outline-none ltr:right-0 ltr:origin-top-right rtl:left-0 rtl:origin-top-left',
               )}
             >
               {/* <Menu.Item>
@@ -107,18 +111,15 @@ export default function LastMileProviders() {
           </Transition>
         </Menu>
       </Card>
-      {
-        lastMileProviders && (
-
-          <LastMileProvidersList
-            lastMileProviders={lastMileProviders || []}
+      {lastMileProviders && (
+        <LastMileProvidersList
+          lastMileProviders={lastMileProviders || []}
           // paginatorInfo={paginatorInfo}
           // onPagination={handlePagination}
           // onOrder={setOrder}
           // onSort={setColumn}
-          />
-        )
-      }
+        />
+      )}
     </>
   );
 }

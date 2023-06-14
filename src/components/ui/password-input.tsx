@@ -41,7 +41,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
       forgotPageLink = '',
       ...rest
     },
-    ref
+    ref,
   ) => {
     const [show, setShow] = useState(false);
 
@@ -53,7 +53,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
         [classes.outline]: variant === 'outline',
       },
       shadow == true && classes.shadow,
-      inputClassName
+      inputClassName,
     );
 
     return (
@@ -75,7 +75,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
             </Link>
           )}
         </div>
-        <div className="relative flex justify-end items-center">
+        <div className="relative flex items-center justify-end">
           <input
             id={name}
             name={name}
@@ -90,7 +90,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
           />
           <label
             htmlFor={name}
-            className="end-4 absolute top-5 -mt-2 text-body mr-2 "
+            className="absolute top-5 -mt-2 mr-2 text-body end-4 "
             onClick={() => setShow((prev) => !prev)}
           >
             {show ? (
@@ -101,11 +101,11 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
           </label>
         </div>
         {error && (
-          <p className="text-start my-2 text-xs text-red-500">{error}</p>
+          <p className="my-2 text-xs text-red-500 text-start">{error}</p>
         )}
       </div>
     );
-  }
+  },
 );
 
 PasswordInput.displayName = 'PasswordInput';

@@ -63,7 +63,7 @@ export default function UploadManifestExpress({ initialValues }: IProps) {
     }
   }, [file]);
   const onSubmit = async (values: ManifestFormValues) => {
-    console.log(typeof values.bags)
+    console.log(typeof values.bags);
     try {
       uploadManifestExpress({
         ...values,

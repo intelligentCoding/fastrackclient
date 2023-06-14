@@ -46,7 +46,7 @@ export default function CheckbookEditDate() {
     resolver: yupResolver(
       yup.object().shape({
         // updatedDate: yup.string().required('Date is required'),
-      })
+      }),
     ),
   });
   const { mutate: editTextField, isLoading: updating } =
@@ -76,21 +76,19 @@ export default function CheckbookEditDate() {
                 control={control}
                 name="updatedDate"
                 render={({ field: { onChange, onBlur, value } }) => {
-  
                   return (
                     <DatePicker
                       dateFormat="dd/MM/yyyy"
                       onChange={onChange}
                       onBlur={onBlur}
                       //@ts-ignore
-                      selected={value  ? new Date(value) : null}
+                      selected={value ? new Date(value) : null}
                       selectsStart
                       startDate={new Date()}
                       className="border border-border-base"
                     />
-                  )
-                }
-                }
+                  );
+                }}
               />
             </div>
             <div className="mt-8 flex w-full items-center justify-between space-s-4">

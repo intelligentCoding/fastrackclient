@@ -11,7 +11,7 @@ import AppLayout from '@/components/layouts/app';
 import { Routes } from '@/config/routes';
 
 const UploadManifestExpress = dynamic(
-  () => import('@/components/upload-file/UploadManifestExpress')
+  () => import('@/components/upload-file/UploadManifestExpress'),
 );
 export type MessagePayload = {
   processing: boolean;
@@ -19,7 +19,7 @@ export type MessagePayload = {
   errorMessage: any;
   afterFileUrl: string;
   masterAwb: string;
-  processingFinished:boolean
+  processingFinished: boolean;
 };
 export default function Upload({
   userPermissions,
@@ -27,9 +27,7 @@ export default function Upload({
   userPermissions: string[];
 }) {
   if (userPermissions?.includes(ADMIN)) {
-    return (
-        <UploadManifestExpress />      
-    );
+    return <UploadManifestExpress />;
   }
 }
 

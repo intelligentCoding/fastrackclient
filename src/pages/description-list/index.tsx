@@ -10,7 +10,9 @@ import { ADMIN } from '@/utils/constants';
 import AppLayout from '@/components/layouts/app';
 import { Routes } from '@/config/routes';
 
-const DescriptionListFile = dynamic(() => import('@/components/descriptionList/descriptionList'));
+const DescriptionListFile = dynamic(
+  () => import('@/components/descriptionList/descriptionList'),
+);
 
 export default function DescriptionList({
   userPermissions,
@@ -18,7 +20,6 @@ export default function DescriptionList({
   userPermissions: string[];
 }) {
   if (userPermissions?.includes(ADMIN)) {
-
     return <DescriptionListFile />;
   }
 }

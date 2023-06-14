@@ -7,7 +7,7 @@ export type MODAL_VIEWS =
   | 'DELETE_BROKER'
   | 'DELETE_COMMODITY_MAP'
   | 'EDIT_CHECKBOOK'
-  | 'DELETE_LAST_MILE_PROVIDER'
+  | 'DELETE_LAST_MILE_PROVIDER';
 
 interface State {
   view?: MODAL_VIEWS;

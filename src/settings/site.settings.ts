@@ -88,8 +88,8 @@ export const siteSettings = {
       {
         href: Routes.description_list,
         label: 'Description List',
-        icon: "CategoriesIcon"
-      }
+        icon: 'CategoriesIcon',
+      },
     ],
   },
   product: {

@@ -7,11 +7,11 @@ export const API_ENDPOINTS = {
   BROKER: '/broker',
   LASTMILEPROVIDER: '/last-mile-provider',
   USERS: '/users',
-  COMMODITY_MAPPING:'/cm',
-  FILE_UPLOAD:'/file-upload',
-  FILE_UPLOAD_EXPRESS:'/file-upload/express',
-  MANIFEST:'manifest',
+  COMMODITY_MAPPING: '/cm',
+  FILE_UPLOAD: '/file-upload',
+  FILE_UPLOAD_EXPRESS: '/file-upload/express',
+  MANIFEST: 'manifest',
   CHECKBOOK: '/checkbook',
   ULD: '/uld',
-  DESCRIPTIONS_ALL: '/description/all-description'
+  DESCRIPTIONS_ALL: '/description/all-description',
 };

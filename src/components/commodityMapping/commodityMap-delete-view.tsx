@@ -1,5 +1,5 @@
 import ConfirmationCard from '@/components/common/confirmation-card';
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
 import {
   useModalAction,
   useModalState,
@@ -9,13 +9,13 @@ import { getErrorMessage } from '@/utils/form-error';
 
 const AirportsDeleteView = () => {
   const { mutate: deleteCommodityMap, isLoading: loading } =
-  useDeleteCommodityMapMutation();
+    useDeleteCommodityMapMutation();
   const { data } = useModalState();
   const { closeModal } = useModalAction();
 
   async function handleDelete() {
     try {
-        deleteCommodityMap({ id: data });
+      deleteCommodityMap({ id: data });
       closeModal();
     } catch (error) {
       // toast.error(error)
