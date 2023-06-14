@@ -55,7 +55,9 @@ const Dashboard: React.FC = () => {
   // const [page, setPage] = useState(1);
   const [orderBy, setOrder] = useState('');
   const [sortedBy, setColumn] = useState<SortOrder>(SortOrder.Desc);
-  const [createdFrom, setCreatedFrom] = useState<string>(dateTwoDaysAgo.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  const [createdFrom, setCreatedFrom] = useState<string>(
+    dateTwoDaysAgo.toLocaleString('en-US', { timeZone: 'America/New_York' }),
+  );
   const [createdTo, setCreatedTo] = useState<Date>(new Date());
   const [arrivalDateFrom, setArrivalDateFrom] = useState('');
   const [arrivalDateTo, setArrivalDateTo] = useState('');
@@ -65,7 +67,7 @@ const Dashboard: React.FC = () => {
     checkbooks,
     loading: fetchingCheckbooks,
     error,
-    refetch
+    refetch,
   } = useCheckbookQuery({
     createdFrom,
   });
@@ -75,7 +77,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <Card className="mb-8 flex flex-col items-center justify-between md:flex-row gap-6">
+      <Card className="mb-8 flex flex-col items-center justify-between gap-6 md:flex-row">
         {/* <div className="mb-4 md:mb-0 md:w-1/4">
           <h1 className="text-lg font-semibold text-heading">
             Checkbook Status
@@ -97,7 +99,11 @@ const Dashboard: React.FC = () => {
             maxDate={new Date()}
             onChange={(date) => {
               if (date) {
-                setCreatedFrom(date.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+                setCreatedFrom(
+                  date.toLocaleString('en-US', {
+                    timeZone: 'America/New_York',
+                  }),
+                );
               }
             }}
             // onBlur={onBlur}

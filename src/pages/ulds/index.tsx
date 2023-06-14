@@ -18,7 +18,6 @@ export default function Uld({
   userPermissions: string[];
 }) {
   if (userPermissions?.includes(ADMIN)) {
-
     return <Ulds />;
   }
 }

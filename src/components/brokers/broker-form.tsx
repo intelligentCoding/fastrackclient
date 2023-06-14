@@ -1,7 +1,5 @@
 import Input from '@/components/ui/input';
-import {
-  useForm,
-} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Button from '@/components/ui/button';
 import Card from '@/components/common/card';
 import Description from '@/components/ui/description';
@@ -13,9 +11,6 @@ import { serviceValidationSchema } from './broker-validation-schema';
 import { Airports, Brokers } from '@/types';
 import { useBrokersMutation, useUpdateBrokersMutation } from '@/data/broker';
 
-
-
-
 type FormValues = {
   name: string;
   code: string;
@@ -25,15 +20,13 @@ type FormValues = {
 const defaultValues = {
   name: '',
   code: '',
-  email: ''
+  email: '',
 };
 
 type IProps = {
   initialValues?: Partial<Brokers> | undefined;
 };
-export default function CreateOrUpdateBroker({
-  initialValues,
-}: IProps) {
+export default function CreateOrUpdateBroker({ initialValues }: IProps) {
   const router = useRouter();
   const {
     register,
@@ -44,15 +37,12 @@ export default function CreateOrUpdateBroker({
   } = useForm<FormValues>({
     // shouldUnregister: true,
     //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-    defaultValues: initialValues
-      ? initialValues
-      : defaultValues,
+    // @ts-ignore
+    defaultValues: initialValues ? initialValues : defaultValues,
     resolver: yupResolver(serviceValidationSchema),
   });
 
-  const { mutate: createBroker, isLoading: creating } =
-  useBrokersMutation();
+  const { mutate: createBroker, isLoading: creating } = useBrokersMutation();
   const { mutate: updateBroker, isLoading: updating } =
     useUpdateBrokersMutation();
 
@@ -60,23 +50,22 @@ export default function CreateOrUpdateBroker({
     const input = {
       name: values.name,
       code: values.code,
-      email: values.email
+      email: values.email,
     };
-    if(!initialValues) {
+    if (!initialValues) {
       createBroker({
-        ...input
-      })
+        ...input,
+      });
     } else {
       updateBroker({
         ...input,
-        id: initialValues.id!
-      })
+        id: initialValues.id!,
+      });
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} id="formName">
-
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
           title={initialValues ? 'Update Airport Details' : 'Create a Broker'}
@@ -120,9 +109,7 @@ export default function CreateOrUpdateBroker({
         )}
 
         <Button loading={creating || updating} id="formName">
-          {initialValues
-            ? 'Update'
-            : 'Create'}
+          {initialValues ? 'Update' : 'Create'}
         </Button>
       </div>
     </form>

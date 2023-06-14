@@ -1,7 +1,5 @@
 import Input from '@/components/ui/input';
-import {
-  useForm,
-} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Button from '@/components/ui/button';
 import Card from '@/components/common/card';
 import Description from '@/components/ui/description';
@@ -13,9 +11,6 @@ import { serviceValidationSchema } from './service-validation-schema';
 import { Services } from '@/types';
 import { useServiceMutation, useUpdateServiceMutation } from '@/data/services';
 
-
-
-
 type FormValues = {
   name: string;
   code: string;
@@ -23,15 +18,13 @@ type FormValues = {
 
 const defaultValues = {
   name: '',
-  code: ''
+  code: '',
 };
 
 type IProps = {
   initialValues?: Partial<Services> | undefined;
 };
-export default function CreateOrUpdateServices({
-  initialValues,
-}: IProps) {
+export default function CreateOrUpdateServices({ initialValues }: IProps) {
   const router = useRouter();
   const {
     register,
@@ -42,38 +35,34 @@ export default function CreateOrUpdateServices({
   } = useForm<FormValues>({
     // shouldUnregister: true,
     //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-    defaultValues: initialValues
-      ? initialValues
-      : defaultValues,
+    // @ts-ignore
+    defaultValues: initialValues ? initialValues : defaultValues,
     resolver: yupResolver(serviceValidationSchema),
   });
 
-  const { mutate: createService, isLoading: creating } =
-  useServiceMutation();
+  const { mutate: createService, isLoading: creating } = useServiceMutation();
   const { mutate: updateService, isLoading: updating } =
     useUpdateServiceMutation();
 
   const onSubmit = async (values: FormValues) => {
     const input = {
       name: values.name,
-      code: values.code
+      code: values.code,
     };
-    if(!initialValues) {
+    if (!initialValues) {
       createService({
-        ...input
-      })
+        ...input,
+      });
     } else {
       updateService({
         ...input,
-        id: initialValues.id!
-      })
+        id: initialValues.id!,
+      });
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} id="formName">
-
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
           title={initialValues ? 'Update Airport Details' : 'Create a Airport'}
@@ -110,9 +99,7 @@ export default function CreateOrUpdateServices({
         )}
 
         <Button loading={creating || updating} id="formName">
-          {initialValues
-            ? 'Update'
-            : 'Create'}
+          {initialValues ? 'Update' : 'Create'}
         </Button>
       </div>
     </form>

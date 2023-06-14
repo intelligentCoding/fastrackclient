@@ -39,7 +39,6 @@ export default function Service({
     };
   }, []);
   if (userPermissions?.includes(ADMIN)) {
-
     return <LastMileProviders />;
   }
 }

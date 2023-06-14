@@ -1,28 +1,29 @@
 import { UploadIcon } from '@/components/icons/upload-icon';
 import { useDropzone } from 'react-dropzone';
-import { useFileUploadMutation } from '../../data/upload-file'
+import { useFileUploadMutation } from '../../data/upload-file';
 import { useCallback } from 'react';
 
-
-
 export default function ImportXls({ title }: any) {
-  const { mutate: uploadFile, isLoading } = useFileUploadMutation()
+  const { mutate: uploadFile, isLoading } = useFileUploadMutation();
 
-  const onDrop = useCallback(acceptedFiles => {
-    console.log("🚀 ~ file: import-xls.tsx:10 ~ onDrop ~ acceptedFiles:", acceptedFiles)
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(
+      '🚀 ~ file: import-xls.tsx:10 ~ onDrop ~ acceptedFiles:',
+      acceptedFiles,
+    );
 
     if (acceptedFiles.length) {
-      uploadFile(acceptedFiles[0])
+      uploadFile(acceptedFiles[0]);
     }
-  }, [])
+  }, []);
   const { getRootProps, getInputProps } = useDropzone({
     accept: '.xlsx',
     multiple: false,
-    onDrop
+    onDrop,
   });
   return (
     <section className="upload">
-      <h1 className='text-center font-bold mb-5 text-3xl' >Upload File</h1>
+      <h1 className="mb-5 text-center text-3xl font-bold">Upload File</h1>
       <div
         {...getRootProps({
           className:
@@ -32,7 +33,7 @@ export default function ImportXls({ title }: any) {
         <input {...getInputProps()} />
         {isLoading && (
           <span
-            className="ms-2 h-[30px] w-[30px] animate-spin rounded-full border-2 border-t-2 border-transparent"
+            className="h-[30px] w-[30px] animate-spin rounded-full border-2 border-t-2 border-transparent ms-2"
             style={{
               borderTopColor: 'rgb(var(--color-accent))',
             }}

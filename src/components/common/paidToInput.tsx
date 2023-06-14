@@ -5,64 +5,64 @@ import Card from '@/components/common/card';
 import ValidationError from '@/components/ui/form-validation-error';
 import { Manifest, ManifestFormValues } from '@/types';
 
-
 const PaidToInput = ({
   control,
   errors,
-  initialValues
+  initialValues,
 }: {
   control: Control<ManifestFormValues>;
   errors: FieldErrors;
-  initialValues?:  Partial<Manifest> | undefined | null;
+  initialValues?: Partial<Manifest> | undefined | null;
 }) => {
-const paidInputArray = [
+  const paidInputArray = [
     {
-        name:'ALLIANCE',
-        id:"0"
+      name: 'ALLIANCE',
+      id: '0',
     },
     {
-        name:'ALLIANCE',
-        id:"1"
+      name: 'ALLIANCE',
+      id: '1',
     },
     {
-        name:'DELTA',
-        id:"2"
+      name: 'DELTA',
+      id: '2',
     },
     {
-        name:'KOREAN',
-        id:"3"
+      name: 'KOREAN',
+      id: '3',
     },
     {
-        name:'LUFTHANSA',
-        id:"4"
+      name: 'LUFTHANSA',
+      id: '4',
     },
     {
-        name:'MSN',
-        id:"5"
+      name: 'MSN',
+      id: '5',
     },
     {
-        name:'UNITED',
-        id:"6"
+      name: 'UNITED',
+      id: '6',
     },
     {
-        name:'VIRGIN',
-        id:"7"
+      name: 'VIRGIN',
+      id: '7',
     },
     {
-        name:'WFS',
-        id:"8"
+      name: 'WFS',
+      id: '8',
     },
     {
-        name:'N/A',
-        id:"9"
+      name: 'N/A',
+      id: '9',
     },
-]
+  ];
 
   const paidType = paidInputArray.map((paid) => {
     return {
-      name: paid.name, value: paid.id
-    }
-  })
+      name: paid.name,
+      value: paid.id,
+    };
+  });
   return (
     <Card className="w-full sm:w-8/12 md:w-2/3">
       <div className="mb-5">

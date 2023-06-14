@@ -11,7 +11,11 @@ import { Checkbook } from '@/types';
 import { useBrokersMutation, useUpdateBrokersMutation } from '@/data/broker';
 import * as yup from 'yup';
 import { useUpdateCheckbookMutation } from '@/data/checkbook';
-import { CHECKBOOK_MODAL_TEXT, useCheckbookModalAction, useCheckbookModalState } from '@/components/ui/checkbook-modal/modal.context';
+import {
+  CHECKBOOK_MODAL_TEXT,
+  useCheckbookModalAction,
+  useCheckbookModalState,
+} from '@/components/ui/checkbook-modal/modal.context';
 import Checkbox from '@/components/ui/checkbox/checkbox';
 
 type FormValues = {
@@ -33,11 +37,13 @@ export default function CheckbookEditBoolean() {
   } = useForm<FormValues>({
     //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    defaultValues: data.updatedBoolean ? {updatedBoolean: data.updatedBoolean}: defaultValues,
+    defaultValues: data.updatedBoolean
+      ? { updatedBoolean: data.updatedBoolean }
+      : defaultValues,
     resolver: yupResolver(
       yup.object().shape({
         updatedBoolean: yup.boolean().required('Boolean field is required'),
-      })
+      }),
     ),
   });
   const { mutate: editTextField, isLoading: updating } =
@@ -46,13 +52,13 @@ export default function CheckbookEditBoolean() {
   const onSubmit = async (values: FormValues) => {
     const input = {
       updatedBoolean: values.updatedBoolean,
-      view
+      view,
     };
     editTextField({
       ...input,
       id: data.id!,
     });
-    closeCheckbookModal()
+    closeCheckbookModal();
   };
 
   return (
@@ -61,14 +67,18 @@ export default function CheckbookEditBoolean() {
         <div className="h-full w-full text-center">
           <div className="flex h-full flex-col justify-between">
             {/* <TrashIcon className="m-auto mt-4 h-12 w-12 text-accent" /> */}
-            <p className="mt-4 text-xl font-bold text-heading">{view ? `Edit ${CHECKBOOK_MODAL_TEXT[view]}` : "Edit Boolean value"}</p>
+            <p className="mt-4 text-xl font-bold text-heading">
+              {view
+                ? `Edit ${CHECKBOOK_MODAL_TEXT[view]}`
+                : 'Edit Boolean value'}
+            </p>
 
             <div className="py-2 px-6">
-            <Checkbox
-            {...register('updatedBoolean')}
-            error={errors.updatedBoolean?.message!}
-            className="mb-5"
-          />
+              <Checkbox
+                {...register('updatedBoolean')}
+                error={errors.updatedBoolean?.message!}
+                className="mb-5"
+              />
             </div>
             <div className="mt-8 flex w-full items-center justify-between space-s-4">
               <div className="w-1/2">

@@ -17,7 +17,7 @@ import { User } from '@/types';
 
 export function useLogin() {
   const user = useMutation(userClient.login);
-  return user
+  return user;
 }
 
 export const useLogoutMutation = () => {
@@ -27,7 +27,7 @@ export const useLogoutMutation = () => {
     onSuccess: () => {
       Cookies.remove(AUTH_CRED);
       router.replace(Routes.login);
-      toast.success("Successfully Logged out");
+      toast.success('Successfully Logged out');
     },
   });
 };

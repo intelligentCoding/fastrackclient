@@ -8,7 +8,10 @@ import { useRouter } from 'next/router';
 import { CloseFillIcon } from '../icons/close-fill';
 import { CheckMarkCircle } from '../icons/checkmark-circle';
 import { TrashIcon } from '../icons/trash';
-import { useCheckbookModalAction, useCheckbookModalState } from '../ui/checkbook-modal/modal.context';
+import {
+  useCheckbookModalAction,
+  useCheckbookModalState,
+} from '../ui/checkbook-modal/modal.context';
 import { PencilIcon } from '../icons/pencil-icon';
 import Button from '../ui/button';
 
@@ -29,7 +32,7 @@ IProps) => {
   // const [currentUld, setCurrentUld] = useState<Uld | undefined>(undefined)
   const rowExpandable = (record: any) => record.children?.length;
   const { openCheckbookModal, closeCheckbookModal } = useCheckbookModalAction();
-  const {data} = useCheckbookModalState();
+  const { data } = useCheckbookModalState();
   const [sortingObj, setSortingObj] = useState<{
     sort: SortOrder;
     column: string | null;
@@ -67,9 +70,7 @@ IProps) => {
       align: 'center',
       width: 150,
       render: (houseAwb: string, uld: Uld) => {
-        return(
-          <p>{uld.checkbook.houseAwb}</p>
-        )
+        return <p>{uld.checkbook.houseAwb}</p>;
       },
     },
     {
@@ -93,10 +94,10 @@ IProps) => {
           );
         } else {
           return (
-          <div className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none">
-            <CheckMarkCircle width={20} />
-          </div>
-          )
+            <div className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none">
+              <CheckMarkCircle width={20} />
+            </div>
+          );
         }
       },
     },
@@ -115,10 +116,10 @@ IProps) => {
           );
         } else {
           return (
-          <div className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none">
-            <CheckMarkCircle width={20} />
-          </div>
-          )
+            <div className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none">
+              <CheckMarkCircle width={20} />
+            </div>
+          );
         }
       },
     },
@@ -133,13 +134,12 @@ IProps) => {
       dataIndex: 'instructions',
       key: 'instructions',
       align: 'center',
-    }
+    },
   ];
 
   return (
     <>
       <div className="mb-6 overflow-hidden rounded shadow">
-
         <Table
           //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
@@ -153,14 +153,14 @@ IProps) => {
             rowExpandable: rowExpandable,
           }}
         />
-                  <Button
-            variant="outline"
-            onClick={() => closeCheckbookModal()}
-            className="me-4"
-            type="button"
-          >
-            Go Back
-          </Button>
+        <Button
+          variant="outline"
+          onClick={() => closeCheckbookModal()}
+          className="me-4"
+          type="button"
+        >
+          Go Back
+        </Button>
       </div>
       {/* 
       {!!paginatorInfo?.total && (

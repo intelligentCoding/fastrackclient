@@ -18,8 +18,7 @@ export default function FileUpload({
   userPermissions: string[];
 }) {
   if (userPermissions?.includes(ADMIN)) {
-
-    return <ImportxlsFile title={'upload excel file'}/>;
+    return <ImportxlsFile title={'upload excel file'} />;
   }
 }
 

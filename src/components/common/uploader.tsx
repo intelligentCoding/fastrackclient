@@ -50,12 +50,12 @@ export default function Uploader({
               // Process Digital File Name section
               data &&
                 data?.map((file: any, idx: any) => {
-                    const splitArray = file?.original?.split('/');
-                    let fileSplitName =
-                      splitArray[splitArray?.length - 1]?.split('.');
-                    const fileType = fileSplitName?.pop(); // it will pop the last item from the fileSplitName arr which is the file ext
-                    const filename = fileSplitName?.join('.'); // it will join the array with dot, which restore the original filename
-                    data[idx]['file_name'] = filename + '.' + fileType;
+                  const splitArray = file?.original?.split('/');
+                  let fileSplitName =
+                    splitArray[splitArray?.length - 1]?.split('.');
+                  const fileType = fileSplitName?.pop(); // it will pop the last item from the fileSplitName arr which is the file ext
+                  const filename = fileSplitName?.join('.'); // it will join the array with dot, which restore the original filename
+                  data[idx]['file_name'] = filename + '.' + fileType;
                 });
 
               let mergedData;
@@ -70,7 +70,7 @@ export default function Uploader({
                 onChange(mergedData);
               }
             },
-          }
+          },
         );
       }
     },
@@ -177,7 +177,12 @@ export default function Uploader({
       );
     }
   });
-  const uploadedFileUrlClass = classNames('flex items-start border-b border-border-200 px-4 pt-4 pb-3', isProcessingError ? 'bg-red-600 text-white hover:bg-white hover:text-red-600 ' : 'bg-green-200 hover:bg-green-500 hover:text-white')
+  const uploadedFileUrlClass = classNames(
+    'flex items-start border-b border-border-200 px-4 pt-4 pb-3',
+    isProcessingError
+      ? 'bg-red-600 text-white hover:bg-white hover:text-red-600 '
+      : 'bg-green-200 hover:bg-green-500 hover:text-white',
+  );
   useEffect(
     () => () => {
       // Reset error after upload new file
@@ -185,7 +190,7 @@ export default function Uploader({
       // Make sure to revoke the data uris to avoid memory leaks
       files?.forEach((file: any) => URL.revokeObjectURL(file.thumbnail));
     },
-    [files]
+    [files],
   );
 
   return (
@@ -230,48 +235,38 @@ export default function Uploader({
       <div>
         <div className="flex flex-col items-center">
           {uploadedFileUrl && (
-            <a
-              className={uploadedFileUrlClass}
-              href={uploadedFileUrl}
-            >
+            <a className={uploadedFileUrlClass} href={uploadedFileUrl}>
               Click at the file to view.
             </a>
           )}
           {isProcessingError && (
             <>
               The following error recieved while processing the manifest file:
-
               {processingCode === 3 && (
                 <p className="mt-4 text-center text-sm text-red-600 text-body">
                   Master AWB exists already.
                 </p>
               )}
-              {
-                processingCode === 10 && (
+              {processingCode === 10 && (
                 <p className="mt-4 text-center text-sm text-red-600 text-body">
                   Invalid file, please upload valid manifestation file.
                 </p>
-                )
-              }
-              {
-                processingCode === 11 && (
+              )}
+              {processingCode === 11 && (
                 <p className="mt-4 text-center text-sm text-red-600 text-body">
-                  This file has been processed. Check checkbook. 
+                  This file has been processed. Check checkbook.
                 </p>
-                )
-              }
-              {
-                processingErrorMessage && processingErrorMessage.length > 0 && (
-                  processingErrorMessage?.map((error: Errors) => {
-                    return (
-                      <p className="mt-4 text-center text-sm text-red-600 text-body">
-                        Error: {error.error}
-                        Location: {error.location}
-                      </p>
-                    );
-                  })
-                ) 
-              }
+              )}
+              {processingErrorMessage &&
+                processingErrorMessage.length > 0 &&
+                processingErrorMessage?.map((error: Errors) => {
+                  return (
+                    <p className="mt-4 text-center text-sm text-red-600 text-body">
+                      Error: {error.error}
+                      Location: {error.location}
+                    </p>
+                  );
+                })}
             </>
           )}
         </div>

@@ -18,7 +18,7 @@ export function setAuthCredentials(permissions: string[], token: string) {
 
 export function getAuthCredentials(context?: any): {
   permissions: string[] | null;
-  token: string | null
+  token: string | null;
 } {
   let authCred;
   if (context) {
@@ -38,11 +38,11 @@ export function parseSSRCookie(context: any) {
 
 export function hasAccess(
   _allowedRoles: string[],
-  _userPermissions: string[] | undefined | null
+  _userPermissions: string[] | undefined | null,
 ) {
   if (_userPermissions) {
     return Boolean(
-      _allowedRoles?.find((aRole) => _userPermissions.includes(aRole))
+      _allowedRoles?.find((aRole) => _userPermissions.includes(aRole)),
     );
   }
   return false;

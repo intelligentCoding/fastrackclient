@@ -13,7 +13,7 @@ import { WebsocketContext } from '@/context/WebsocketContext';
 import { useContext, useEffect, useState } from 'react';
 
 const UploadManifest = dynamic(
-  () => import('@/components/upload-file/UploadManifest')
+  () => import('@/components/upload-file/UploadManifest'),
 );
 export type MessagePayload = {
   processing: boolean;
@@ -21,7 +21,7 @@ export type MessagePayload = {
   errorMessage: any;
   afterFileUrl: string;
   masterAwb: string;
-  processingFinished:boolean
+  processingFinished: boolean;
 };
 export default function Upload({
   userPermissions,
@@ -36,10 +36,10 @@ export default function Upload({
       errorMessage: {},
       afterFileUrl: '',
       masterAwb: '',
-      processingFinished:false
+      processingFinished: false,
     };
     const [messages, setMessages] = useState<MessagePayload>(
-      defaultMessagePayLoad
+      defaultMessagePayLoad,
     );
 
     useEffect(() => {
@@ -57,9 +57,7 @@ export default function Upload({
         socket.off('excelParserMessages');
       };
     }, []);
-    return (
-        <UploadManifest messages={messages}/>      
-    );
+    return <UploadManifest messages={messages} />;
   }
 }
 

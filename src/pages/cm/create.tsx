@@ -10,7 +10,9 @@ import { ADMIN } from '@/utils/constants';
 import AppLayout from '@/components/layouts/app';
 import { Routes } from '@/config/routes';
 
-const CreateOrUpdateCommodityMap = dynamic(() => import('@/components/commodityMapping/commodityMap-form'));
+const CreateOrUpdateCommodityMap = dynamic(
+  () => import('@/components/commodityMapping/commodityMap-form'),
+);
 
 export default function Airport({
   userPermissions,

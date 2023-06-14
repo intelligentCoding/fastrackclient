@@ -1,7 +1,5 @@
 import Input from '@/components/ui/input';
-import {
-  useForm,
-} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Button from '@/components/ui/button';
 import Card from '@/components/common/card';
 import Description from '@/components/ui/description';
@@ -11,27 +9,25 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { serviceValidationSchema } from './service-validation-schema';
 import { CommodityMapping } from '@/types';
-import {useCommodityMapMutation, useUpdateCommodityMapMutation} from '@/data/commodity-mapping';
-
-
-
+import {
+  useCommodityMapMutation,
+  useUpdateCommodityMapMutation,
+} from '@/data/commodity-mapping';
 
 type FormValues = {
-    mappedFrom: string;
-    mappedTo: string;
+  mappedFrom: string;
+  mappedTo: string;
 };
 
 const defaultValues = {
-    mappedFrom: '',
-    mappedTo: ''
+  mappedFrom: '',
+  mappedTo: '',
 };
 
 type IProps = {
   initialValues?: Partial<CommodityMapping> | undefined;
 };
-export default function CreateOrUpdateCommodityMap({
-  initialValues,
-}: IProps) {
+export default function CreateOrUpdateCommodityMap({ initialValues }: IProps) {
   const router = useRouter();
   const {
     register,
@@ -42,41 +38,42 @@ export default function CreateOrUpdateCommodityMap({
   } = useForm<FormValues>({
     // shouldUnregister: true,
     //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-    defaultValues: initialValues
-      ? initialValues
-      : defaultValues,
+    // @ts-ignore
+    defaultValues: initialValues ? initialValues : defaultValues,
     resolver: yupResolver(serviceValidationSchema),
   });
 
   const { mutate: createCommodityMap, isLoading: creating } =
-  useCommodityMapMutation();
+    useCommodityMapMutation();
   const { mutate: updateCommodityMap, isLoading: updating } =
     useUpdateCommodityMapMutation();
 
   const onSubmit = async (values: FormValues) => {
     const input = {
-        mappedFrom: values.mappedFrom,
-        mappedTo: values.mappedTo
+      mappedFrom: values.mappedFrom,
+      mappedTo: values.mappedTo,
     };
-    if(!initialValues) {
-        createCommodityMap({
-        ...input
-      })
-    } else {
-        updateCommodityMap({
+    if (!initialValues) {
+      createCommodityMap({
         ...input,
-        id: initialValues.id!
-      })
+      });
+    } else {
+      updateCommodityMap({
+        ...input,
+        id: initialValues.id!,
+      });
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} id="formName">
-
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
-          title={initialValues ? 'Update Destination Details' : 'Create a Destination'}
+          title={
+            initialValues
+              ? 'Update Destination Details'
+              : 'Create a Destination'
+          }
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5 "
         />
 
@@ -110,9 +107,7 @@ export default function CreateOrUpdateCommodityMap({
         )}
 
         <Button loading={creating || updating} id="formName">
-          {initialValues
-            ? 'Update'
-            : 'Create'}
+          {initialValues ? 'Update' : 'Create'}
         </Button>
       </div>
     </form>

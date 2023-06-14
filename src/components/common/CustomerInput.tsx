@@ -6,25 +6,23 @@ import ValidationError from '@/components/ui/form-validation-error';
 import { Manifest, ManifestFormValues } from '@/types';
 import { useCustomersQuery } from '@/data/customer';
 
-
 export const CustomerInput = ({
   control,
   errors,
   initialValues,
-
 }: {
   control: Control<ManifestFormValues>;
   errors: FieldErrors;
-  initialValues?:  Partial<Manifest> | undefined | null;
- 
+  initialValues?: Partial<Manifest> | undefined | null;
 }) => {
   const { customers, loading: fetchingServices, error } = useCustomersQuery();
 
   const customerType = customers.map((customer) => {
     return {
-      name: customer.name, value: customer.id
-    }
-  })
+      name: customer.name,
+      value: customer.id,
+    };
+  });
 
   return (
     <Card className="w-full sm:w-8/12 md:w-2/3">
@@ -43,4 +41,3 @@ export const CustomerInput = ({
     </Card>
   );
 };
-

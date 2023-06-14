@@ -1,9 +1,4 @@
-import {
-  AuthResponse,
-  LoginInput,
-  User,
-  UpdateUser,
-} from '@/types';
+import { AuthResponse, LoginInput, User, UpdateUser } from '@/types';
 import { API_ENDPOINTS } from './api-endpoints';
 import { HttpClient } from './http-client';
 

@@ -37,7 +37,7 @@ const SortForm: React.FC<Props> = ({
         />
       </div>
 
-      <div className="ms-5 w-[150px]">
+      <div className="w-[150px] ms-5">
         <Select
           options={[
             { id: 1, value: 'asc', label: 'ASC' },

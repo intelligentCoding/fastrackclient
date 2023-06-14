@@ -8,13 +8,13 @@ import { getErrorMessage } from '@/utils/form-error';
 
 const LastMileProvidersDeleteView = () => {
   const { mutate: deleteLastMileProvider, isLoading: loading } =
-  useDeleteLastMileProviderMutation();
+    useDeleteLastMileProviderMutation();
   const { data } = useModalState();
   const { closeModal } = useModalAction();
 
   async function handleDelete() {
     try {
-        deleteLastMileProvider({ id: data });
+      deleteLastMileProvider({ id: data });
       closeModal();
     } catch (error) {
       closeModal();

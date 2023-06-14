@@ -41,17 +41,17 @@ const EditConfirmationCard: React.FC<EditConfirmationCardProps> = ({
             <EditIcon className="m-auto mt-4 h-12 w-12 text-accent" />
           )}
           <p className="mt-4 text-xl font-bold text-heading">{t(title)}</p>
-         
+
           <Input
             // {...register('mappedFrom')}
-            name=''
+            name=""
             defaultValue={defaultValue}
             // error={errors.mappedFrom?.message}
             variant="outline"
             className="mb-5"
           />
-          <div className="space-s-4 mt-8 flex w-full items-center justify-center">
-           <div className="w-1/2">
+          <div className="mt-8 flex w-full items-center justify-center space-s-4">
+            <div className="w-1/2">
               <Button
                 onClick={onEdit}
                 loading={deleteBtnLoading}
@@ -59,7 +59,7 @@ const EditConfirmationCard: React.FC<EditConfirmationCardProps> = ({
                 variant="custom"
                 className={cn(
                   'w-full rounded bg-green-600 py-2 px-4 text-center text-base font-semibold text-light shadow-md transition duration-200 ease-in hover:bg-green-700 focus:bg-green-700 focus:outline-none',
-                  editBtnClassName
+                  editBtnClassName,
                 )}
               >
                 {t(EditBtnText)}

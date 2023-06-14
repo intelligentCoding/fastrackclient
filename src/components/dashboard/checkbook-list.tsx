@@ -68,7 +68,7 @@ const tableheaders = [
 ];
 const isToday = (someDate: Date) => {
   const today = new Date(
-    new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })
+    new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
   );
   return (
     someDate.getDate() == today.getDate() &&
@@ -91,8 +91,8 @@ const CheckbookList = ({ checkbook }: IProps) => {
     });
 
     socket.on('newCheckbookCreated', (newMessage) => {
-      toast.info("New checkbook entry added, pleae refresh the page.")
-      checkbook?.push(newMessage)
+      toast.info('New checkbook entry added, pleae refresh the page.');
+      checkbook?.push(newMessage);
     });
     return () => {
       socket.off('connect');
@@ -161,7 +161,7 @@ const CheckbookList = ({ checkbook }: IProps) => {
                   {
                     'bg-[#BCF0DA]': isArrivalToday,
                     'bg-[#F17EB8]': isArrivedYesterdayNotPickedup,
-                  }
+                  },
                 );
                 return (
                   <tr className={rowClass} key={checkbooks.id}>
@@ -221,11 +221,12 @@ const CheckbookList = ({ checkbook }: IProps) => {
                     >
                       {checkbooks.runnerNumber}
                     </td>
-                    <td
-                      className="border-grey-light truncate border p-3 hover:bg-gray-100"
-                    >
+                    <td className="border-grey-light truncate border p-3 hover:bg-gray-100">
                       {' '}
-                      {`${checkbooks.houseAwb?.slice(0,3)} ${checkbooks.houseAwb?.slice(3)}`}
+                      {`${checkbooks.houseAwb?.slice(
+                        0,
+                        3,
+                      )} ${checkbooks.houseAwb?.slice(3)}`}
                     </td>
                     <td
                       className="border-grey-light truncate border p-3 hover:bg-gray-100"
@@ -451,8 +452,7 @@ const CheckbookList = ({ checkbook }: IProps) => {
                       </div>
                     </td>
 
-                    <td
-                      className="border-grey-light cursor-pointer border  p-3 text-white hover:bg-gray-100">
+                    <td className="border-grey-light cursor-pointer border  p-3 text-white hover:bg-gray-100">
                       <button
                         type="button"
                         onClick={() =>
@@ -460,13 +460,13 @@ const CheckbookList = ({ checkbook }: IProps) => {
                             id: checkbooks.id,
                           })
                         }
-                        className="bg-red-400 hover:bg-red-600 focus:bg-red-600 active:bg-primary-700 mb-2 block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                        className="active:bg-primary-700 mb-2 block w-full rounded bg-red-400 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-red-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-red-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                       >
                         Delete
                       </button>
                       <button
                         type="button"
-                        className="bg-blue-400 border-primary text-primary hover:border-blue-600 hover:text-blue-600 focus:border-blue-600 focus:text-primary-600 active:border-primary-700 active:text-primary-700 mb-2 block w-full rounded border-2 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out hover:bg-neutral-500 hover:bg-opacity-10 focus:outline-none focus:ring-0 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                        className="border-primary text-primary focus:text-primary-600 active:border-primary-700 active:text-primary-700 mb-2 block w-full rounded border-2 bg-blue-400 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out hover:border-blue-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-blue-600 focus:border-blue-600 focus:outline-none focus:ring-0 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
                         data-te-ripple-init
                       >
                         Edit

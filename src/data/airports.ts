@@ -10,15 +10,16 @@ import { Airports, AirportsQueryOptions, GetParams } from '@/types';
 import Router from 'next/router';
 import { airportsClient } from './client/airports';
 
-
-export const useAirportsQuery = (options: Partial<AirportsQueryOptions> = {}) => {
+export const useAirportsQuery = (
+  options: Partial<AirportsQueryOptions> = {},
+) => {
   const { data, error, isLoading } = useQuery<Airports[], Error>(
     [API_ENDPOINTS.AIRPORTS, options],
     ({ queryKey, pageParam }) =>
       airportsClient.all(Object.assign({}, queryKey[1], pageParam)),
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   return {
@@ -33,7 +34,7 @@ export const useAirportsMutation = () => {
   return useMutation(airportsClient.create, {
     onSuccess: () => {
       Router.push(Routes.airports);
-      toast.success("Airport has been created");
+      toast.success('Airport has been created');
     },
     // Always refetch after error or success:å
     onSettled: () => {
@@ -47,7 +48,7 @@ export const useUpdateAirportsMutation = () => {
   return useMutation(airportsClient.update, {
     onSuccess: () => {
       Router.push(Routes.airports);
-      toast.success("Airport has been updated");
+      toast.success('Airport has been updated');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -56,11 +57,10 @@ export const useUpdateAirportsMutation = () => {
   });
 };
 
-
 export const useAirportQuery = ({ id }: GetParams) => {
   const { data, error, isLoading } = useQuery<Airports, Error>(
     [API_ENDPOINTS.AIRPORTS, { id }],
-    () => airportsClient.get({ id })
+    () => airportsClient.get({ id }),
   );
 
   return {
@@ -74,7 +74,7 @@ export const useDeleteAirportMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(airportsClient.delete, {
     onSuccess: () => {
-      toast.success("Successfully deleted the airport");
+      toast.success('Successfully deleted the airport');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -82,7 +82,3 @@ export const useDeleteAirportMutation = () => {
     },
   });
 };
-
-
-
-

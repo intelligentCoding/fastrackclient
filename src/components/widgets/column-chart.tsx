@@ -102,10 +102,10 @@ const BarChart = ({
                 <ArrowDown />
               </span>
             )}
-            <span className="ms-1 text-sm text-heading">
+            <span className="text-sm text-heading ms-1">
               <span
                 className={cn(
-                  position === 'down' ? 'text-red-400' : 'text-green-500'
+                  position === 'down' ? 'text-red-400' : 'text-green-500',
                 )}
               >
                 {percentage}

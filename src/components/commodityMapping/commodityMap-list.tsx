@@ -1,4 +1,3 @@
-
 import { Table } from '@/components/ui/table';
 import ActionButtons from '@/components/common/action-buttons';
 
@@ -16,12 +15,12 @@ type IProps = {
 };
 
 const CommodityMapList = ({
-    commodityMap,
-  // paginatorInfo,
-  // onPagination,
-  // onSort,
-  // onOrder,
-}: IProps) => {
+  commodityMap,
+}: // paginatorInfo,
+// onPagination,
+// onSort,
+// onOrder,
+IProps) => {
   // const { data, paginatorInfo } = orders! ?? {};
   const router = useRouter();
   const { t } = useTranslation();
@@ -52,21 +51,21 @@ const CommodityMapList = ({
 
   const columns = [
     {
-      title: "Mapped from",
+      title: 'Mapped from',
       dataIndex: 'mappedFrom',
       key: 'mappedFrom',
       align: 'center',
       width: 150,
     },
     {
-      title: "Mapped To",
+      title: 'Mapped To',
       dataIndex: 'mappedTo',
       key: 'MappedTo',
       align: 'center',
     },
 
     {
-      title: "Actions",
+      title: 'Actions',
       dataIndex: 'id',
       key: 'actions',
       align: 'center',
@@ -88,7 +87,7 @@ const CommodityMapList = ({
       <div className="mb-6 overflow-hidden rounded shadow">
         <Table
           //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+          // @ts-ignore
           columns={columns}
           emptyText="No Services available"
           data={commodityMap!}
@@ -100,7 +99,7 @@ const CommodityMapList = ({
           }}
         />
       </div>
-{/* 
+      {/* 
       {!!paginatorInfo?.total && (
         <div className="flex items-center justify-end">
           <Pagination

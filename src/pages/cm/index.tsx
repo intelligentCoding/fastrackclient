@@ -10,7 +10,9 @@ import { ADMIN } from '@/utils/constants';
 import AppLayout from '@/components/layouts/app';
 import { Routes } from '@/config/routes';
 
-const CommodityMapping = dynamic(() => import('@/components/commodityMapping/commodityMapping'));
+const CommodityMapping = dynamic(
+  () => import('@/components/commodityMapping/commodityMapping'),
+);
 
 export default function Service({
   userPermissions,
@@ -18,7 +20,6 @@ export default function Service({
   userPermissions: string[];
 }) {
   if (userPermissions?.includes(ADMIN)) {
-
     return <CommodityMapping />;
   }
 }

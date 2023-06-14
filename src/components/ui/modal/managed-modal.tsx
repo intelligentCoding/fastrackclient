@@ -4,34 +4,34 @@ import dynamic from 'next/dynamic';
 import { MODAL_VIEWS, useModalAction, useModalState } from './modal.context';
 
 const ServiceDeleteView = dynamic(
-  () => import('@/components/services/service-delete-view')
+  () => import('@/components/services/service-delete-view'),
 );
 const AirportsDeleteView = dynamic(
-  () => import('@/components/airports/airport-delete-view')
+  () => import('@/components/airports/airport-delete-view'),
 );
 const CommodityMapDeleteView = dynamic(
-  () => import('@/components/commodityMapping/commodityMap-delete-view')
+  () => import('@/components/commodityMapping/commodityMap-delete-view'),
 );
 const CustomereDeleteView = dynamic(
-  () => import('@/components/customer/customer-delete-view')
+  () => import('@/components/customer/customer-delete-view'),
 );
 const BrokerDeleteView = dynamic(
-  () => import('@/components/brokers/broker-delete-view')
+  () => import('@/components/brokers/broker-delete-view'),
 );
 function renderModal(view: MODAL_VIEWS | undefined, data: any) {
   switch (view) {
     case 'DELETE_SERVICE':
-      return <ServiceDeleteView />
+      return <ServiceDeleteView />;
     case 'DELETE_AIRPORT':
-      return <AirportsDeleteView />
+      return <AirportsDeleteView />;
     case 'DELETE_COMMODITY_MAP':
-      return <CommodityMapDeleteView />
+      return <CommodityMapDeleteView />;
     case 'DELETE_BROKER':
-      return <BrokerDeleteView />
+      return <BrokerDeleteView />;
     case 'DELETE_CUSTOMER':
-      return <CustomereDeleteView />
+      return <CustomereDeleteView />;
     case 'DELETE_LAST_MILE_PROVIDER':
-      return <LastMileProvidersDeleteView/>
+      return <LastMileProvidersDeleteView />;
     default:
       return null;
   }

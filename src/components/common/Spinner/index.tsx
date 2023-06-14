@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledSpinner = styled.svg`
   animation: rotate 2s linear infinite;
@@ -32,7 +32,7 @@ const StyledSpinner = styled.svg`
       stroke-dashoffset: -124;
     }
   }
-`
+`;
 
 export const Spinner: React.FC = () => (
   <StyledSpinner viewBox="0 0 50 50">
@@ -45,4 +45,4 @@ export const Spinner: React.FC = () => (
       strokeWidth="4"
     />
   </StyledSpinner>
-)
+);

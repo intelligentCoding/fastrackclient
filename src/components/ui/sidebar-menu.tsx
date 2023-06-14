@@ -44,9 +44,9 @@ function SidebarMenuItem({ className, item, depth = 0 }: any) {
       >
         <button
           className={cn(
-            'text-start flex w-full items-center border-0 text-base outline-none focus:text-accent focus:outline-none focus:ring-0',
+            'flex w-full items-center border-0 text-base outline-none text-start focus:text-accent focus:outline-none focus:ring-0',
             router.pathname === href ? 'text-accent' : 'text-heading',
-            className
+            className,
           )}
         >
           {getIcon({
@@ -71,7 +71,7 @@ function SidebarMenuItem({ className, item, depth = 0 }: any) {
                 collapsed: { opacity: 0, height: 0 },
               }}
               transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
-              className="ms-4 text-xs"
+              className="text-xs ms-4"
             >
               {items?.map((currentItem) => {
                 const childDepth = depth + 1;

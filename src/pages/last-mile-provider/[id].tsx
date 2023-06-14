@@ -1,6 +1,11 @@
 import Layout from '@/components/layouts/admin';
 import type { GetServerSideProps } from 'next';
-import { allowedRoles, getAuthCredentials, hasAccess, isAuthenticated } from '@/utils/auth-utils';
+import {
+  allowedRoles,
+  getAuthCredentials,
+  hasAccess,
+  isAuthenticated,
+} from '@/utils/auth-utils';
 import { Routes } from '@/config/routes';
 import { useRouter } from 'next/router';
 import Loader from '@/components/ui/loader/loader';
@@ -8,7 +13,9 @@ import ErrorMessage from '@/components/ui/error-message';
 import dynamic from 'next/dynamic';
 import { useBrokerQuery } from '@/data/broker';
 import { useLastMileProviderQuery } from '@/data/lastMileProvider';
-const CreateOrUpdateLastMileProvider = dynamic(() => import('@/components/lastMileProvider/last-mile-provider-form'));
+const CreateOrUpdateLastMileProvider = dynamic(
+  () => import('@/components/lastMileProvider/last-mile-provider-form'),
+);
 
 export default function UpdateLastMileProviderPage() {
   const { query } = useRouter();
@@ -17,7 +24,7 @@ export default function UpdateLastMileProviderPage() {
     isLoading: loading,
     error,
   } = useLastMileProviderQuery({
-    id: query.id as string
+    id: query.id as string,
   });
 
   if (loading) return <Loader text="Loading Airport" />;
@@ -25,9 +32,7 @@ export default function UpdateLastMileProviderPage() {
   return (
     <>
       <div className="flex border-b border-dashed border-border-base py-5 sm:py-8">
-        <h1 className="text-lg font-semibold text-heading">
-          Edit Broker
-        </h1>
+        <h1 className="text-lg font-semibold text-heading">Edit Broker</h1>
       </div>
       <CreateOrUpdateLastMileProvider initialValues={lastMileProvider} />
     </>

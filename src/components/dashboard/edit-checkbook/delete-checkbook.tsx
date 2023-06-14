@@ -1,5 +1,8 @@
 import ConfirmationCard from '@/components/common/confirmation-card';
-import { useCheckbookModalAction, useCheckbookModalState } from '@/components/ui/checkbook-modal/modal.context';
+import {
+  useCheckbookModalAction,
+  useCheckbookModalState,
+} from '@/components/ui/checkbook-modal/modal.context';
 import { useDeleteCheckbookMutation } from '@/data/checkbook';
 import { getErrorMessage } from '@/utils/form-error';
 

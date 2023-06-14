@@ -4,9 +4,7 @@ import AuthorizedMenu from './authorized-menu';
 import { NavbarIcon } from '@/components/icons/navbar-icon';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
-import {
-  getAuthCredentials,
-} from '@/utils/auth-utils';
+import { getAuthCredentials } from '@/utils/auth-utils';
 import { Config } from '@/config';
 
 const Navbar = () => {
@@ -29,10 +27,10 @@ const Navbar = () => {
           <NavbarIcon />
         </motion.button>
 
-        <div className="ms-5 me-auto hidden md:flex">
+        <div className="hidden ms-5 me-auto md:flex">
           <Logo />
         </div>
-        <div className="space-s-8 flex items-center">
+        <div className="flex items-center space-s-8">
           <AuthorizedMenu />
         </div>
       </nav>

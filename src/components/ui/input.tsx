@@ -47,7 +47,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       showLabel = true,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const rootClassName = cn(
       classes.root,
@@ -60,7 +60,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
         [classes.shadow]: shadow,
       },
       sizeClasses[dimension],
-      inputClassName
+      inputClassName,
     );
     const numberDisable = type === 'number' && disabled ? 'number-disable' : '';
     return (
@@ -99,7 +99,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = 'Input';

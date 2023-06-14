@@ -1,21 +1,29 @@
-import React from "react";
-import { useDescriptionList, useDescriptionsMapMutation } from "@/data/description-list";
-import Loader from "../ui/loader/loader";
-import ErrorMessage from "../ui/error-message";
-import DescriptionListTable from "./descriptionList-table";
-import { CustomDescription } from "@/types";
+import React from 'react';
+import {
+  useDescriptionList,
+  useDescriptionsMapMutation,
+} from '@/data/description-list';
+import Loader from '../ui/loader/loader';
+import ErrorMessage from '../ui/error-message';
+import DescriptionListTable from './descriptionList-table';
+import { CustomDescription } from '@/types';
 
 export default function DescriptionList() {
-  const { descriptionList: descriptionList, loading: fetchingDescriptions, error } = useDescriptionList();
+  const {
+    descriptionList: descriptionList,
+    loading: fetchingDescriptions,
+    error,
+  } = useDescriptionList();
 
   const { mutate: updateDescriptionMapping, isLoading: updating } =
-  useDescriptionsMapMutation();
-  
-  const updateDataHandler = (updatedDescriptions: CustomDescription[]) => {
-    updateDescriptionMapping(updatedDescriptions)
-  }
+    useDescriptionsMapMutation();
 
-  if (fetchingDescriptions || updating) return <Loader text="Loading descriptions" />;
+  const updateDataHandler = (updatedDescriptions: CustomDescription[]) => {
+    updateDescriptionMapping(updatedDescriptions);
+  };
+
+  if (fetchingDescriptions || updating)
+    return <Loader text="Loading descriptions" />;
 
   if (error) return <ErrorMessage message={error.message} />;
 
@@ -24,5 +32,5 @@ export default function DescriptionList() {
       updateHandler={updateDataHandler}
       descriptionList={descriptionList}
     />
-  )
+  );
 }

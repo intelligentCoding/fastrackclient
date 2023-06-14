@@ -7,7 +7,6 @@ import { GetParams, Services, Uld, UldQueryOptions } from '@/types';
 import Router from 'next/router';
 import { uldClient } from './client/uld';
 
-
 export const useUldQuery = (options: Partial<UldQueryOptions> = {}) => {
   const { data, error, isLoading, refetch } = useQuery<Uld[], Error>(
     [API_ENDPOINTS.SERVICES, options],
@@ -16,8 +15,8 @@ export const useUldQuery = (options: Partial<UldQueryOptions> = {}) => {
     {
       // keepPreviousData: true,
       enabled: false,
-      refetchOnMount: true
-    }
+      refetchOnMount: true,
+    },
   );
 
   return {
@@ -34,7 +33,7 @@ export const useUldQueryOnly = (options: Partial<UldQueryOptions> = {}) => {
       uldClient.all(Object.assign({}, queryKey[1], pageParam)),
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   return {
@@ -49,7 +48,7 @@ export const useUldMutation = () => {
   return useMutation(uldClient.create, {
     onSuccess: () => {
       Router.push(Routes.dashboard);
-      toast.success("Uld has been created");
+      toast.success('Uld has been created');
     },
     // Always refetch after error or success:å
     onSettled: () => {
@@ -63,7 +62,7 @@ export const useUpdateUldMutation = () => {
   return useMutation(uldClient.update, {
     onSuccess: () => {
       Router.push(Routes.dashboard);
-      toast.success("Uld has been updated");
+      toast.success('Uld has been updated');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -71,7 +70,6 @@ export const useUpdateUldMutation = () => {
     },
   });
 };
-
 
 // export const useUldQuery = ({ id }: GetParams) => {
 //   const { data, error, isLoading } = useQuery<Uld, Error>(
@@ -90,7 +88,7 @@ export const useDeleteUldMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(uldClient.delete, {
     onSuccess: () => {
-      toast.success("Successfully deleted the ULD");
+      toast.success('Successfully deleted the ULD');
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -98,7 +96,3 @@ export const useDeleteUldMutation = () => {
     },
   });
 };
-
-
-
-

@@ -1,7 +1,5 @@
 import Input from '@/components/ui/input';
-import {
-  useForm,
-} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Button from '@/components/ui/button';
 import Card from '@/components/common/card';
 import Description from '@/components/ui/description';
@@ -11,10 +9,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { serviceValidationSchema } from './service-validation-schema';
 import { Airports } from '@/types';
-import { useAirportsMutation, useUpdateAirportsMutation } from '@/data/airports';
-
-
-
+import {
+  useAirportsMutation,
+  useUpdateAirportsMutation,
+} from '@/data/airports';
 
 type FormValues = {
   name: string;
@@ -23,15 +21,13 @@ type FormValues = {
 
 const defaultValues = {
   name: '',
-  code: ''
+  code: '',
 };
 
 type IProps = {
   initialValues?: Partial<Airports> | undefined;
 };
-export default function CreateOrUpdateAirport({
-  initialValues,
-}: IProps) {
+export default function CreateOrUpdateAirport({ initialValues }: IProps) {
   const router = useRouter();
   const {
     register,
@@ -42,38 +38,34 @@ export default function CreateOrUpdateAirport({
   } = useForm<FormValues>({
     // shouldUnregister: true,
     //@// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-    defaultValues: initialValues
-      ? initialValues
-      : defaultValues,
+    // @ts-ignore
+    defaultValues: initialValues ? initialValues : defaultValues,
     resolver: yupResolver(serviceValidationSchema),
   });
 
-  const { mutate: createAirport, isLoading: creating } =
-  useAirportsMutation();
+  const { mutate: createAirport, isLoading: creating } = useAirportsMutation();
   const { mutate: updateAirport, isLoading: updating } =
     useUpdateAirportsMutation();
 
   const onSubmit = async (values: FormValues) => {
     const input = {
       name: values.name,
-      code: values.code
+      code: values.code,
     };
-    if(!initialValues) {
+    if (!initialValues) {
       createAirport({
-        ...input
-      })
+        ...input,
+      });
     } else {
       updateAirport({
         ...input,
-        id: initialValues.id!
-      })
+        id: initialValues.id!,
+      });
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} id="formName">
-
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
           title={initialValues ? 'Update Airport Details' : 'Create a Airport'}
@@ -110,9 +102,7 @@ export default function CreateOrUpdateAirport({
         )}
 
         <Button loading={creating || updating} id="formName">
-          {initialValues
-            ? 'Update'
-            : 'Create'}
+          {initialValues ? 'Update' : 'Create'}
         </Button>
       </div>
     </form>
