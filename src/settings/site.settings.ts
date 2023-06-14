@@ -51,6 +51,11 @@ export const siteSettings = {
         icon: 'ShippingsIcon',
       },
       {
+        href: Routes.lastmileprovider,
+        label: 'Last Mile Provider',
+        icon: 'ShippingsIcon',
+      },
+      {
         href: Routes.brokers,
         label: 'Brokers',
         icon: 'UsersIcon',
@@ -78,6 +83,11 @@ export const siteSettings = {
       {
         href: Routes.uld,
         label: 'ULDs',
+        icon: 'CategoriesIcon',
+      },
+      {
+        href: Routes.description_list,
+        label: 'Description List',
         icon: 'CategoriesIcon',
       },
     ],
