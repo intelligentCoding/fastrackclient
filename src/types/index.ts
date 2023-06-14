@@ -105,7 +105,26 @@ export interface Brokers {
   updatedAt: string;
 }
 
+export interface LastMileProviders {
+  name: string;
+  email: string;
+  code: string;
+  createdBy: string | null;
+  updatedBy: string | null;
+  deletedAt: string | null;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+
 export interface CreateBrokersInput {
+  name: string;
+  code: string;
+  email: string;
+}
+
+export interface CreateLastMileProvidersInput {
   name: string;
   code: string;
   email: string;
@@ -214,6 +233,12 @@ export interface CommodityMappingQueryOptions extends QueryOptions {
   mappedTo: string;
 }
 export interface BrokersQueryOptions extends QueryOptions {
+  name: string;
+  code: string;
+  email: string;
+}
+
+export interface LastMileProviderQueryOptions extends QueryOptions {
   name: string;
   code: string;
   email: string;
@@ -407,3 +432,14 @@ export interface ManifestFormValuesExpress {
 
 export type Maybe<T> = T | null
 
+export interface Description {
+  id: string,
+  descRaw: string,
+  descProcessed: string
+}
+
+export interface CustomDescription {
+  descriptionId: string,
+  descRaw: string,
+  userEnteredValue: string
+}

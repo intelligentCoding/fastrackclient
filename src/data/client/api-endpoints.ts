@@ -5,6 +5,7 @@ export const API_ENDPOINTS = {
   CUSTOMER: '/customer',
   AIRPORTS: '/airports',
   BROKER: '/broker',
+  LASTMILEPROVIDER: '/last-mile-provider',
   USERS: '/users',
   COMMODITY_MAPPING:'/cm',
   FILE_UPLOAD:'/file-upload',
@@ -12,4 +13,5 @@ export const API_ENDPOINTS = {
   MANIFEST:'manifest',
   CHECKBOOK: '/checkbook',
   ULD: '/uld',
+  DESCRIPTIONS_ALL: '/description/all-description'
 };
