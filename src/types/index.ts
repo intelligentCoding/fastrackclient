@@ -188,11 +188,12 @@ export interface CreateCheckbookInput {
   label: string | null;
   manifest: {
     fileUpload: {
-      afterFileURL: string;
-      beforeFileURL: string;
-      csvFileUrl: string;
-    };
-  };
+      afterFileURL: string,
+      beforeFileURL: string
+      csvFileUrl: string
+    }
+  }
+  isEditing: boolean
 }
 export interface Checkbook extends CreateCheckbookInput {
   id: string;
@@ -201,7 +202,9 @@ export interface Checkbook extends CreateCheckbookInput {
   updatedAt: string;
   updatedBy: string | null;
   deletedAt: string | null;
-  uld: Uld[] | undefined;
+  isEditing: boolean | false;
+  uld: Uld[] | undefined
+  isEditingBy: User | undefined
 }
 
 export interface CheckbookQueryOption extends QueryOptions {
