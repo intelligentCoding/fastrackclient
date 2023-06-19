@@ -104,6 +104,23 @@ export interface Brokers {
   updatedAt: string;
 }
 
+
+export interface Users {
+  firstName: string,
+  lastName: string,
+  email: string,
+  role: string,
+  createdBy: string | null;
+  updatedBy: string | null;
+  deletedAt: string | null;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface Roles {
+  name: string,
+  description: string
+}
 export interface LastMileProviders {
   name: string;
   email: string;
@@ -116,10 +133,26 @@ export interface LastMileProviders {
   updatedAt: string;
 }
 
+export interface AddUser {
+  email: string,
+  firstName: string,
+  lastName: string,
+  role: string
+}
+
 export interface CreateBrokersInput {
   name: string;
   code: string;
   email: string;
+}
+export interface CreateUsersInput {
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string
+}
+export interface RoleInput {
+  id: string
 }
 
 export interface CreateLastMileProvidersInput {
@@ -235,6 +268,12 @@ export interface BrokersQueryOptions extends QueryOptions {
   name: string;
   code: string;
   email: string;
+}
+export interface UsersQueryOptions extends QueryOptions {
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string
 }
 
 export interface LastMileProviderQueryOptions extends QueryOptions {

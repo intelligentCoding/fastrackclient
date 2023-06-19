@@ -13,5 +13,7 @@ export const API_ENDPOINTS = {
   MANIFEST: 'manifest',
   CHECKBOOK: '/checkbook',
   ULD: '/uld',
-  DESCRIPTIONS_ALL: '/description/all-description',
+  AUTH: '/auth',
+  ROLE:'/roles',
+  DESCRIPTIONS_ALL: '/description/all-description'
 };

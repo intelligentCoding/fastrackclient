@@ -86,6 +86,11 @@ export const siteSettings = {
         icon: 'CategoriesIcon',
       },
       {
+        href: Routes.users,
+        label: 'Users',
+        icon: 'CategoriesIcon',
+      },
+      {
         href: Routes.description_list,
         label: 'Description List',
         icon: 'CategoriesIcon',
